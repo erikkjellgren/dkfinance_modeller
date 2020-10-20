@@ -26,5 +26,4 @@ repos:
         args:
         - --max-line-length=110
         - --ignore-imports=yes
-        - --disable=C0114,E0401
-        - --good-names=a,b,i,r,x,y,ATR
+        - --disable=C0114,E0401,C0330,E1136,R0913,C0103

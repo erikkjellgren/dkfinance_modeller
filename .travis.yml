@@ -3,6 +3,7 @@ python:
   - 3.5
   - 3.6
   - 3.7
+  - 3.8
   
 os: linux
 
@@ -21,16 +22,16 @@ install:
   - pip install --user codecov
   
 script:
-  - if [[ $TRAVIS_PYTHON_VERSION == 3.7 ]];
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.8 ]];
     then py.test -vv tests.py --cov .;
     else py.test -vv tests.py;
     fi
 
 after_success:
-  - if [[ $TRAVIS_PYTHON_VERSION == 3.7 ]];
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.8 ]];
     then coveralls;
     fi
-  - if [[ $TRAVIS_PYTHON_VERSION == 3.7 ]];
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.8 ]];
     then codecov;
     fi
 
