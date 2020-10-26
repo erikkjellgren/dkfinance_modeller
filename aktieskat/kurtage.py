@@ -30,9 +30,12 @@ def saxo_nordnet_kurtage(
     .. math::
        kurtage(k) = \max(m, kp) + kv
 
-    :math:`k` er inversteringskapital.\n
-    :math:`m` er minimumskurtage.\n
-    :math:`p` er kurtageprocent.\n
+    :math:`k` er inversteringskapital.
+
+    :math:`m` er minimumskurtage.
+
+    :math:`p` er kurtageprocent.
+
     :math:`v` er valutakurtageprocent.
 
     Med mindre det er Amerikanske aktier til under 10 USD ved Saxo, så er kurtagen givet ved,
@@ -71,7 +74,7 @@ def lunar_kurtage(
     Kurtagen er givet ved,
 
     .. math::
-       kurtage = m + H(k-50000)*k*p + k*v
+       kurtage = m + H(k-50000)kp + kv
 
     :math:`k` er inversteringskapital.\n
     :math:`m` er minimumskurtage.\n

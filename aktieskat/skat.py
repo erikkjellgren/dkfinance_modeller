@@ -4,7 +4,8 @@ def aktiebeskatning(dkk: float, progressionsgrænse: float = 55300) -> float:
     .. math::
        skat(k) = 0.27 \min(pg, k) + 0.42 \max(0, k - pg)
 
-    :math:`k` er overskudskapital.\n
+    :math:`k` er overskudskapital.
+
     :math:`pg` er progressionsgrænse.
 
     Beskatning, https://www.skat.dk/SKAT.aspx?oId=2035568, 20-10-2020

@@ -6,7 +6,7 @@ aktieSKAT
    :caption: Usage and Development
    
    development.rst
+   depotmodel.rst
    kurtage.rst
    skat.rst
-   skattemodel.rst
-
+   værdipapirer.rst

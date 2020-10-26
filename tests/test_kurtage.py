@@ -1,56 +1,9 @@
 import aktieskat.kurtage as kurtage
-import aktieskat.skat as skat
-import aktieskat.skattemodel as skattemodel
-
-
-def test_aktiebeskatning():
-    """Test aktiebeskatning"""
-    assert abs(skat.aktiebeskatning(50000, progressionsgrænse=55300) - 13500) < 10 ** -12
-    assert abs(skat.aktiebeskatning(100000, progressionsgrænse=55300) - 33705) < 10 ** -12
-
-
-def test_aktiesparekontoskat():
-    """Test beskatning af aktiesparekonto"""
-    assert abs(skat.aktiesparekontobeskatning(50000) - 8500) < 10 ** -12
-
-
-def test_pensionsbeskatning():
-    """Test beskatning af pensionsopsparing"""
-    assert abs(skat.pensionsbeskatning(50000) - 7650) < 10 ** -12
-
-
-def test_nulskat():
-    """Test beskatning med nul skat"""
-    assert abs(skat.nulskat(50000) - 0) < 10 ** -12
 
 
 def test_nulkurtage():
     """Test kurtage med nul kurtage"""
     assert abs(kurtage.nulkurtage(50000) - 0) < 10 ** -12
-
-
-def test_køb_værdipapirer():
-    """Test køb af værdipapirer"""
-    kapitalændring, kurtageudgift, værdipapirer = skattemodel.køb_værdipapirer(1000, 100, kurtage.nulkurtage)
-    assert abs(kapitalændring + 1000) < 10 ** -12
-    assert kurtageudgift == 0
-    assert værdipapirer == [100] * 10
-
-    def kurtage2(kapital, kurs=0.0):  # pylint: disable=W0613
-        return 0.001 * kapital
-
-    kapitalændring, kurtageudgift, værdipapirer = skattemodel.køb_værdipapirer(1000, 100, kurtage2)
-    assert abs(kapitalændring + 900.9) < 10 ** -12
-    assert kurtageudgift == 0.9
-    assert værdipapirer == [100] * 9
-
-    def kurtage3(kapital, kurs=0.0):  # pylint: disable=W0613
-        return 0.0 * kapital + 101
-
-    kapitalændring, kurtageudgift, værdipapirer = skattemodel.køb_værdipapirer(1000, 100, kurtage3)
-    assert abs(kapitalændring + 901) < 10 ** -12
-    assert kurtageudgift == 101
-    assert værdipapirer == [100] * 8
 
 
 def test_saxo_kurtage():
