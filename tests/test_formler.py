@@ -1,4 +1,4 @@
-import modeller.simple_modeller.formler as formler
+import dkfinance_modeller.simple_modeller.formler as formler
 
 
 def test_årlig_til_n_rente():

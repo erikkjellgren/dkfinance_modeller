@@ -1,9 +1,9 @@
 import pytest
 
-import modeller.aktieskat.depotmodel as depotmodel
-import modeller.aktieskat.kurtage as kurtage
-import modeller.aktieskat.skat as skat
-import modeller.aktieskat.værdipapirer as værdipapirer
+import dkfinance_modeller.aktieskat.depotmodel as depotmodel
+import dkfinance_modeller.aktieskat.kurtage as kurtage
+import dkfinance_modeller.aktieskat.skat as skat
+import dkfinance_modeller.aktieskat.værdipapirer as værdipapirer
 
 
 def test_køb_værdipapirer():

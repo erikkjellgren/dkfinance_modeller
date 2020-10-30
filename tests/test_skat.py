@@ -1,4 +1,4 @@
-import modeller.aktieskat.skat as skat
+import dkfinance_modeller.aktieskat.skat as skat
 
 
 def test_aktiebeskatning():

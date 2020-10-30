@@ -1,5 +1,5 @@
 depotmodel.py
 =============
 
-.. automodule:: modeller.aktieskat.depotmodel
+.. automodule:: dkfinance_modeller.aktieskat.depotmodel
     :members:

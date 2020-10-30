@@ -2,7 +2,7 @@ from typing import Callable, List, Tuple
 
 import numpy as np
 
-from modeller.aktieskat.værdipapirer import ETF
+from dkfinance_modeller.aktieskat.værdipapirer import ETF
 
 
 def køb_værdipapirer(

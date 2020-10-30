@@ -1,5 +1,5 @@
 formler.py
 ==========
 
-.. automodule:: modeller.simple_modeller.formler
+.. automodule:: dkfinance_modeller.simple_modeller.formler
     :members:

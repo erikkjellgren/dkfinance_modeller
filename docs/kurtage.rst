@@ -1,5 +1,5 @@
 kurtage.py
 ==========
 
-.. automodule:: modeller.aktieskat.kurtage
+.. automodule:: dkfinance_modeller.aktieskat.kurtage
     :members:

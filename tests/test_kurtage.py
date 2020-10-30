@@ -1,4 +1,4 @@
-import modeller.aktieskat.kurtage as kurtage
+import dkfinance_modeller.aktieskat.kurtage as kurtage
 
 
 def test_nulkurtage():

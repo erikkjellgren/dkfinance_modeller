@@ -1,5 +1,5 @@
 værdipapirer.py
 ===============
 
-.. automodule:: modeller.aktieskat.værdipapirer
+.. automodule:: dkfinance_modeller.aktieskat.værdipapirer
     :members:

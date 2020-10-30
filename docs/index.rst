@@ -3,6 +3,12 @@ dkfinance modeller
 
 .. toctree::
    :maxdepth: 2
+   :caption: Analyser
+   
+   analyser/sulån_inverstering/sulån_inverstering.rst
+
+.. toctree::
+   :maxdepth: 2
    :caption: Udledninger
    
    udledninger.rst

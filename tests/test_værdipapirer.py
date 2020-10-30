@@ -1,6 +1,6 @@
 import pytest
 
-import modeller.aktieskat.værdipapirer as værdipapirer
+import dkfinance_modeller.aktieskat.værdipapirer as værdipapirer
 
 
 def test_etf():
