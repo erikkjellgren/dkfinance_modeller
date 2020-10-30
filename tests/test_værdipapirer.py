@@ -1,6 +1,6 @@
 import pytest
 
-import aktieskat.værdipapirer as værdipapirer
+import modeller.aktieskat.værdipapirer as værdipapirer
 
 
 def test_etf():
@@ -19,6 +19,12 @@ def test_etf():
     for _ in range(0, 12):
         etf.modregn_åop()
     assert abs(etf.kurs - 0.994) < 10 ** -12
+    # Test ved ulige antal måneder. // Tilføjet efter bug
+    etf = værdipapirer.ETF(kurs=1.0, åop=0.006)
+    etf.tilføj_enheder(1)
+    for _ in range(0, 3):
+        etf.modregn_åop()
+    assert abs(etf.kurs - 0.998496613138553) < 10 ** -12
     # Test gennemsnitsmetoden virker via eksempler fra https://skat.dk/skat.aspx?oid=2244476, 25-10-2020
     etf = værdipapirer.ETF(kurs=300.0, åop=0.0)
     etf.tilføj_enheder(500)

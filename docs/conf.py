@@ -23,7 +23,7 @@ source_suffix = [".rst", ".md"]
 master_doc = "index"
 
 # General information about the project.
-project = "aktieSKAT"
+project = "dkfinance modeller"
 copyright = "2020, Erik Kjellgren"  # pylint: disable=W0622
 author = "Erik Kjellgren"
 

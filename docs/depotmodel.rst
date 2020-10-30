@@ -1,5 +1,5 @@
-skattemodel.py
-==============
+depotmodel.py
+=============
 
-.. automodule:: aktieskat.skattemodel
+.. automodule:: modeller.aktieskat.depotmodel
     :members:

@@ -1,5 +1,5 @@
 værdipapirer.py
 ===============
 
-.. automodule:: aktieskat.værdipapirer
+.. automodule:: modeller.aktieskat.værdipapirer
     :members:

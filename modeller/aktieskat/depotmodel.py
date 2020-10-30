@@ -2,7 +2,7 @@ from typing import Callable, List, Tuple
 
 import numpy as np
 
-from aktieskat.værdipapirer import ETF
+from modeller.aktieskat.værdipapirer import ETF
 
 
 def køb_værdipapirer(
@@ -13,13 +13,17 @@ def køb_værdipapirer(
     Args:
       kaptital: kapital til at købe.
       kurs: pris på værdipapirer.
-      kurtagefunktion: funktion der beksriver hvor meget kurtage der betales.
+      kurtagefunktion: funktion der beskriver hvor meget kurtage der betales.
 
     Returns:
       Brugt kapital.
       Kurtageudgifter.
       Antal værdipapirer.
     """
+    if kapital < 0.0:
+        raise ValueError("kapital er negativ i køb_værdipapirer")
+    if kurs < 0.0:
+        raise ValueError("kurs er negativ i køb_værdipapirer")
     antal_værdipapirer = kapital // kurs
     total_pris = antal_værdipapirer * kurs + kurtagefunktion(antal_værdipapirer * kurs, kurs)
     while total_pris > kapital:

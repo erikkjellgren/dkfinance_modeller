@@ -1,7 +1,9 @@
-import aktieskat.depotmodel as depotmodel
-import aktieskat.kurtage as kurtage
-import aktieskat.skat as skat
-import aktieskat.værdipapirer as værdipapirer
+import pytest
+
+import modeller.aktieskat.depotmodel as depotmodel
+import modeller.aktieskat.kurtage as kurtage
+import modeller.aktieskat.skat as skat
+import modeller.aktieskat.værdipapirer as værdipapirer
 
 
 def test_køb_værdipapirer():
@@ -30,6 +32,14 @@ def test_køb_værdipapirer():
     assert antal_værdipapirer == 8
 
 
+def test_køb_værdipapirer_exceptions():
+    """Test at exceptions virker som forventet i køb_værdipapirer()."""
+    with pytest.raises(ValueError, match="kapital er negativ"):
+        depotmodel.køb_værdipapirer(-1000, 100, kurtage.nulkurtage)
+    with pytest.raises(ValueError, match="kurs er negativ"):
+        depotmodel.køb_værdipapirer(1000, -100, kurtage.nulkurtage)
+
+
 def test_lagerbeskatning_simpel():
     """Test lagerbeskatning simpelt tilfælde."""
     etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
@@ -49,7 +59,7 @@ def test_lagerbeskatning_simpel():
 
 
 def test_lagerbeskatning_beskatning():
-    """Test lagerbeskatning simpelt tilfælde."""
+    """Test lagerbeskatning med beskatning."""
     etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
     depot = depotmodel.Lagerbeskatning(
         kapital=10.0,
@@ -64,3 +74,40 @@ def test_lagerbeskatning_beskatning():
     assert abs(depot.total_salgsværdi() - 12.1201825995429) < 10 ** -12
     assert abs(depot.kapital - 0.692570762755705) < 10 ** -12
     assert depot.ETFer[0].antal_værdipapirer == 9
+
+
+def test_lagerbeskatning_geninverstering():
+    """Test lagerbeskatning med geninverstering."""
+    etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
+    depot = depotmodel.Lagerbeskatning(
+        kapital=1.0,
+        kurtagefunktion=kurtage.nulkurtage,
+        skattefunktion=skat.nulskat,
+        minimumskøb=0,
+        ETFer=[etf],
+        ETF_fordeling=[1.0],
+    )
+    for _ in range(0, 24):
+        depot.kapital += 1.0
+        depot.afkast_månedlig([0.01], [0.0])
+    assert abs(depot.total_salgsværdi() - 28.0706270191644) < 10 ** -12
+    assert abs(depot.kapital - 0.136464751462226) < 10 ** -12
+    assert depot.ETFer[0].antal_værdipapirer == 22
+
+
+def test_lagerbeskatning_udbytte():
+    """Test lagerbeskatning med udbytte."""
+    etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
+    depot = depotmodel.Lagerbeskatning(
+        kapital=1.0,
+        kurtagefunktion=kurtage.nulkurtage,
+        skattefunktion=skat.nulskat,
+        minimumskøb=0,
+        ETFer=[etf],
+        ETF_fordeling=[1.0],
+    )
+    for _ in range(0, 24):
+        depot.afkast_månedlig([0.0], [0.05])
+    assert abs(depot.total_salgsværdi() - 2.4) < 10 ** -12
+    assert abs(depot.kapital - 0.4) < 10 ** -12
+    assert depot.ETFer[0].antal_værdipapirer == 2

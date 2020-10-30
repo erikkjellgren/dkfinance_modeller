@@ -1,5 +1,5 @@
 skat.py
 =======
 
-.. automodule:: aktieskat.skat
+.. automodule:: modeller.aktieskat.skat
     :members:
