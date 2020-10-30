@@ -4,7 +4,7 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath("../.."))
+sys.path.insert(0, os.path.abspath("../"))
 
 # -- General configuration ------------------------------------------------
 # If your documentation needs a minimal Sphinx version, state it here.
@@ -37,7 +37,7 @@ html_theme_path = [
 latex_elements = {"preamble": r"\pdfimageresolution=144"}
 
 latex_documents = [
-    (master_doc, "sphinx-example.tex", "sphinx-example Documentation", "Firstname Lastname", "manual"),
+    (master_doc, "sphinx-example.tex", "sphinx-example Documentation", "Erik Kjellgren", "manual"),
 ]
 
 
