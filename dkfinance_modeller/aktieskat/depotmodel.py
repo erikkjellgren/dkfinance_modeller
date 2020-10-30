@@ -22,8 +22,8 @@ def køb_værdipapirer(
     """
     if kapital < 0.0:
         raise ValueError("kapital er negativ i køb_værdipapirer")
-    if kurs < 0.0:
-        raise ValueError("kurs er negativ i køb_værdipapirer")
+    if kurs <= 0.0:
+        raise ValueError("kurs er negativ eller nul i køb_værdipapirer")
     antal_værdipapirer = kapital // kurs
     total_pris = antal_værdipapirer * kurs + kurtagefunktion(antal_værdipapirer * kurs, kurs)
     while total_pris > kapital:
