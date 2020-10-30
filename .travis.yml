@@ -19,6 +19,7 @@ install:
   - source activate test-environment
   - pip install python-coveralls
   - pip install --user codecov
+  - export PYTHONPATH=/builds/dkfinance_modeller:$PYTHONPATH
   
 script:
   - if [[ $TRAVIS_PYTHON_VERSION == 3.8 ]];
