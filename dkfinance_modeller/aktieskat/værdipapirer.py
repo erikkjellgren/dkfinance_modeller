@@ -2,7 +2,8 @@ class ETF:
     """ETF og inversteringsforening."""
 
     def __init__(self, kurs: float, åop: float) -> None:
-        """Setup lagerbeskatningsdepot
+        """
+        Setup lagerbeskatningsdepot.
 
         Args:
           kurs: kurs på inverstering.
@@ -15,7 +16,8 @@ class ETF:
 
     @property
     def antal_værdipapirer(self) -> float:
-        """Get antal_værdipapirer.
+        """
+        Get antal_værdipapirer.
 
         Returns:
           Antal værdipapirer
@@ -24,7 +26,8 @@ class ETF:
 
     @antal_værdipapirer.setter
     def antal_værdipapirer(self, antal: int) -> None:
-        """Set antal_værdipapirer.
+        """
+        Set antal_værdipapirer.
 
         Args:
           antal: antal værdipapirer
@@ -34,7 +37,8 @@ class ETF:
             raise Exception(f"Antal værdipapirer er negativ, antal_værdipapirer = {self._antal_værdipapirer}")
 
     def lagerrealisering(self, ændre_kurs: bool = True) -> float:
-        """Beregn overskud via lagerbeskatning.
+        """
+        Beregn overskud via lagerbeskatning.
 
         Args:
           ændre_kurs: Sætter beskattet_kurs til kurs.
@@ -50,7 +54,8 @@ class ETF:
         return beholdnings_ændring
 
     def updater_kurs(self, kursændringsprocent: float) -> None:
-        """Updatere kursen.
+        """
+        Updatere kursen.
 
         Args:
           kursændringsprocent: Procent ændring af kurs.
@@ -58,7 +63,8 @@ class ETF:
         self.kurs = self.kurs * (1 + kursændringsprocent)
 
     def modregn_åop(self) -> None:
-        r"""Trækker ÅOP fra kursen, for en måned.
+        r"""
+        Trækker ÅOP fra kursen, for en måned.
 
         .. math::
            \left.a_{n}\right|_{n=12}= \left. 1 - \left(\sqrt[n]{1-a}\right)\right|_{n=12}
@@ -73,7 +79,8 @@ class ETF:
         self.kurs = self.kurs * (1 - åop_12)
 
     def tilføj_enheder(self, antal: int) -> None:
-        r"""Tilføj antal enheder af ETFen.
+        r"""
+        Tilføj antal enheder af ETFen.
 
         ETF'er bliver beskattet via. gennemsnitsmetoden.
         Den nye gennemsnitskurs er derfor:
@@ -100,7 +107,8 @@ class ETF:
         self._antal_værdipapirer += antal
 
     def total_værdi(self) -> float:
-        """Få total værdi af beholdning.
+        """
+        Få total værdi af beholdning.
 
         Returns:
           Total værdi af beholdning.

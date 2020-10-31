@@ -3,7 +3,8 @@ from typing import Callable
 
 
 def nulkurtage(dkk: float, kurs: float = 0.0) -> float:  # pylint: disable=W0613
-    """Ingen kurtage.
+    """
+    Ingen kurtage.
 
     Args:
       dkk: kapital der skal betales kurtage af.
@@ -24,7 +25,8 @@ def saxo_nordnet_kurtage(
     valutakurtage: float,
     saxo_usd_type: bool,
 ) -> float:
-    r"""Kurtage for Nordnet og Saxo bank.
+    r"""
+    Kurtage for Nordnet og Saxo bank.
     Kurtagen er givet ved,
 
     .. math::
@@ -70,7 +72,8 @@ def lunar_kurtage(
     minimums_kurtage: float,
     valutakurtage: float,
 ) -> float:
-    """Kurtage for Lunar invest.
+    """
+    Kurtage for Lunar invest.
     Kurtagen er givet ved,
 
     .. math::
@@ -91,7 +94,8 @@ def lunar_kurtage(
 def saxo_kurtage_bygger(
     valuta: str = "DKK", valutakurs: float = 1.0, underkonto: bool = False
 ) -> Callable[[float, float], float]:
-    """Bygger af Saxo kurtage funktion.
+    """
+    Bygger af Saxo kurtage funktion.
 
     https://www.home.saxo/da-dk/rates-and-conditions/stocks/commissions, 21-10-2020
 
@@ -162,7 +166,8 @@ def saxo_kurtage_bygger(
 def nordnet_kurtage_bygger(
     valuta: str = "DKK", valutakurs: float = 1.0, valutakonto: bool = False
 ) -> Callable[[float, float], float]:
-    """Bygger af Nordnet kurtage funktion.
+    """
+    Bygger af Nordnet kurtage funktion.
 
     https://www.nordnet.dk/dk/kundeservice/prisliste/priser-aktiedepot, 21-10-2020
 
@@ -233,7 +238,8 @@ def nordnet_kurtage_bygger(
 
 
 def lunar_kurtage_bygger(valuta: str = "DKK") -> Callable[[float, float], float]:
-    """Bygger af Lunar invest kurtage funktion.
+    """
+    Bygger af Lunar invest kurtage funktion.
 
     https://static-assets.prod.lunarway.com/da/docs/prisliste-privat/, 21-10-2020
 

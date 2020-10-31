@@ -4,7 +4,7 @@ import dkfinance_modeller.aktieskat.værdipapirer as værdipapirer
 
 
 def test_etf():
-    """Test ETF klassen"""
+    """Test ETF klassen."""
     # Test at de simple funktioner virker
     etf = værdipapirer.ETF(kurs=10.0, åop=0.006)
     assert etf.kurs == 10.0
@@ -43,7 +43,7 @@ def test_etf():
 
 
 def test_etf_exceptions():
-    """Test exceptions i ETF klassen"""
+    """Test exceptions i ETF klassen."""
     etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
     with pytest.raises(Exception, match="Antal værdipapirer er negativ"):
         etf.antal_værdipapirer -= 1

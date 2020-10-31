@@ -9,7 +9,8 @@ from dkfinance_modeller.aktieskat.værdipapirer import ETF
 def køb_værdipapirer(
     kapital: float, kurs: float, kurtagefunktion: Callable[[float, float], float],
 ) -> Tuple[float, float, int]:
-    """Køb værdipapirer uden at gå i minus.
+    """
+    Køb værdipapirer uden at gå i minus.
 
     Args:
       kaptital: kapital til at købe.
@@ -36,7 +37,8 @@ def køb_værdipapirer(
 
 
 class Lagerbeskatning:  # pylint: disable=R0902
-    """Depot med lagerbeskatning"""
+    """
+    Depot med lagerbeskatning"""
 
     def __init__(
         self,
@@ -48,7 +50,8 @@ class Lagerbeskatning:  # pylint: disable=R0902
         ETF_fordeling: List[float],
         valutafunktion: Callable[[float], float] = nulvalutakurtage,
     ) -> None:
-        """Setup lagerbeskatningsdepot
+        """
+        Setup lagerbeskatningsdepot
 
         Args:
           kapital: start kapital (DKK)
@@ -87,7 +90,8 @@ class Lagerbeskatning:  # pylint: disable=R0902
     def afkast_månedlig(  # pylint: disable=R0914,R0912
         self, kursgevinster: List[float], udbytter: List[float]
     ) -> None:
-        """Propager en måned frem.
+        """
+        Propager en måned frem.
 
         Args:
           kursgevinster: kursgevinster i procent.
@@ -160,7 +164,8 @@ class Lagerbeskatning:  # pylint: disable=R0902
             self.ETFer[etf_idx].tilføj_enheder(antal_værdipapirer)
 
     def total_salgsværdi(self) -> float:
-        """Værdi af beholdningen ved salg af alle værdipapirer.
+        """
+        Værdi af beholdningen ved salg af alle værdipapirer.
 
         Returns:
           Den totale værdi af beholdningen.
