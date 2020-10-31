@@ -1,6 +1,5 @@
 def aktiebeskatning(dkk: float, progressionsgrænse: float = 55300) -> float:
-    r"""
-    Aktiebskatning.
+    r"""Aktiebskatning.
 
     .. math::
        skat(k) = 0.27 \min(pg, k) + 0.42 \max(0, k - pg)
@@ -22,8 +21,7 @@ def aktiebeskatning(dkk: float, progressionsgrænse: float = 55300) -> float:
 
 
 def aktiesparekontobeskatning(dkk: float) -> float:
-    """
-    Akstiesparekontobeskatning.
+    """Akstiesparekontobeskatning.
 
     .. math::
        skat(k) = 0.17 k
@@ -42,8 +40,7 @@ def aktiesparekontobeskatning(dkk: float) -> float:
 
 
 def pensionsbeskatning(dkk: float) -> float:
-    """
-    Pensionsopsparingsbeskatning.
+    """Pensionsopsparingsbeskatning.
 
     .. math::
        skat(k) = 0.153 k
@@ -62,8 +59,7 @@ def pensionsbeskatning(dkk: float) -> float:
 
 
 def nulskat(dkk: float) -> float:  # pylint: disable=W0613
-    """
-    Ingen beskatning.
+    """Ingen beskatning.
 
     Args:
       dkk: Kapital til beskatning.

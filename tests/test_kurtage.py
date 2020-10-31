@@ -2,12 +2,12 @@ import dkfinance_modeller.aktieskat.kurtage as kurtage
 
 
 def test_nulkurtage():
-    """Test kurtage med nul kurtage."""
+    """Test kurtage med nul kurtage"""
     assert abs(kurtage.nulkurtage(50000) - 0) < 10 ** -12
 
 
 def test_saxo_kurtage():
-    """Test kurtage for Saxo bank."""
+    """Test kurtage for Saxo bank"""
     kurtagefunktion = kurtage.saxo_kurtage_bygger(valuta="Dkk")
     assert kurtagefunktion(100) == 14
     assert abs(kurtagefunktion(50000) - 50) < 10 ** -12
@@ -28,7 +28,7 @@ def test_saxo_kurtage():
 
 
 def test_nordnet_kurtage():
-    """Test kurtage for Saxo bank."""
+    """Test kurtage for Saxo bank"""
     kurtagefunktion = kurtage.nordnet_kurtage_bygger(valuta="Dkk")
     assert kurtagefunktion(100) == 29
     assert abs(kurtagefunktion(50000) - 50) < 10 ** -12
@@ -47,7 +47,7 @@ def test_nordnet_kurtage():
 
 
 def test_lunarinvest_kurtage():
-    """Test kurtage for Saxo bank."""
+    """Test kurtage for Saxo bank"""
     kurtagefunktion = kurtage.lunar_kurtage_bygger(valuta="Dkk")
     assert kurtagefunktion(40000) == 19
     assert abs(kurtagefunktion(50001) - 69.001) < 10 ** -12
