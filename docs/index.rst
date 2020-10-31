@@ -26,6 +26,7 @@ dkfinance modeller
    depotmodel.rst
    kurtage.rst
    skat.rst
+   valuta.rst
    værdipapirer.rst
 
 .. toctree::

@@ -99,6 +99,7 @@ def saxo_kurtage_bygger(
       valuta: valuta værdipapir handles i. Euro vil give XETRA børsen.
       valutakurs: omregningsfaktor til DKK.
       underkonto: handler foretages i underkonto i given valuta.
+                  Valutakurtagen vil ikke være inkluderet i kurtagefunktionen.
 
     Returns:
       Kurtagefunktion.
@@ -121,7 +122,7 @@ def saxo_kurtage_bygger(
                 valutakurs=valutakurs,
                 kurtageprocent=0.001,
                 minimums_kurtage=2 * valutakurs,
-                valutakurtage=0.0015,
+                valutakurtage=0.0,
                 saxo_usd_type=False,
             )
         else:
@@ -142,7 +143,7 @@ def saxo_kurtage_bygger(
                 valutakurs=valutakurs,
                 kurtageprocent=0.001,
                 minimums_kurtage=3 * valutakurs,
-                valutakurtage=0.0015,
+                valutakurtage=0.0,
                 saxo_usd_type=True,
             )
         else:
@@ -171,6 +172,7 @@ def nordnet_kurtage_bygger(
       valuta: valuta værdipapir handles i. Euro vil give XETRA børsen.
       valutakurs: omregningsfaktor til DKK.
       valutakonto: handler foretages i underkonto i given valuta.
+                   Valutakurtagen vil ikke være inkluderet i kurtagefunktionen.
 
     Returns:
       Kurtagefunktion.
@@ -193,7 +195,7 @@ def nordnet_kurtage_bygger(
                 valutakurs=valutakurs,
                 kurtageprocent=0.0015,
                 minimums_kurtage=12 * valutakurs,
-                valutakurtage=0.00075,
+                valutakurtage=0.0,
                 saxo_usd_type=False,
             )
         else:
@@ -214,7 +216,7 @@ def nordnet_kurtage_bygger(
                 valutakurs=valutakurs,
                 kurtageprocent=0.0015,
                 minimums_kurtage=13 * valutakurs,
-                valutakurtage=0.00075,
+                valutakurtage=0.0,
                 saxo_usd_type=False,
             )
         else:

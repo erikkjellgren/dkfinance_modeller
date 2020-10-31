@@ -2,6 +2,7 @@ from typing import Callable, List, Tuple
 
 import numpy as np
 
+from dkfinance_modeller.aktieskat.valuta import nulvalutakurtage
 from dkfinance_modeller.aktieskat.værdipapirer import ETF
 
 
@@ -45,6 +46,7 @@ class Lagerbeskatning:  # pylint: disable=R0902
         minimumskøb: float,
         ETFer: List[ETF],
         ETF_fordeling: List[float],
+        valutafunktion: Callable[[float], float] = nulvalutakurtage,
     ) -> None:
         """Setup lagerbeskatningsdepot
 
@@ -55,15 +57,23 @@ class Lagerbeskatning:  # pylint: disable=R0902
           minimumskøb: minimumskapital der skal være ledigt for at lave nye køb.
           ETFer: List af ETF i depotet.
           ETF_fordeling: Procentiel fordeling af ETFer.
+          valutafunktion: funktion der beskriver kurtage forbundet med valuta.
+                          skal kun bruges hvis depotet ikke er i DKK, og denne
+                          kurtage kun kommer ved indsættelse eller udtrækkelse af kapital.
         """
         self.kapital = kapital
         self.kurtagefunktion = kurtagefunktion
         self.skattefunktion = skattefunktion
+        self.valutafunktion = valutafunktion
         self.minimumskøb = minimumskøb
         self.ubeskattet = 0.0
         self.ETFer = ETFer
         self.ETF_target_fordeling = ETF_fordeling
         self.måned = 0
+        # Valutakurtage hvis depot ikke er i DKK
+        valutakurtage = self.valutafunktion(self.kapital)
+        self.kapital -= valutakurtage
+        self.ubeskattet -= valutakurtage
         # Køb værdipapirer
         for i, procent in enumerate(self.ETF_target_fordeling):
             if procent * kapital > self.minimumskøb:
@@ -122,12 +132,14 @@ class Lagerbeskatning:  # pylint: disable=R0902
                     if etf_værdi[etf_idx] < skat * 1.1:
                         raise Exception("Værdien af den største ETF er ikke stor nok til at betale skatten")
                     kurtage = 0.0
-                    while self.kapital + værdi < skat + kurtage:
+                    # Hvis depot ikke er i DKK
+                    valutakurtage = self.valutafunktion(skat)
+                    while self.kapital + værdi < skat + kurtage + valutakurtage:
                         værdi += self.ETFer[etf_idx].kurs
                         self.ETFer[etf_idx].antal_værdipapirer -= 1
                         kurtage = self.kurtagefunktion(værdi, self.ETFer[etf_idx].kurs)
-                    self.kapital += værdi - skat - kurtage
-                    self.ubeskattet -= kurtage
+                    self.kapital += værdi - skat - kurtage - valutakurtage
+                    self.ubeskattet += -kurtage - valutakurtage
         # Geninverster
         if self.kapital > self.minimumskøb:
             # Lige nu vil der kun blive købt en type ETF per geninversteringsrunde.
@@ -160,4 +172,6 @@ class Lagerbeskatning:  # pylint: disable=R0902
             beholdning += etf.total_værdi()
             kurtage += self.kurtagefunktion(beholdning, etf.kurs)
             ubeskattet += etf.lagerrealisering(ændre_kurs=False)
-        return self.kapital + beholdning - kurtage - self.skattefunktion(ubeskattet)
+            # Hvis depot ikke er i DKK
+            valutakurtage = self.valutafunktion(self.kapital + beholdning - kurtage)
+        return self.kapital + beholdning - kurtage - self.skattefunktion(ubeskattet) - valutakurtage
