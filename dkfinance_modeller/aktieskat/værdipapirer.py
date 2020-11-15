@@ -53,9 +53,9 @@ class ETF:
         """Updatere kursen.
 
         Args:
-          kursændringsprocent: Procent ændring af kurs.
+          kursændringsprocent: Ændring af kurs.
         """
-        self.kurs = self.kurs * (1 + kursændringsprocent)
+        self.kurs += kursændringsprocent
 
     def modregn_åop(self) -> None:
         r"""Trækker ÅOP fra kursen, for en måned.
