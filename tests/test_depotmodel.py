@@ -41,14 +41,15 @@ def test_køb_værdipapirer_exceptions():
         depotmodel.køb_værdipapirer(1000, -100, kurtage.nulkurtage)
 
 
-def test_lagerbeskatning_simpel():
-    """Test lagerbeskatning simpelt tilfælde."""
+def test_DepotModel_simpel():
+    """Test DepotModel simpelt tilfælde."""
     etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
-    depot = depotmodel.Lagerbeskatning(
+    depot = depotmodel.DepotModel(
         kapital=1.0,
         kurtagefunktion=kurtage.nulkurtage,
         skattefunktion=skat.nulskat,
         minimumskøb=0,
+        beskatningstype="lager",
         ETFer=[etf],
         ETF_fordeling=[1.0],
     )
@@ -59,14 +60,15 @@ def test_lagerbeskatning_simpel():
     assert depot.ETFer[0].antal_værdipapirer == 1
 
 
-def test_lagerbeskatning_beskatning():
-    """Test lagerbeskatning med beskatning."""
+def test_DepotModel_beskatning():
+    """Test DepotModel med beskatning."""
     etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
-    depot = depotmodel.Lagerbeskatning(
+    depot = depotmodel.DepotModel(
         kapital=10.0,
         kurtagefunktion=kurtage.nulkurtage,
         skattefunktion=skat.aktiesparekontobeskatning,
         minimumskøb=0,
+        beskatningstype="lager",
         ETFer=[etf],
         ETF_fordeling=[1.0],
     )
@@ -77,14 +79,15 @@ def test_lagerbeskatning_beskatning():
     assert depot.ETFer[0].antal_værdipapirer == 9
 
 
-def test_lagerbeskatning_geninverstering():
-    """Test lagerbeskatning med geninverstering."""
+def test_DepotModel_geninverstering():
+    """Test DepotModel med geninverstering."""
     etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
-    depot = depotmodel.Lagerbeskatning(
+    depot = depotmodel.DepotModel(
         kapital=1.0,
         kurtagefunktion=kurtage.nulkurtage,
         skattefunktion=skat.nulskat,
         minimumskøb=0,
+        beskatningstype="lager",
         ETFer=[etf],
         ETF_fordeling=[1.0],
     )
@@ -96,14 +99,15 @@ def test_lagerbeskatning_geninverstering():
     assert depot.ETFer[0].antal_værdipapirer == 22
 
 
-def test_lagerbeskatning_udbytte():
-    """Test lagerbeskatning med udbytte."""
+def test_DepotModel_udbytte():
+    """Test DepotModel med udbytte."""
     etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
-    depot = depotmodel.Lagerbeskatning(
+    depot = depotmodel.DepotModel(
         kapital=1.0,
         kurtagefunktion=kurtage.nulkurtage,
         skattefunktion=skat.nulskat,
         minimumskøb=0,
+        beskatningstype="lager",
         ETFer=[etf],
         ETF_fordeling=[1.0],
     )
@@ -114,14 +118,15 @@ def test_lagerbeskatning_udbytte():
     assert depot.ETFer[0].antal_værdipapirer == 2
 
 
-def test_lagerbeskatning_valutakurtage():
-    """Test lagerbeskatning med valutakurtage."""
+def test_DepotModel_valutakurtage():
+    """Test DepotModel med valutakurtage."""
     etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
-    depot = depotmodel.Lagerbeskatning(
+    depot = depotmodel.DepotModel(
         kapital=1.0,
         kurtagefunktion=kurtage.nulkurtage,
         skattefunktion=skat.nulskat,
         minimumskøb=0,
+        beskatningstype="lager",
         ETFer=[etf],
         ETF_fordeling=[1.0],
         valutafunktion=valuta.saxo_underkonto_kurtage,
@@ -134,11 +139,12 @@ def test_lagerbeskatning_valutakurtage():
 def test_negativt_afkast():
     """Test beskatning af negativt afkast."""
     etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
-    depot = depotmodel.Lagerbeskatning(
+    depot = depotmodel.DepotModel(
         kapital=1.0,
         kurtagefunktion=kurtage.nulkurtage,
         skattefunktion=skat.aktiesparekontobeskatning,
         minimumskøb=0,
+        beskatningstype="lager",
         ETFer=[etf],
         ETF_fordeling=[1.0],
     )

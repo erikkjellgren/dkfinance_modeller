@@ -22,7 +22,7 @@ Den totale skyld efter endt uddannelse kan regnes som en "opsparing".
 .. literalinclude:: sulån_inverstering.py
    :lines: 19-21
    
-Efter endt uddanelse skal først afdrages fra 1. januar i andet år efter endt uddannelse.
+Efter endt uddanelse skal der først afdrages fra 1. Januar i andet år efter endt uddannelse, heraf 18 måneder.
 
 .. literalinclude:: sulån_inverstering.py
    :lines: 23-24
@@ -70,10 +70,11 @@ Og for en fem årig uddannelse:
 .. literalinclude:: sulån_inverstering.py
    :lines: 86-97
    
-Det vil sige at et årlig afkast på 1.7 % er nok for at inversting af SU lån kan betale sig inden for denne model.
+Det vil sige at et årlig afkast på 1.7% er nok for at inversting af SU lån kan betale sig inden for denne model.
 For inversteringsmodellen er det antaget at der ikke betalles noget skat.
 Endnu vigtigere er det antaget der er samme afkast hver eneste måned. 
 Der er altså ikke nogen risiko analyse af hvad der sker, hvis der er et stort fald på forskellige tidspunkter af forløbet.
+Det skal også bemærkes at SU lån ikke er fast forrentet, men bundet til diskontoen, https://www.su.dk/su-laan/tilbagebetaling-af-dit-su-laan/renter-paa-dit-su-laan/, 15-11-2020.
 
 Hele modellen er:
 

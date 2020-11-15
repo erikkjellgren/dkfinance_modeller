@@ -35,7 +35,7 @@ def køb_værdipapirer(
     return kapitalændring, kurtageudgift, int(antal_værdipapirer)
 
 
-class Lagerbeskatning:  # pylint: disable=R0902
+class DepotModel:  # pylint: disable=R0902
     """Depot med lagerbeskatning."""
 
     def __init__(
@@ -44,6 +44,7 @@ class Lagerbeskatning:  # pylint: disable=R0902
         kurtagefunktion: Callable[[float, float], float],
         skattefunktion: Callable[[float], float],
         minimumskøb: float,
+        beskatningstype: str,
         ETFer: List[ETF],
         ETF_fordeling: List[float],
         valutafunktion: Callable[[float], float] = nulvalutakurtage,
@@ -55,6 +56,7 @@ class Lagerbeskatning:  # pylint: disable=R0902
           kurtagefunktion: funktion der beskriver hvor meget kurtage der betales.
           skattefunktion: funktion der beskriver hvordan skatten udregnes.
           minimumskøb: minimumskapital der skal være ledigt for at lave nye køb.
+          beskatningstype: kan være "lager" eller "realisation".
           ETFer: List af ETF i depotet.
           ETF_fordeling: Procentiel fordeling af ETFer.
           valutafunktion: funktion der beskriver kurtage forbundet med valuta.
@@ -70,6 +72,14 @@ class Lagerbeskatning:  # pylint: disable=R0902
         self.ETFer = ETFer
         self.ETF_target_fordeling = ETF_fordeling
         self.måned = 0
+        if "lager" in beskatningstype.lower():
+            self.lagerbeskatning = True
+            self.realisationsbeskatning = False
+        elif "realisation" in beskatningstype.lower():
+            self.lagerbeskatning = False
+            self.realisationsbeskatning = True
+        else:
+            raise ValueError(f"Beskatningstype, {beskatningstype}, findes ikke.")
         # Valutakurtage hvis depot ikke er i DKK
         valutakurtage = self.valutafunktion(self._kapital)
         self._kapital -= valutakurtage
@@ -127,8 +137,9 @@ class Lagerbeskatning:  # pylint: disable=R0902
             etf.modregn_åop()
         # Udregn skat
         if self.måned == 0:
-            for etf in self.ETFer:
-                self.ubeskattet += etf.lagerrealisering()
+            if self.lagerbeskatning:
+                for etf in self.ETFer:
+                    self.ubeskattet += etf.lagerrealisering()
             if self.ubeskattet > 0.0:
                 skat = self.skattefunktion(self.ubeskattet)
                 self.ubeskattet = 0.0
@@ -149,17 +160,19 @@ class Lagerbeskatning:  # pylint: disable=R0902
                     for etf in self.ETFer:
                         etf_værdi.append(etf.total_værdi())
                     etf_idx = np.argmax(etf_værdi)
-                    if etf_værdi[etf_idx] < skat * 1.1:
+                    if etf_værdi[etf_idx] < (skat - self._kapital) * 1.1:
                         raise Exception("Værdien af den største ETF er ikke stor nok til at betale skatten")
                     kurtage = 0.0
+                    realisationskat = 0.0
                     # Hvis depot ikke er i DKK
                     valutakurtage = self.valutafunktion(skat)
                     while self._kapital + værdi < skat + kurtage + valutakurtage:
                         værdi += self.ETFer[etf_idx].kurs
                         self.ETFer[etf_idx].antal_værdipapirer -= 1
                         kurtage = self.kurtagefunktion(værdi, self.ETFer[etf_idx].kurs)
+                        realisationskat += self.ETFer[etf_idx].kurs - self.ETFer[etf_idx].beskattet_kurs
                     self._kapital += værdi - skat - kurtage - valutakurtage
-                    self.ubeskattet += -kurtage - valutakurtage
+                    self.ubeskattet += -kurtage - valutakurtage + realisationskat
         # Geninverster
         if self._kapital > self.minimumskøb:
             # Lige nu vil der kun blive købt en type ETF per geninversteringsrunde.
@@ -191,7 +204,9 @@ class Lagerbeskatning:  # pylint: disable=R0902
         for etf in self.ETFer:
             beholdning += etf.total_værdi()
             kurtage += self.kurtagefunktion(beholdning, etf.kurs)
-            ubeskattet += etf.lagerrealisering(ændre_kurs=False)
+            # etf.lagerrealisering, virker også til realisationsbeskatning,
+            # da den beskattede kurs aldrig har ændret sig.
+            ubeskattet += max(0, etf.lagerrealisering(ændre_kurs=False))
             # Hvis depot ikke er i DKK
             valutakurtage = self.valutafunktion(self._kapital + beholdning - kurtage)
         return self._kapital + beholdning - kurtage - self.skattefunktion(ubeskattet) - valutakurtage

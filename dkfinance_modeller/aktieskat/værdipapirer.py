@@ -49,13 +49,15 @@ class ETF:
             self.beskattet_kurs = self.kurs
         return beholdnings_ændring
 
-    def updater_kurs(self, kursændringsprocent: float) -> None:
+    def updater_kurs(self, kursændring: float) -> None:
         """Updatere kursen.
 
         Args:
           kursændringsprocent: Ændring af kurs.
         """
-        self.kurs += kursændringsprocent
+        if self.kurs + kursændring < 0.0:
+            raise ValueError(f"kursændring, {kursændring}, vil få kurs, {self.kurs}, til at være negativ.")
+        self.kurs += kursændring
 
     def modregn_åop(self) -> None:
         r"""Trækker ÅOP fra kursen, for en måned.

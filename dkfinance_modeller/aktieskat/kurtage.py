@@ -2,7 +2,7 @@ from functools import partial
 from typing import Callable
 
 
-def nulkurtage(dkk: float, kurs: float = 0.0) -> float:  # pylint: disable=W0613
+def nulkurtage(dkk: float, kurs) -> float:  # pylint: disable=W0613
     """Ingen kurtage.
 
     Args:
@@ -107,7 +107,6 @@ def saxo_kurtage_bygger(
     if valuta.lower() in ["dkk", "kr"]:
         kurtagefunktion = partial(
             saxo_nordnet_kurtage,
-            kurs=0.0,
             valutakurs=1.0,
             kurtageprocent=0.001,
             minimums_kurtage=14,
@@ -118,7 +117,6 @@ def saxo_kurtage_bygger(
         if underkonto:
             kurtagefunktion = partial(
                 saxo_nordnet_kurtage,
-                kurs=0.0,
                 valutakurs=valutakurs,
                 kurtageprocent=0.001,
                 minimums_kurtage=2 * valutakurs,
@@ -128,7 +126,6 @@ def saxo_kurtage_bygger(
         else:
             kurtagefunktion = partial(
                 saxo_nordnet_kurtage,
-                kurs=0.0,
                 valutakurs=valutakurs,
                 kurtageprocent=0.001,
                 minimums_kurtage=2 * valutakurs,
@@ -139,7 +136,6 @@ def saxo_kurtage_bygger(
         if underkonto:
             kurtagefunktion = partial(
                 saxo_nordnet_kurtage,
-                kurs=0.0,
                 valutakurs=valutakurs,
                 kurtageprocent=0.001,
                 minimums_kurtage=3 * valutakurs,
@@ -149,7 +145,6 @@ def saxo_kurtage_bygger(
         else:
             kurtagefunktion = partial(
                 saxo_nordnet_kurtage,
-                kurs=0.0,
                 valutakurs=valutakurs,
                 kurtageprocent=0.001,
                 minimums_kurtage=3 * valutakurs,
@@ -180,7 +175,6 @@ def nordnet_kurtage_bygger(
     if valuta.lower() in ["dkk", "kr"]:
         kurtagefunktion = partial(
             saxo_nordnet_kurtage,
-            kurs=0.0,
             valutakurs=1.0,
             kurtageprocent=0.001,
             minimums_kurtage=29,
@@ -191,7 +185,6 @@ def nordnet_kurtage_bygger(
         if valutakonto:
             kurtagefunktion = partial(
                 saxo_nordnet_kurtage,
-                kurs=0.0,
                 valutakurs=valutakurs,
                 kurtageprocent=0.0015,
                 minimums_kurtage=12 * valutakurs,
@@ -201,7 +194,6 @@ def nordnet_kurtage_bygger(
         else:
             kurtagefunktion = partial(
                 saxo_nordnet_kurtage,
-                kurs=0.0,
                 valutakurs=valutakurs,
                 kurtageprocent=0.0015,
                 minimums_kurtage=12 * valutakurs,
@@ -212,7 +204,6 @@ def nordnet_kurtage_bygger(
         if valutakonto:
             kurtagefunktion = partial(
                 saxo_nordnet_kurtage,
-                kurs=0.0,
                 valutakurs=valutakurs,
                 kurtageprocent=0.0015,
                 minimums_kurtage=13 * valutakurs,
@@ -222,7 +213,6 @@ def nordnet_kurtage_bygger(
         else:
             kurtagefunktion = partial(
                 saxo_nordnet_kurtage,
-                kurs=0.0,
                 valutakurs=valutakurs,
                 kurtageprocent=0.0015,
                 minimums_kurtage=13 * valutakurs,
@@ -245,10 +235,10 @@ def lunar_kurtage_bygger(valuta: str = "DKK") -> Callable[[float, float], float]
     """
     if valuta.lower() in ["dkk", "kr"]:
         kurtagefunktion = partial(
-            lunar_kurtage, kurs=0.0, kurtageprocent=0.001, minimums_kurtage=19, valutakurtage=0.0,
+            lunar_kurtage, kurtageprocent=0.001, minimums_kurtage=19, valutakurtage=0.0,
         )
     elif valuta.lower() in ["euro", "eur", "usd"]:
         kurtagefunktion = partial(
-            lunar_kurtage, kurs=0.0, kurtageprocent=0.001, minimums_kurtage=19, valutakurtage=0.005,
+            lunar_kurtage, kurtageprocent=0.001, minimums_kurtage=19, valutakurtage=0.005,
         )
     return kurtagefunktion
