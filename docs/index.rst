@@ -6,6 +6,7 @@ dkfinance modeller
    :caption: Analyser
    
    analyser/sulaan_inverstering/sulaan_inverstering.rst
+   analyser/inversteringsforening_udbytte/inversteringsforening_udbytte.rst
 
 .. toctree::
    :maxdepth: 2

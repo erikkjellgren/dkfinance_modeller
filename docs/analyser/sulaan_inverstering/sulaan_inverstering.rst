@@ -4,7 +4,7 @@
 Inverstering af SU lån simpel model
 ===================================
 
-*Brug ikke dette som finansiel rådgivning. Dette er kun model.*
+*Brug ikke dette som finansiel rådgivning. Dette er kun en model.*
 
 En meget simpel analyse af inverstering af SU lån.
 
@@ -58,7 +58,7 @@ Hele modellen for inversteringen er derfor:
 .. literalinclude:: sulaan_inverstering.py
    :lines: 40-70
    
-Bemærk at når mindst mulige afkast skal findes sættes :python:`til_optimering=True`, da det så bliver et simpel minimeringsproblem.
+Bemærk at når mindst mulige afkast skal findes sættes :python:`til_optimering=True`, da det så bliver et simpelt minimeringsproblem.
 
 Minimalt inversteringsafkast indenfor modellen kan nu findes, først for en tre årig uddannelse:
 

@@ -49,7 +49,7 @@ class DepotModel:  # pylint: disable=R0902
         ETF_fordeling: List[float],
         valutafunktion: Callable[[float], float] = nulvalutakurtage,
     ) -> None:
-        """Setup lagerbeskatningsdepot.
+        """Setup depot model.
 
         Args:
           kapital: start kapital (DKK)
