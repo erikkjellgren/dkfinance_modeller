@@ -5,7 +5,7 @@ dkfinance modeller
    :maxdepth: 2
    :caption: Analyser
    
-   analyser/sulån_inverstering/sulån_inverstering.rst
+   analyser/sulaan_inverstering/sulaan_inverstering.rst
 
 .. toctree::
    :maxdepth: 2
@@ -27,7 +27,7 @@ dkfinance modeller
    kurtage.rst
    skat.rst
    valuta.rst
-   værdipapirer.rst
+   vaerdipapirer.rst
 
 .. toctree::
    :maxdepth: 2

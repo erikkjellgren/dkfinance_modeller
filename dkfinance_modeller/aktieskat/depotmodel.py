@@ -2,8 +2,8 @@ from typing import Callable, List, Tuple
 
 import numpy as np
 
+from dkfinance_modeller.aktieskat.vaerdipapirer import ETF
 from dkfinance_modeller.aktieskat.valuta import nulvalutakurtage
-from dkfinance_modeller.aktieskat.værdipapirer import ETF
 
 
 def køb_værdipapirer(
