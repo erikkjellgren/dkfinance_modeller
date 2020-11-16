@@ -28,7 +28,7 @@ def SU_lån(år_uddanelse: int) -> Tuple[float, float, int]:
     elif klånt > 180000:
         år_afdrag = 15
     else:
-        raise Exception("Afdrags periode for lånstørrelse ikke programmeret")
+        raise ValueError("Afdrags periode for lånstørrelse er ikke programmeret.")
     kafdrag = formler.afbetalling(klån=kskyld, n=år_afdrag * 12, r=rmåned)
     # Total afdrag
     ktotalafdrag = kafdrag * år_afdrag * 12
@@ -96,5 +96,9 @@ results = optimize.minimize(inverstering_baked, 0.01)
 min_afkast_5år = results["x"][0]
 print(min_afkast_5år)  # 0.01681942428856252
 
+import pytest  # isort:skip # noqa # pylint: disable=C0411,C0413
+
 assert abs(min_afkast_3år - 0.015517570589908755) < 10 ** -6
 assert abs(min_afkast_5år - 0.01681942428856252) < 10 ** -6
+with pytest.raises(ValueError, match="Afdrags periode for lånstørrelse er ikke programmeret"):
+    SU_lån(1)

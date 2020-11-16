@@ -47,3 +47,5 @@ def test_etf_exceptions():
     etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
     with pytest.raises(Exception, match="Antal værdipapirer er negativ"):
         etf.antal_værdipapirer -= 1
+    with pytest.raises(Exception, match=", til at være negativ."):
+        etf.updater_kurs(-10)

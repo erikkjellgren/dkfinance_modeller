@@ -136,7 +136,7 @@ def test_DepotModel_valutakurtage():
     assert abs(depot.total_salgsværdi() - 0.99700225) < 10 ** -12
 
 
-def test_negativt_afkast():
+def test_DepotModel_negativt_afkast():
     """Test beskatning af negativt afkast."""
     etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
     depot = depotmodel.DepotModel(
@@ -153,3 +153,37 @@ def test_negativt_afkast():
     assert abs(depot.total_salgsværdi() - 1.0) < 10 ** -12
     assert depot.kapital == 0.0
     assert depot.ETFer[0].antal_værdipapirer == 1
+
+
+def test_DepotModel_realisationsbeskatning():
+    """Test realisationsbeskatning."""
+    etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
+    depot = depotmodel.DepotModel(
+        kapital=100000.0,
+        kurtagefunktion=kurtage.nulkurtage,
+        skattefunktion=skat.aktiebeskatning,
+        minimumskøb=0,
+        beskatningstype="realisation",
+        ETFer=[etf],
+        ETF_fordeling=[1.0],
+    )
+    for _ in range(0, 24):
+        depot.afkast_månedlig([0.05], [0.0])
+    assert abs(depot.total_salgsværdi() - 177895) < 10 ** -10
+    assert depot.kapital < 10 ** -12
+    assert depot.ETFer[0].antal_værdipapirer == 100000
+
+
+def test_DepotModel_exceptions():
+    """Test exceptions i DepotModel klassen."""
+    with pytest.raises(ValueError, match=", findes ikke"):
+        etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
+        depotmodel.DepotModel(
+            kapital=1.0,
+            kurtagefunktion=kurtage.nulkurtage,
+            skattefunktion=skat.nulskat,
+            minimumskøb=0,
+            beskatningstype="salgsbeskatning",
+            ETFer=[etf],
+            ETF_fordeling=[1.0],
+        )
