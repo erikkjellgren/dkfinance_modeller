@@ -16,12 +16,12 @@ Se https://github.com/erikkjellgren/dkfinance_modeller/tree/main/docs/analyser/S
 Starter med at importere alle de moduler der skal bruges til modellen.
 
 .. literalinclude:: inversteringsforening_udbytte.py
-   :lines: 1-13
+   :lines: 1-12
 
 Nu defineres depottet i modellen.
 
 .. literalinclude:: inversteringsforening_udbytte.py
-   :lines: 15-32
+   :lines: 15-31
 
 Her er ÅOP valgt til at være 0.55% for at være en normal værdi for en Dansk inversteringsforening.
 Depotet defineres inde i en funktion for at den senere er nemmere at nulstille.
@@ -29,24 +29,30 @@ Depotet defineres inde i en funktion for at den senere er nemmere at nulstille.
 Nu kan propagationen for modellen bygges.
 
 .. literalinclude:: inversteringsforening_udbytte.py
-   :lines: 34-52
+   :lines: 34-57
    
 Den statistike samling af slut depotbeholdninger samles ved at startet 600 forskellige måneder, startende fra 1949 December,
 og propagere 20 år frem for hver start måned.
-Dette gøres for udbyttet procenter mellem 0% og 100%.
-Udbyttet bliver opgjort på årligbasis som en procent af det årlige afkast, hvis afkastet er positivt.
+Dette gøres for kursstining til udbytteprocent mellem 0% og 100%.
+Det effektive udbytte for bliver opgjort på årlig basis efter følgende model:
+
+.. math::
+  u_\mathrm{effektive} = u + \max\left(0, pk\right)
+
+Med :math:`u` værrende udbytte, :math:`k` værrende kursstining og 
+:math:`p` værrende den kursstining til udbytteprocent.
 Efter at have propageret 20 år frem gemmes den total depotværdi efter skat.
 
 Efter at koden er kørt kan dataen analyseres.
 Først sættes nogle graph parametre.
 
 .. literalinclude:: inversteringsforening_udbytte.py
-   :lines: 54-63
+   :lines: 59-68
 
 For de forskellige udbytte procenter kan fordellingen af slut værdien af depotet plottes.
 
 .. literalinclude:: inversteringsforening_udbytte.py
-   :lines: 65-83
+   :lines: 70-88
 
 Dette giver følgende plot.
 
@@ -56,14 +62,14 @@ Dette giver følgende plot.
 Man kan se at jo højere udbytte procenten er jo lavere vil afkastet være over en 20 årig periode.
 Det skal specielt bemærkes at ved de lave udbytte procenter findes der situationer hvor man kan have haft et meget stort afkast
 (hvis man er heldig).
-~1,000,000 DKK ifht. ~4,000,000 DKK.
+0.03 CARG ifht. 0.14 CARG.
 Dette giver et hint af at realisationsbeskatning vil have en fordel i perioder med stærk vækst,
 ifht. udbytte beskattet afkast.
 
 For de forskellige udbytte procenter kan fraktilerne af slut værdien af depotet plottes.
 
 .. literalinclude:: inversteringsforening_udbytte.py
-   :lines: 86-106
+   :lines: 91-107
 
 Dette giver følgende plot.
 
@@ -71,15 +77,14 @@ Dette giver følgende plot.
    :width: 480
 
 På grafen med fraktilerne skal det bemærkes at y-aksen er logaritmisk skaleret.
-Det kan bemærkes at op til 0.5 fraktilen er alle udbytteprocenter mellem 0% til 50% næsten identiske.
-Det er primært ved de "heldige" start tidspunkter at en udbytte procent lavere end 50% vil give en forskel.
-Ved udbytte procenter over 50% falder afkastet relativt hurtigt.
-
-Givet at udbytteprocenter mellem 0% og 50% giver forholdvis ens afkast i halvdelen af tilfældende, 
+Det kan bemærkes at op til 0.5 fraktilen er alle udbytteprocenter mellem 0% til 30% næsten identiske.
+Det er primært ved de "heldige" start tidspunkter at en udbytte procent lavere end 30% vil give en forskel.
+Ved udbytte procenter over 30% falder afkastet relativt hurtigt.
+Givet at udbytteprocenter mellem 0% og 30% giver forholdvis ens afkast i halvdelen af tilfældende, 
 vil en udbytteprocent på 30% i fremtidige analyse af Danske inversteringsforeninger være et brugbart estimat.
 30% udbytte er også fundet til at være gennemsnittet af Danske inversteringsforening, se https://www.reddit.com/r/dkfinance/comments/hv82ll/en_gang_for_alle_om_etfer_vs_danske/.
    
 Den totale model med analyse er.
 
 .. literalinclude:: inversteringsforening_udbytte.py
-   :lines: 1-106
+   :lines: 1-107
