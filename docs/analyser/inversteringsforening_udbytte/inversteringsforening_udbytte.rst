@@ -76,7 +76,6 @@ Dette giver følgende plot.
 .. image:: fraktiler_.svg
    :width: 480
 
-På grafen med fraktilerne skal det bemærkes at y-aksen er logaritmisk skaleret.
 Det kan bemærkes at op til 0.5 fraktilen er alle udbytteprocenter mellem 0% til 30% næsten identiske.
 Det er primært ved de "heldige" start tidspunkter at en udbytte procent lavere end 30% vil give en forskel.
 Ved udbytte procenter over 30% falder afkastet relativt hurtigt.

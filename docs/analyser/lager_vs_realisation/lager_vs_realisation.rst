@@ -1,0 +1,67 @@
+.. role:: python(code)
+   :language: python
+
+Danske inversteringsforeninger vs. ETFer beskatning
+===================================================
+
+*Brug ikke dette som finansiel rådgivning. Dette er kun en model.*
+
+Nogen Danske inversteringsforeninger er realisationsbeskattet givet at de udfylde kriterier
+vedrørende udbetalling af udbytte.
+Modellen for udbytte fra inversteringsforeningerne kan ses i :ref:`Danske inversteringsforeninger, signifikans af udbytte`.
+Denne sammenligning bruger priser fra Saxo, for inversteringsforening er der antaget en ÅOP på 0.55%.
+For ETFen er der antaget en ÅOP på 0.12% og brug af underkonto i Euro.
+
+Den underliggende historiske data er følger S&P500, dataen er hentet fra, http://www.econ.yale.edu/~shiller/data/ie_data.xls, 16-11-2020.
+Se https://github.com/erikkjellgren/dkfinance_modeller/tree/main/docs/analyser/SP500.csv for den behandlede data.
+
+Modellen kan nu opbygges.
+Starter med at importere alle de moduler der skal bruges til modellen.
+
+.. literalinclude:: lager_vs_realisation.py
+   :lines: 1-12
+
+Nu defineres depottet i modellen.
+
+.. literalinclude:: lager_vs_realisation.py
+   :lines: 15-42
+
+Depoterne defineres inde i en funktion for at de senere er nemmere at nulstille.
+
+Nu kan propagationen for modellen bygges.
+
+.. literalinclude:: lager_vs_realisation.py
+   :lines: 45-85
+
+Den statistike samling af slut depotbeholdninger samles ved at startet X forskellige måneder, startende fra 1949 December,
+og propagere 1, 5, 10 eller 20 år frem for hver start måned.
+
+Efter at koden er kørt kan dataen analyseres.
+Først sættes nogle graph parametre.
+
+.. literalinclude:: lager_vs_realisation.py
+   :lines: 87-96
+   
+For de forskellige depoter og antal inversterings år kan 
+fraktilerne af slut værdien af depotet plottes.
+
+.. literalinclude:: lager_vs_realisation.py
+   :lines: 98-127
+
+Dette giver følgende plot.
+
+.. image:: fraktiler_.svg
+   :width: 480
+
+I figuren kan den totale værdi af depotet opgjort som CARG efter skat ses.
+For en inversteringsperiode på under 5 år kan det ses at der stort set ingen forskel er 
+mellem at vælge en Dansk inversteringsforening eller en ETF.
+For 1 år perioden kan det bemærkes at der er 30% risiko for at man har et tab!
+For perioder inversterings perioder længere end 10 år vil realisationsbeskatning given 
+en forskel ifht. billigere (læs: lavere ÅOP) ETFer.
+For inversterings perioder over 20 år, vil realisationsbeskatningen altid være bedst!
+
+Den totale model med analyse er.
+
+.. literalinclude:: lager_vs_realisation.py
+   :lines: 1-127
