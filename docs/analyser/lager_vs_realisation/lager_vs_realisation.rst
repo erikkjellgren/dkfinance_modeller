@@ -31,7 +31,7 @@ Depoterne defineres inde i en funktion for at de senere er nemmere at nulstille.
 Nu kan propagationen for modellen bygges.
 
 .. literalinclude:: lager_vs_realisation.py
-   :lines: 45-85
+   :lines: 45-87
 
 Den statistike samling af slut depotbeholdninger samles ved at startet X forskellige måneder, startende fra 1949 December,
 og propagere 1, 5, 10 eller 20 år frem for hver start måned.
@@ -40,7 +40,7 @@ Efter at koden er kørt kan dataen analyseres.
 Først sættes nogle graph parametre.
 
 .. literalinclude:: lager_vs_realisation.py
-   :lines: 87-96
+   :lines: 89-96
    
 For de forskellige depoter og antal inversterings år kan 
 fraktilerne af slut værdien af depotet plottes.
@@ -57,11 +57,22 @@ I figuren kan den totale værdi af depotet opgjort som CARG efter skat ses.
 For en inversteringsperiode på under 5 år kan det ses at der stort set ingen forskel er 
 mellem at vælge en Dansk inversteringsforening eller en ETF.
 For 1 år perioden kan det bemærkes at der er 30% risiko for at man har et tab!
-For perioder inversterings perioder længere end 10 år vil realisationsbeskatning given 
-en forskel ifht. billigere (læs: lavere ÅOP) ETFer.
-For inversterings perioder over 20 år, vil realisationsbeskatningen altid være bedst!
+For inversterings perioder længere end 10 år vil realisationsbeskatning give
+en gevinst ifht. billigere (læs: lavere ÅOP) ETFer i ca. halvdelen af tilfældende.
+
+Forskellen mellem CAGR fra realisationsbeskatning og lagerbeskatning kan også sammenlignes ved at tage forskellen.
+
+.. literalinclude:: lager_vs_realisation.py
+   :lines: 129-147
+
+Dette giver følgende plot.
+
+.. image:: real_lager_fraktiler_.svg
+   :width: 480
+
+Det kan her tydeligt ses at jo længere investeringshorisonten er, jo bedre er realisationsbeskatning.
 
 Den totale model med analyse er.
 
 .. literalinclude:: lager_vs_realisation.py
-   :lines: 1-127
+   :lines: 1-147

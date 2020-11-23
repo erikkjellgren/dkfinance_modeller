@@ -22,3 +22,4 @@ def test_lager_vs_realisation():
         f"{os.path.dirname(__file__)}/../docs/analyser/lager_vs_realisation/lager_vs_realisation.py"  # pylint: disable=C0301
     )
     os.remove(f"fraktiler.svg")
+    os.remove(f"real_lager_fraktiler.svg")
