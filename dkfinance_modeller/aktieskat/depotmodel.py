@@ -173,9 +173,9 @@ class DepotModel:  # pylint: disable=R0902
                         realisationskat += self.ETFer[etf_idx].kurs - self.ETFer[etf_idx].beskattet_kurs
                     self._kapital += værdi - skat - kurtage - valutakurtage
                     self.ubeskattet += -kurtage - valutakurtage + realisationskat
-        # Geninverster
+        # Geninvester
         if self._kapital > self.minimumskøb:
-            # Lige nu vil der kun blive købt en type ETF per geninversteringsrunde.
+            # Lige nu vil der kun blive købt en type ETF per geninvesteringsrunde.
             # Ved store beholdninger eller 0.0 DKK minimumskrutage, vil køb
             # af flere forskellige kunne være bedre ifht. rebalancering.
             # Vælger derfor den ETF der er længst fra target-værdien.

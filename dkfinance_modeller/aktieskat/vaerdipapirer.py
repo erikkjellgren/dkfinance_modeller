@@ -1,12 +1,12 @@
 class ETF:
-    """ETF og inversteringsforening."""
+    """ETF og investeringsforening."""
 
     def __init__(self, kurs: float, åop: float) -> None:
         """Setup lagerbeskatningsdepot
 
         Args:
-          kurs: kurs på inverstering.
-          åop: årligomkostningsprocent på ETF/inversteringsforening.
+          kurs: kurs på investering.
+          åop: årligomkostningsprocent på ETF/investeringsforening.
         """
         self.kurs = kurs
         self.åop = åop

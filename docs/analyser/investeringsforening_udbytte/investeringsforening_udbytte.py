@@ -54,7 +54,7 @@ for j, udbytte_procent in enumerate(np.linspace(0, 1, 11)):
             kursstigning_årlig += kursafkast
         real[j].append(realisationsdepot.total_salgsværdi())
 real = np.array(real)
-carg = formler.CARG(300000, real, 20)  # type: ignore
+carg = formler.CAGR(300000, real, 20)  # type: ignore
 
 SizeX = 6
 SizeY = 5
@@ -82,7 +82,7 @@ for k, percent in enumerate(np.linspace(0, 1, 11)):
 ax1.set_ylim(0, 26)
 ax1.set_xlim(0.0, 0.16)
 ax1.set_ylabel("Arbitrær værdi")
-ax1.set_xlabel("CARG")
+ax1.set_xlabel("CAGR")
 plt.legend()
 plt.tight_layout()
 plt.savefig("distributioner.svg")
@@ -101,7 +101,7 @@ ax1.set_xticks(np.linspace(0.0, 1.0, 11))
 ax1.set_ylim(0.02, 0.14)
 ax1.grid(which="minor")
 ax1.grid(which="major")
-ax1.set_ylabel("CARG")
+ax1.set_ylabel("CAGR")
 ax1.set_xlabel("Fraktil")
 plt.tight_layout()
 plt.savefig("fraktiler.svg")

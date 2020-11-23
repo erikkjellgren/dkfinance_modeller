@@ -79,8 +79,8 @@ def test_DepotModel_beskatning():
     assert depot.ETFer[0].antal_værdipapirer == 9
 
 
-def test_DepotModel_geninverstering():
-    """Test DepotModel med geninverstering."""
+def test_DepotModel_geninvestering():
+    """Test DepotModel med geninvestering."""
     etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
     depot = depotmodel.DepotModel(
         kapital=1.0,
@@ -187,3 +187,36 @@ def test_DepotModel_exceptions():
             ETFer=[etf],
             ETF_fordeling=[1.0],
         )
+    with pytest.raises(ValueError, match="Kaptial kan ikke være negativt"):
+        etf = værdipapirer.ETF(kurs=2.0, åop=0.0)
+        depot = depotmodel.DepotModel(
+            kapital=1.0,
+            kurtagefunktion=kurtage.nulkurtage,
+            skattefunktion=skat.nulskat,
+            minimumskøb=0,
+            beskatningstype="realisation",
+            ETFer=[etf],
+            ETF_fordeling=[1.0],
+        )
+        depot.kapital -= 2.0
+    with pytest.raises(Exception, match="ETF er ikke stor nok til at betale skatten"):
+        etfer = []
+        fordeling = []
+        afkast = []
+        udbytte = []
+        for _ in range(0, 200):
+            etfer.append(værdipapirer.ETF(kurs=1.0, åop=0.0))
+            fordeling.append(1 / 200)
+            afkast.append(10)
+            udbytte.append(0)
+        depot = depotmodel.DepotModel(
+            kapital=1000.0,
+            kurtagefunktion=kurtage.nulkurtage,
+            skattefunktion=skat.aktiebeskatning,
+            minimumskøb=0,
+            beskatningstype="lager",
+            ETFer=etfer,
+            ETF_fordeling=fordeling,
+        )
+        for _ in range(0, 12):
+            depot.afkast_månedlig(afkast, udbytte)

@@ -16,6 +16,6 @@ def test_afbetalling():
     assert abs(formler.afbetalling(122221.45349595, 0.000829538114346162, 132) - 977.111801040738) < 10 ** -6
 
 
-def test_CARG():
-    """Test CARG."""
-    assert abs(formler.CARG(9000, 13000, 3) - 0.13040381433) < 10 ** -6
+def test_CAGR():
+    """Test CAGR."""
+    assert abs(formler.CAGR(9000, 13000, 3) - 0.13040381433) < 10 ** -6

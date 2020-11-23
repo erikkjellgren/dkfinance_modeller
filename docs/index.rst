@@ -5,8 +5,8 @@ dkfinance modeller
    :maxdepth: 2
    :caption: Analyser
    
-   analyser/sulaan_inverstering/sulaan_inverstering.rst
-   analyser/inversteringsforening_udbytte/inversteringsforening_udbytte.rst
+   analyser/sulaan_investering/sulaan_investering.rst
+   analyser/investeringsforening_udbytte/investeringsforening_udbytte.rst
    analyser/lager_vs_realisation/lager_vs_realisation.rst
 
 .. toctree::

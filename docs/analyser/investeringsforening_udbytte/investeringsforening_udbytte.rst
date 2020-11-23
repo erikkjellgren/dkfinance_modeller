@@ -1,12 +1,12 @@
 .. role:: python(code)
    :language: python
 
-Danske inversteringsforeninger, signifikans af udbytte
+Danske investeringsforeninger, signifikans af udbytte
 ======================================================
 
 *Brug ikke dette som finansiel rådgivning. Dette er kun en model.*
 
-Her vil det undersøges hvor står betydning udbytte procenten har for Danske inversteringsforeninger der ellers realisationsbeskattes.
+Her vil det undersøges hvor står betydning udbytte procenten har for Danske investeringsforeninger der ellers realisationsbeskattes.
 
 Først skal den indreværdi af ETFen kontrueres.
 Her bliver der taget udgangspunk i data for S&P500 (fordi denne data er nemt tilgængelig), dataen er hentet fra, http://www.econ.yale.edu/~shiller/data/ie_data.xls, 16-11-2020.
@@ -15,20 +15,20 @@ Se https://github.com/erikkjellgren/dkfinance_modeller/tree/main/docs/analyser/S
 
 Starter med at importere alle de moduler der skal bruges til modellen.
 
-.. literalinclude:: inversteringsforening_udbytte.py
+.. literalinclude:: investeringsforening_udbytte.py
    :lines: 1-12
 
 Nu defineres depottet i modellen.
 
-.. literalinclude:: inversteringsforening_udbytte.py
+.. literalinclude:: investeringsforening_udbytte.py
    :lines: 15-31
 
-Her er ÅOP valgt til at være 0.55% for at være en normal værdi for en Dansk inversteringsforening.
+Her er ÅOP valgt til at være 0.55% for at være en normal værdi for en Dansk investeringsforening.
 Depotet defineres inde i en funktion for at den senere er nemmere at nulstille.
 
 Nu kan propagationen for modellen bygges.
 
-.. literalinclude:: inversteringsforening_udbytte.py
+.. literalinclude:: investeringsforening_udbytte.py
    :lines: 34-57
    
 Den statistike samling af slut depotbeholdninger samles ved at startet 600 forskellige måneder, startende fra 1949 December,
@@ -46,12 +46,12 @@ Efter at have propageret 20 år frem gemmes den total depotværdi efter skat.
 Efter at koden er kørt kan dataen analyseres.
 Først sættes nogle graph parametre.
 
-.. literalinclude:: inversteringsforening_udbytte.py
+.. literalinclude:: investeringsforening_udbytte.py
    :lines: 59-68
 
 For de forskellige udbytte procenter kan fordellingen af slut værdien af depotet plottes.
 
-.. literalinclude:: inversteringsforening_udbytte.py
+.. literalinclude:: investeringsforening_udbytte.py
    :lines: 70-88
 
 Dette giver følgende plot.
@@ -62,13 +62,13 @@ Dette giver følgende plot.
 Man kan se at jo højere udbytte procenten er jo lavere vil afkastet være over en 20 årig periode.
 Det skal specielt bemærkes at ved de lave udbytte procenter findes der situationer hvor man kan have haft et meget stort afkast
 (hvis man er heldig).
-0.03 CARG ifht. 0.14 CARG.
+0.03 CAGR ifht. 0.14 CAGR.
 Dette giver et hint af at realisationsbeskatning vil have en fordel i perioder med stærk vækst,
 ifht. udbytte beskattet afkast.
 
 For de forskellige udbytte procenter kan fraktilerne af slut værdien af depotet plottes.
 
-.. literalinclude:: inversteringsforening_udbytte.py
+.. literalinclude:: investeringsforening_udbytte.py
    :lines: 91-107
 
 Dette giver følgende plot.
@@ -80,10 +80,10 @@ Det kan bemærkes at op til 0.5 fraktilen er alle udbytteprocenter mellem 0% til
 Det er primært ved de "heldige" start tidspunkter at en udbytte procent lavere end 30% vil give en forskel.
 Ved udbytte procenter over 30% falder afkastet relativt hurtigt.
 Givet at udbytteprocenter mellem 0% og 30% giver forholdvis ens afkast i halvdelen af tilfældende, 
-vil en udbytteprocent på 30% i fremtidige analyse af Danske inversteringsforeninger være et brugbart estimat.
-30% udbytte er også fundet til at være gennemsnittet af Danske inversteringsforening, se https://www.reddit.com/r/dkfinance/comments/hv82ll/en_gang_for_alle_om_etfer_vs_danske/.
+vil en udbytteprocent på 30% i fremtidige analyse af Danske investeringsforeninger være et brugbart estimat.
+30% udbytte er også fundet til at være gennemsnittet af Danske investeringsforening, se https://www.reddit.com/r/dkfinance/comments/hv82ll/en_gang_for_alle_om_etfer_vs_danske/.
    
 Den totale model med analyse er.
 
-.. literalinclude:: inversteringsforening_udbytte.py
+.. literalinclude:: investeringsforening_udbytte.py
    :lines: 1-107

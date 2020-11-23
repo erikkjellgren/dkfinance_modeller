@@ -76,11 +76,11 @@ def afbetalling(klån: float, r: float, n: int) -> float:
     return klån * (1 + r) ** n / ((1 - (1 + r) ** n) / (-r) - 1 + (1 + r) ** n)
 
 
-def CARG(start_kapital: float, slut_kapital: float, antal_år: float) -> float:
-    r"""Beregn annualiseret flerårig vækstrate, "Compound annual growth rate" (CARG) på engelsk.
+def CAGR(start_kapital: float, slut_kapital: float, antal_år: float) -> float:
+    r"""Beregn annualiseret flerårig vækstrate, "Compound annual growth rate" (CAGR) på engelsk.
 
     .. math::
-       CARG = \left( \frac{k_\mathrm{slut}}{k_\mathrm{start}} \right)^{n} - 1
+       CAGR = \left( \frac{k_\mathrm{slut}}{k_\mathrm{start}} \right)^{n} - 1
 
     :math:`k_\mathrm{slut}` slut kapital.
 
@@ -88,7 +88,7 @@ def CARG(start_kapital: float, slut_kapital: float, antal_år: float) -> float:
 
     :math:`n` antal år.
 
-    :math:`CARG` CARG.
+    :math:`CAGR` CARG.
 
     Fra, https://en.wikipedia.org/wiki/Compound_annual_growth_rate, 21-11-2020
 
@@ -98,6 +98,6 @@ def CARG(start_kapital: float, slut_kapital: float, antal_år: float) -> float:
       antal_år: tid i antal år, behøver ikke at være et heltal.
 
     Returns:
-      CARG
+      CAGR
     """
     return (slut_kapital / start_kapital) ** (1 / antal_år) - 1

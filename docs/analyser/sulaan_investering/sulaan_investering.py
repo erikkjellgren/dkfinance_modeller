@@ -37,19 +37,19 @@ def SU_lån(år_uddanelse: int) -> Tuple[float, float, int]:
     return tab, kafdrag, år_afdrag
 
 
-def inverstering(
+def investering(
     årligt_afkast: float, kafdrag: float, år_uddanelse: int, år_afdrag: int, til_optimering: bool = False,
 ) -> float:
-    """Simpel model for inverstering af SU lån.
+    """Simpel model for investering af SU lån.
 
-    Simpel model for inverstering af SU lån.
+    Simpel model for investering af SU lån.
 
     Antager at afkast i procent er det samme hver måned i hele perioden.
 
     Antager at der ikke skal betales skat.
 
     Args:
-      årligt_afkast: Årligt afkast af inverstering.
+      årligt_afkast: Årligt afkast af investering.
       kafdrag: Månedligt afdrag af SU lån.
       år_uddanelse: Antal år under uddannelse.
       år_afdrag: Antal år afdraget er over.
@@ -72,27 +72,27 @@ def inverstering(
 
 uddannelse_antal_år = 3
 _, kafdrags_sats, afdrag_antal_år = SU_lån(år_uddanelse=uddannelse_antal_år)
-inverstering_baked = partial(
-    inverstering,
+investering_baked = partial(
+    investering,
     kafdrag=kafdrags_sats,
     år_uddanelse=uddannelse_antal_år,
     år_afdrag=afdrag_antal_år,
     til_optimering=True,
 )
-results = optimize.minimize(inverstering_baked, 0.01)
+results = optimize.minimize(investering_baked, 0.01)
 min_afkast_3år = results["x"][0]
 print(min_afkast_3år)  # 0.015517570589908755
 
 uddannelse_antal_år = 5
 _, kafdrags_sats, afdrag_antal_år = SU_lån(år_uddanelse=uddannelse_antal_år)
-inverstering_baked = partial(
-    inverstering,
+investering_baked = partial(
+    investering,
     kafdrag=kafdrags_sats,
     år_uddanelse=uddannelse_antal_år,
     år_afdrag=afdrag_antal_år,
     til_optimering=True,
 )
-results = optimize.minimize(inverstering_baked, 0.01)
+results = optimize.minimize(investering_baked, 0.01)
 min_afkast_5år = results["x"][0]
 print(min_afkast_5år)  # 0.01681942428856252
 

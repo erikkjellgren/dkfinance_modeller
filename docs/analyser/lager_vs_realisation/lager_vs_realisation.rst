@@ -1,15 +1,15 @@
 .. role:: python(code)
    :language: python
 
-Danske inversteringsforeninger vs. ETFer beskatning
+Danske investeringsforeninger vs. ETFer beskatning
 ===================================================
 
 *Brug ikke dette som finansiel rådgivning. Dette er kun en model.*
 
-Nogen Danske inversteringsforeninger er realisationsbeskattet givet at de udfylde kriterier
+Nogen Danske investeringsforeninger er realisationsbeskattet givet at de udfylde kriterier
 vedrørende udbetalling af udbytte.
-Modellen for udbytte fra inversteringsforeningerne kan ses i :ref:`Danske inversteringsforeninger, signifikans af udbytte`.
-Denne sammenligning bruger priser fra Saxo, for inversteringsforening er der antaget en ÅOP på 0.55%.
+Modellen for udbytte fra investeringsforeningerne kan ses i :ref:`Danske investeringsforeninger, signifikans af udbytte`.
+Denne sammenligning bruger priser fra Saxo, for investeringsforening er der antaget en ÅOP på 0.55%.
 For ETFen er der antaget en ÅOP på 0.12% og brug af underkonto i Euro.
 
 Den underliggende historiske data er følger S&P500, dataen er hentet fra, http://www.econ.yale.edu/~shiller/data/ie_data.xls, 16-11-2020.
@@ -42,7 +42,7 @@ Først sættes nogle graph parametre.
 .. literalinclude:: lager_vs_realisation.py
    :lines: 89-96
    
-For de forskellige depoter og antal inversterings år kan 
+For de forskellige depoter og antal investerings år kan 
 fraktilerne af slut værdien af depotet plottes.
 
 .. literalinclude:: lager_vs_realisation.py
@@ -53,11 +53,11 @@ Dette giver følgende plot.
 .. image:: fraktiler_.svg
    :width: 480
 
-I figuren kan den totale værdi af depotet opgjort som CARG efter skat ses.
-For en inversteringsperiode på under 5 år kan det ses at der stort set ingen forskel er 
-mellem at vælge en Dansk inversteringsforening eller en ETF.
+I figuren kan den totale værdi af depotet opgjort som CAGR efter skat ses.
+For en investeringsperiode på under 5 år kan det ses at der stort set ingen forskel er 
+mellem at vælge en Dansk investeringsforening eller en ETF.
 For 1 år perioden kan det bemærkes at der er 30% risiko for at man har et tab!
-For inversterings perioder længere end 10 år vil realisationsbeskatning give
+For investerings perioder længere end 10 år vil realisationsbeskatning give
 en gevinst ifht. billigere (læs: lavere ÅOP) ETFer i ca. halvdelen af tilfældende.
 
 Forskellen mellem CAGR fra realisationsbeskatning og lagerbeskatning kan også sammenlignes ved at tage forskellen.

@@ -30,7 +30,7 @@ def saxo_nordnet_kurtage(
     .. math::
        kurtage(k) = \max(m, kp) + kv
 
-    :math:`k` er inversteringskapital.
+    :math:`k` er investeringskapital.
 
     :math:`m` er minimumskurtage.
 
@@ -76,7 +76,7 @@ def lunar_kurtage(
     .. math::
        kurtage = m + H(k-50000)kp + kv
 
-    :math:`k` er inversteringskapital.\n
+    :math:`k` er investeringskapital.\n
     :math:`m` er minimumskurtage.\n
     :math:`p` er kurtageprocent.\n
     :math:`v` er valutakurtageprocent.\n
