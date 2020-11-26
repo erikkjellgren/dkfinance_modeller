@@ -48,6 +48,7 @@ class DepotModel:  # pylint: disable=R0902
         ETFer: List[ETF],
         ETF_fordeling: List[float],
         valutafunktion: Callable[[float], float] = nulvalutakurtage,
+        progressionsgrænse: float = 55300,
     ) -> None:
         """Setup depot model.
 
@@ -72,6 +73,8 @@ class DepotModel:  # pylint: disable=R0902
         self.ETFer = ETFer
         self.ETF_target_fordeling = ETF_fordeling
         self.måned = 0
+        self.år = 0   #til årlig justering af progressionsgrænse
+        self.progressionsgrænse = progressionsgrænse 
         if "lager" in beskatningstype.lower():
             self.lagerbeskatning = True
             self.realisationsbeskatning = False
@@ -141,10 +144,11 @@ class DepotModel:  # pylint: disable=R0902
                 for etf in self.ETFer:
                     self.ubeskattet += etf.lagerrealisering()
             if self.ubeskattet > 0.0:
-                skat = self.skattefunktion(self.ubeskattet)
+                skat = self.skattefunktion(self.ubeskattet, self.progressionsgrænse * 1.02**self.år)
                 self.ubeskattet = 0.0
             else:
                 skat = 0
+            self.år += 1 
             # Betal skat
             if skat > 0.0:
                 if self._kapital > skat:
