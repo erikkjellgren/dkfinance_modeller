@@ -43,13 +43,12 @@ def test_køb_værdipapirer_exceptions():
 
 def test_DepotModel_simpel():
     """Test DepotModel simpelt tilfælde."""
-    etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
+    etf = værdipapirer.ETF(kurs=1.0, åop=0.0, beskatningstype="lager")
     depot = depotmodel.DepotModel(
         kapital=1.0,
         kurtagefunktion=kurtage.nulkurtage,
         skattefunktion=skat.nulskat,
         minimumskøb=0,
-        beskatningstype="lager",
         ETFer=[etf],
         ETF_fordeling=[1.0],
     )
@@ -62,13 +61,12 @@ def test_DepotModel_simpel():
 
 def test_DepotModel_beskatning():
     """Test DepotModel med beskatning."""
-    etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
+    etf = værdipapirer.ETF(kurs=1.0, åop=0.0, beskatningstype="lager")
     depot = depotmodel.DepotModel(
         kapital=10.0,
         kurtagefunktion=kurtage.nulkurtage,
         skattefunktion=skat.aktiesparekontobeskatning,
         minimumskøb=0,
-        beskatningstype="lager",
         ETFer=[etf],
         ETF_fordeling=[1.0],
     )
@@ -81,13 +79,12 @@ def test_DepotModel_beskatning():
 
 def test_DepotModel_geninvestering():
     """Test DepotModel med geninvestering."""
-    etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
+    etf = værdipapirer.ETF(kurs=1.0, åop=0.0, beskatningstype="lager")
     depot = depotmodel.DepotModel(
         kapital=1.0,
         kurtagefunktion=kurtage.nulkurtage,
         skattefunktion=skat.nulskat,
         minimumskøb=0,
-        beskatningstype="lager",
         ETFer=[etf],
         ETF_fordeling=[1.0],
     )
@@ -101,13 +98,12 @@ def test_DepotModel_geninvestering():
 
 def test_DepotModel_udbytte():
     """Test DepotModel med udbytte."""
-    etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
+    etf = værdipapirer.ETF(kurs=1.0, åop=0.0, beskatningstype="lager")
     depot = depotmodel.DepotModel(
         kapital=1.0,
         kurtagefunktion=kurtage.nulkurtage,
         skattefunktion=skat.nulskat,
         minimumskøb=0,
-        beskatningstype="lager",
         ETFer=[etf],
         ETF_fordeling=[1.0],
     )
@@ -120,13 +116,12 @@ def test_DepotModel_udbytte():
 
 def test_DepotModel_valutakurtage():
     """Test DepotModel med valutakurtage."""
-    etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
+    etf = værdipapirer.ETF(kurs=1.0, åop=0.0, beskatningstype="lager")
     depot = depotmodel.DepotModel(
         kapital=1.0,
         kurtagefunktion=kurtage.nulkurtage,
         skattefunktion=skat.nulskat,
         minimumskøb=0,
-        beskatningstype="lager",
         ETFer=[etf],
         ETF_fordeling=[1.0],
         valutafunktion=valuta.saxo_underkonto_kurtage,
@@ -138,13 +133,12 @@ def test_DepotModel_valutakurtage():
 
 def test_DepotModel_negativt_afkast():
     """Test beskatning af negativt afkast."""
-    etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
+    etf = værdipapirer.ETF(kurs=1.0, åop=0.0, beskatningstype="lager")
     depot = depotmodel.DepotModel(
         kapital=1.0,
         kurtagefunktion=kurtage.nulkurtage,
         skattefunktion=skat.aktiesparekontobeskatning,
         minimumskøb=0,
-        beskatningstype="lager",
         ETFer=[etf],
         ETF_fordeling=[1.0],
     )
@@ -157,13 +151,12 @@ def test_DepotModel_negativt_afkast():
 
 def test_DepotModel_realisationsbeskatning():
     """Test realisationsbeskatning."""
-    etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
+    etf = værdipapirer.ETF(kurs=1.0, åop=0.0, beskatningstype="realisation")
     depot = depotmodel.DepotModel(
         kapital=100000.0,
         kurtagefunktion=kurtage.nulkurtage,
         skattefunktion=skat.aktiebeskatning,
         minimumskøb=0,
-        beskatningstype="realisation",
         ETFer=[etf],
         ETF_fordeling=[1.0],
     )
@@ -192,25 +185,13 @@ def test_DepotModel_totalværdi_med_fradrag():
 
 def test_DepotModel_exceptions():
     """Test exceptions i DepotModel klassen."""
-    with pytest.raises(ValueError, match=", findes ikke"):
-        etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
-        depotmodel.DepotModel(
-            kapital=1.0,
-            kurtagefunktion=kurtage.nulkurtage,
-            skattefunktion=skat.nulskat,
-            minimumskøb=0,
-            beskatningstype="salgsbeskatning",
-            ETFer=[etf],
-            ETF_fordeling=[1.0],
-        )
     with pytest.raises(ValueError, match="Kaptial kan ikke være negativt"):
-        etf = værdipapirer.ETF(kurs=2.0, åop=0.0)
+        etf = værdipapirer.ETF(kurs=2.0, åop=0.0, beskatningstype="realisation")
         depot = depotmodel.DepotModel(
             kapital=1.0,
             kurtagefunktion=kurtage.nulkurtage,
             skattefunktion=skat.nulskat,
             minimumskøb=0,
-            beskatningstype="realisation",
             ETFer=[etf],
             ETF_fordeling=[1.0],
         )
@@ -221,7 +202,7 @@ def test_DepotModel_exceptions():
         afkast = []
         udbytte = []
         for _ in range(0, 200):
-            etfer.append(værdipapirer.ETF(kurs=1.0, åop=0.0))
+            etfer.append(værdipapirer.ETF(kurs=1.0, åop=0.0, beskatningstype="lager"))
             fordeling.append(1 / 200)
             afkast.append(10)
             udbytte.append(0)
@@ -230,7 +211,6 @@ def test_DepotModel_exceptions():
             kurtagefunktion=kurtage.nulkurtage,
             skattefunktion=skat.aktiebeskatning,
             minimumskøb=0,
-            beskatningstype="lager",
             ETFer=etfer,
             ETF_fordeling=fordeling,
         )

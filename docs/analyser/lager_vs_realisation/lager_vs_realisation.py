@@ -18,14 +18,13 @@ def depoter() -> Tuple[depotmodel.DepotModel, depotmodel.DepotModel]:
     Returns:
       Depot med realationsbeskatning
     """
-    etf1 = værdipapirer.ETF(kurs=100, åop=0.12 / 100)
-    etf2 = værdipapirer.ETF(kurs=100, åop=0.55 / 100)
+    etf1 = værdipapirer.ETF(kurs=100, åop=0.12 / 100, beskatningstype="lager")
+    etf2 = værdipapirer.ETF(kurs=100, åop=0.55 / 100, beskatningstype="realisation")
     lagerbeskatning = depotmodel.DepotModel(
         kapital=300000.0,
         kurtagefunktion=kurtage.saxo_kurtage_bygger(valuta="euro", valutakurs=7.44, underkonto=True),
         skattefunktion=skat.aktiebeskatning,
         minimumskøb=5000,
-        beskatningstype="lager",
         ETFer=[etf1],
         ETF_fordeling=[1.0],
         valutafunktion=valuta.saxo_underkonto_kurtage,
@@ -35,7 +34,6 @@ def depoter() -> Tuple[depotmodel.DepotModel, depotmodel.DepotModel]:
         kurtagefunktion=kurtage.saxo_kurtage_bygger(valuta="Dkk"),
         skattefunktion=skat.aktiebeskatning,
         minimumskøb=5000,
-        beskatningstype="realisation",
         ETFer=[etf2],
         ETF_fordeling=[1.0],
     )

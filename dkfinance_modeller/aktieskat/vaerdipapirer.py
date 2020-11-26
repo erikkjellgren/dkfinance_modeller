@@ -1,17 +1,26 @@
 class ETF:
     """ETF og investeringsforening."""
 
-    def __init__(self, kurs: float, åop: float) -> None:
+    def __init__(self, kurs: float, åop: float, beskatningstype: str) -> None:
         """Setup lagerbeskatningsdepot
 
         Args:
           kurs: kurs på investering.
           åop: årligomkostningsprocent på ETF/investeringsforening.
+          beskatningstype: kan være "lager" eller "realisation".
         """
         self.kurs = kurs
         self.åop = åop
         self.beskattet_kurs = 0.0
         self._antal_værdipapirer = 0
+        if "lager" in beskatningstype.lower():
+            self.lagerbeskatning = True
+            self.realisationsbeskatning = False
+        elif "realisation" in beskatningstype.lower():
+            self.lagerbeskatning = False
+            self.realisationsbeskatning = True
+        else:
+            raise ValueError(f"Beskatningstype, {beskatningstype}, findes ikke.")
 
     @property
     def antal_værdipapirer(self) -> float:

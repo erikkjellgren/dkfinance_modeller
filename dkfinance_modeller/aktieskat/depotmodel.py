@@ -44,7 +44,6 @@ class DepotModel:  # pylint: disable=R0902
         kurtagefunktion: Callable[[float, float], float],
         skattefunktion: Callable[[float], float],
         minimumskøb: float,
-        beskatningstype: str,
         ETFer: List[ETF],
         ETF_fordeling: List[float],
         valutafunktion: Callable[[float], float] = nulvalutakurtage,
@@ -57,7 +56,6 @@ class DepotModel:  # pylint: disable=R0902
           kurtagefunktion: funktion der beskriver hvor meget kurtage der betales.
           skattefunktion: funktion der beskriver hvordan skatten udregnes.
           minimumskøb: minimumskapital der skal være ledigt for at lave nye køb.
-          beskatningstype: kan være "lager" eller "realisation".
           ETFer: List af ETF i depotet.
           ETF_fordeling: Procentiel fordeling af ETFer.
           valutafunktion: funktion der beskriver kurtage forbundet med valuta.
@@ -75,14 +73,6 @@ class DepotModel:  # pylint: disable=R0902
         self.måned = 0
         self.år = 0   #til årlig justering af progressionsgrænse
         self.progressionsgrænse = progressionsgrænse 
-        if "lager" in beskatningstype.lower():
-            self.lagerbeskatning = True
-            self.realisationsbeskatning = False
-        elif "realisation" in beskatningstype.lower():
-            self.lagerbeskatning = False
-            self.realisationsbeskatning = True
-        else:
-            raise ValueError(f"Beskatningstype, {beskatningstype}, findes ikke.")
         # Valutakurtage hvis depot ikke er i DKK
         valutakurtage = self.valutafunktion(self._kapital)
         self._kapital -= valutakurtage
@@ -140,8 +130,8 @@ class DepotModel:  # pylint: disable=R0902
             etf.modregn_åop()
         # Udregn skat
         if self.måned == 0:
-            if self.lagerbeskatning:
-                for etf in self.ETFer:
+            for etf in self.ETFer:
+                if etf.lagerbeskatning:
                     self.ubeskattet += etf.lagerrealisering()
             if self.ubeskattet > 0.0:
                 skat = self.skattefunktion(self.ubeskattet, self.progressionsgrænse * 1.02**self.år)

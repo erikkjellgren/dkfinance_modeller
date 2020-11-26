@@ -18,13 +18,12 @@ def depoter() -> depotmodel.DepotModel:
     Returns:
       Depot med realationsbeskatning
     """
-    etf = værdipapirer.ETF(kurs=100, åop=0.55 / 100)
+    etf = værdipapirer.ETF(kurs=100, åop=0.55 / 100, beskatningstype="realisation")
     realisationsbeskatning = depotmodel.DepotModel(
         kapital=300000.0,
         kurtagefunktion=kurtage.saxo_kurtage_bygger(valuta="Dkk"),
         skattefunktion=skat.aktiebeskatning,
         minimumskøb=5000,
-        beskatningstype="realisation",
         ETFer=[etf],
         ETF_fordeling=[1.0],
     )
@@ -56,8 +55,6 @@ for j, udbytte_procent in enumerate(np.linspace(0, 1, 11)):
 real = np.array(real)
 carg = formler.CAGR(300000, real, 20)  # type: ignore
 
-SizeX = 6
-SizeY = 5
 SIZE = 12
 plt.rc("font", size=SIZE)  # controls default text sizes
 plt.rc("axes", titlesize=SIZE)  # fontsize of the axes title
@@ -67,7 +64,7 @@ plt.rc("ytick", labelsize=SIZE)  # fontsize of the tick labels
 plt.rc("legend", fontsize=SIZE * 0.9)  # legend fontsize
 plt.rc("figure", titlesize=SIZE)  # # size of the figure title
 
-fig, ax1 = plt.subplots(1, 1, figsize=(SizeX, SizeY))
+fig, ax1 = plt.subplots(1, 1, figsize=(5, 6))
 for k, percent in enumerate(np.linspace(0, 1, 11)):
     density = scipy.stats.gaussian_kde(carg[k, :])  # type: ignore # pylint: disable=E1126
     density.covariance_factor = lambda: 0.15
@@ -93,7 +90,7 @@ for i in range(0, 21):
     for k in range(0, 11):
         q[k].append(np.quantile(carg[k, :], i * 0.05))  # type: ignore
 
-fig, ax1 = plt.subplots(1, 1, figsize=(SizeX, SizeY))
+fig, ax1 = plt.subplots(1, 1, figsize=(5, 6))
 for k, percent in enumerate(np.linspace(0, 1, 11)):
     ax1.plot(np.linspace(0.0, 1, 21), q[k], label=f"Udbytte = {percent*100:1.0f}%", linewidth=3)
 plt.legend()
