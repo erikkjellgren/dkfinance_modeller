@@ -12,8 +12,8 @@ def test_investeringsforening_udbytte():
     runpy.run_path(
         f"{os.path.dirname(__file__)}/../docs/analyser/investeringsforening_udbytte/investeringsforening_udbytte.py"  # pylint: disable=C0301
     )
-    os.remove(f"distributioner.svg")
-    os.remove(f"fraktiler.svg")
+    os.remove("distributioner.svg")
+    os.remove("fraktiler.svg")
 
 
 def test_lager_vs_realisation():
@@ -21,5 +21,5 @@ def test_lager_vs_realisation():
     runpy.run_path(
         f"{os.path.dirname(__file__)}/../docs/analyser/lager_vs_realisation/lager_vs_realisation.py"  # pylint: disable=C0301
     )
-    os.remove(f"fraktiler.svg")
-    os.remove(f"real_lager_fraktiler.svg")
+    os.remove("fraktiler.svg")
+    os.remove("real_lager_fraktiler.svg")

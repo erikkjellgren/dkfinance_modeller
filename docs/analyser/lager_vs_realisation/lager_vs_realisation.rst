@@ -9,10 +9,11 @@ Danske investeringsforeninger vs. ETFer beskatning
 Nogen Danske investeringsforeninger er realisationsbeskattet givet at de udfylde kriterier
 vedrørende udbetalling af udbytte.
 Modellen for udbytte fra investeringsforeningerne kan ses i :ref:`Danske investeringsforeninger, signifikans af udbytte`.
-Denne sammenligning bruger priser fra Saxo, for investeringsforening er der antaget en ÅOP på 0.55%.
-For ETFen er der antaget en ÅOP på 0.12% og brug af underkonto i Euro.
+Denne sammenligning realisationsbeskattede investeringsforeninger ifht. ETFer bruger priser fra Saxo.
+Investeringsforening er antaget en ÅOP på 0.55%.
+ETFen er der antaget en ÅOP på 0.12% og brug af underkonto i Euro.
 
-Den underliggende historiske data er følger S&P500, dataen er hentet fra, http://www.econ.yale.edu/~shiller/data/ie_data.xls, 16-11-2020.
+Den underliggende historiske data følger S&P500, dataen er hentet fra, http://www.econ.yale.edu/~shiller/data/ie_data.xls, 16-11-2020.
 Se https://github.com/erikkjellgren/dkfinance_modeller/tree/main/docs/analyser/SP500.csv for den behandlede data.
 
 Modellen kan nu opbygges.
@@ -33,11 +34,11 @@ Nu kan propagationen for modellen bygges.
 .. literalinclude:: lager_vs_realisation.py
    :lines: 45-87
 
-Den statistike samling af slut depotbeholdninger samles ved at startet X forskellige måneder, startende fra 1949 December,
+Den statistike samling af slut depotbeholdninger samles ved at starte X forskellige måneder, startende fra 1949 December,
 og propagere 1, 5, 10 eller 20 år frem for hver start måned.
 
 Efter at koden er kørt kan dataen analyseres.
-Først sættes nogle graph parametre.
+Først sættes nogle graf parametre.
 
 .. literalinclude:: lager_vs_realisation.py
    :lines: 89-96
@@ -60,7 +61,7 @@ For 1 år perioden kan det bemærkes at der er 30% risiko for at man har et tab!
 For investerings perioder længere end 10 år vil realisationsbeskatning give
 en gevinst ifht. billigere (læs: lavere ÅOP) ETFer i ca. halvdelen af tilfældende.
 
-Forskellen mellem CAGR fra realisationsbeskatning og lagerbeskatning kan også sammenlignes ved at tage forskellen.
+Forskellen mellem CAGR fra realisationsbeskatning og lagerbeskatning kan også sammenlignes.
 
 .. literalinclude:: lager_vs_realisation.py
    :lines: 129-147
