@@ -25,14 +25,14 @@ Starter med at importere alle de moduler der skal bruges til modellen.
 Nu defineres depottet i modellen.
 
 .. literalinclude:: lager_vs_realisation.py
-   :lines: 15-42
+   :lines: 15-40
 
 Depoterne defineres inde i en funktion for at de senere er nemmere at nulstille.
 
 Nu kan propagationen for modellen bygges.
 
 .. literalinclude:: lager_vs_realisation.py
-   :lines: 45-87
+   :lines: 43-85
 
 Den statistike samling af slut depotbeholdninger samles ved at starte X forskellige måneder, startende fra 1949 December,
 og propagere 1, 5, 10 eller 20 år frem for hver start måned.
@@ -41,13 +41,13 @@ Efter at koden er kørt kan dataen analyseres.
 Først sættes nogle graf parametre.
 
 .. literalinclude:: lager_vs_realisation.py
-   :lines: 89-96
+   :lines: 87-94
    
 For de forskellige depoter og antal investerings år kan 
 fraktilerne af slut værdien af depotet plottes.
 
 .. literalinclude:: lager_vs_realisation.py
-   :lines: 98-127
+   :lines: 96-125
 
 Dette giver følgende plot.
 
@@ -64,7 +64,7 @@ en gevinst ifht. billigere (læs: lavere ÅOP) ETFer i ca. halvdelen af tilfæld
 Forskellen mellem CAGR fra realisationsbeskatning og lagerbeskatning kan også sammenlignes.
 
 .. literalinclude:: lager_vs_realisation.py
-   :lines: 129-147
+   :lines: 127-145
 
 Dette giver følgende plot.
 
@@ -76,4 +76,4 @@ Det kan her tydeligt ses at jo længere investeringshorisonten er, jo bedre er r
 Den totale model med analyse er.
 
 .. literalinclude:: lager_vs_realisation.py
-   :lines: 1-147
+   :lines: 1-145
