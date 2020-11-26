@@ -209,11 +209,10 @@ class DepotModel:  # pylint: disable=R0902
             kurtage += self.kurtagefunktion(beholdning, etf.kurs)
             # etf.lagerrealisering, virker også til realisationsbeskatning,
             # da den beskattede kurs aldrig har ændret sig.
-            if medregn_fradrag:
-                ubeskattet += etf.lagerrealisering(ændre_kurs=False)
-            else:
-                ubeskattet += max(0, etf.lagerrealisering(ændre_kurs=False))
+            ubeskattet += etf.lagerrealisering(ændre_kurs=False)
             # Hvis depotet ikke er i DKK
             valutakurtage = self.valutafunktion(self._kapital + beholdning - kurtage)
-        skat = self.skattefunktion(abs(ubeskattet)) * np.sign(ubeskattet)
+        if not medregn_fradrag:
+            ubeskattet = max(0, ubeskattet)
+        skat = self.skattefunktion(ubeskattet)
         return self._kapital + beholdning - kurtage - skat - valutakurtage
