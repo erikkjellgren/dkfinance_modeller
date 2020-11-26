@@ -174,6 +174,11 @@ def test_DepotModel_realisationsbeskatning():
     assert depot.ETFer[0].antal_værdipapirer == 100000
 
 
+def test_DepotModel_totalværdi_med_fradrag():
+    """Test totalværdi af depot med fradrag."""
+    assert False
+
+
 def test_DepotModel_exceptions():
     """Test exceptions i DepotModel klassen."""
     with pytest.raises(ValueError, match=", findes ikke"):

@@ -192,8 +192,11 @@ class DepotModel:  # pylint: disable=R0902
             self.ubeskattet -= kurtageudgift
             self.ETFer[etf_idx].tilføj_enheder(antal_værdipapirer)
 
-    def total_salgsværdi(self) -> float:
+    def total_salgsværdi(self, medregn_fradrag: bool = False) -> float:
         """Værdi af beholdningen ved salg af alle værdipapirer.
+
+        Args:
+          medregn_fradrag: Medregn fradragsberettigt kapital i total værdien.
 
         Returns:
           Den totale værdi af beholdningen.
@@ -209,4 +212,7 @@ class DepotModel:  # pylint: disable=R0902
             ubeskattet += max(0, etf.lagerrealisering(ændre_kurs=False))
             # Hvis depot ikke er i DKK
             valutakurtage = self.valutafunktion(self._kapital + beholdning - kurtage)
-        return self._kapital + beholdning - kurtage - self.skattefunktion(ubeskattet) - valutakurtage
+        total_værdi = self._kapital + beholdning - kurtage - self.skattefunktion(ubeskattet) - valutakurtage
+        if medregn_fradrag:
+            total_værdi += self.ubeskattet
+        return total_værdi
