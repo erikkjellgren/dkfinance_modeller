@@ -1,64 +1,94 @@
-def aktiebeskatning(dkk: float, progressionsgrænse: float = 55300) -> float:
-    r"""Aktiebskatning.
+class Skat:  # pylint: disable=R0903
+    """Skat."""
 
-    .. math::
-       skat(k) = 0.27 \min(pg, k) + 0.42 \max(0, k - pg)
+    def __init__(self, beskatningstype: str) -> None:
+        """Setup skat.
 
-    :math:`k` er overskudskapital.
+        Args:
+          beskatningstype: Hvilken beskatning der skal bruges, ['aktie', 'ask', 'pension', 'nul'].
+        """
+        beskatningstype = beskatningstype.lower()
+        if beskatningstype not in ["aktie", "ask", "pension", "nul"]:
+            raise ValueError(
+                f"beskatningstype, {beskatningstype}, er ikke i ['aktie', 'ask', 'pension', 'nul']"
+            )
+        if beskatningstype == "aktie":
+            # Beskatning, https://www.skat.dk/SKAT.aspx?oId=2035568, 20-10-2020
+            self.progressionsgrænse = 55300.0
+            self.skatteprocenter = [0.27, 0.42]
+            self.skattefuntion = self._aktiebeskatning
+        elif beskatningstype == "ask":
+            # Beskatning, https://skat.dk/skat.aspx?oid=17119, 20-10-2020
+            self.skatteprocenter = [0.17]
+            self.skattefuntion = self._simpelbeskatning
+        elif beskatningstype == "pension":
+            # Beskatning, https://skat.dk/SKAT.aspx?oid=2234743, 20-10-2020
+            self.skatteprocenter = [0.153]
+            self.skattefuntion = self._simpelbeskatning
+        elif beskatningstype == "nul":
+            self.skattefuntion = _nulskat
 
-    :math:`pg` er progressionsgrænse.
+    def beregn_skat(self, dkk: float) -> float:
+        """Beregn skat.
 
-    Beskatning, https://www.skat.dk/SKAT.aspx?oId=2035568, 20-10-2020
+        Args:
+          dkk: Kapital til beskatning.
 
-    Args:
-      dkk: Kapital til beskatning.
-      progressionsgrænse: Grænse hvor skatten skifter fra 0.27% til 0.42%
+        Returns:
+          Skat
+        """
+        return self.skattefuntion(dkk)
 
-    Returns:
-      Skat
-    """
-    return min(progressionsgrænse, dkk) * 0.27 + max(0, dkk - progressionsgrænse) * 0.42
+    def _aktiebeskatning(self, dkk: float) -> float:
+        r"""Aktiebskatning.
+
+        .. math::
+           skat(k) = p_1 \min(pg, k) + p_2 \max(0, k - pg)
+
+        :math:`k` er overskudskapital.
+
+        :math:`pg` er progressionsgrænse.
+
+        :math:`p_1` er lave skatteprocent.
+
+        :math:`p_2` er høje skatteprocent.
+
+        Beskatning, https://www.skat.dk/SKAT.aspx?oId=2035568, 20-10-2020
+
+        Args:
+          dkk: Kapital til beskatning.
+
+        Returns:
+          Skat
+        """
+        return (
+            min(self.progressionsgrænse, dkk) * self.skatteprocenter[0]
+            + max(0, dkk - self.progressionsgrænse) * self.skatteprocenter[1]
+        )
+
+    def _simpelbeskatning(self, dkk: float) -> float:
+        """Akstiesparekontobeskatning.
+
+        .. math::
+           skat(k) = p k
+
+        :math:`k` er overskudskapital.
+
+        :math:`p` er skatteprocenten.
+
+        Beskatning, https://skat.dk/skat.aspx?oid=17119, 20-10-2020
+        Beskatning, https://skat.dk/SKAT.aspx?oid=2234743, 20-10-2020
+
+        Args:
+          dkk: Kapital til beskatning.
+
+        Returns:
+          Skat
+        """
+        return dkk * self.skatteprocenter[0]
 
 
-def aktiesparekontobeskatning(dkk: float) -> float:
-    """Akstiesparekontobeskatning.
-
-    .. math::
-       skat(k) = 0.17 k
-
-    :math:`k` er overskudskapital.
-
-    Beskatning, https://skat.dk/skat.aspx?oid=17119, 20-10-2020
-
-    Args:
-      dkk: Kapital til beskatning.
-
-    Returns:
-      Skat
-    """
-    return dkk * 0.17
-
-
-def pensionsbeskatning(dkk: float) -> float:
-    """Pensionsopsparingsbeskatning.
-
-    .. math::
-       skat(k) = 0.153 k
-
-    :math:`k` er overskudskapital.
-
-    Beskatning, https://skat.dk/SKAT.aspx?oid=2234743, 20-10-2020
-
-    Args:
-      dkk: Kapital til beskatning.
-
-    Returns:
-      Skat
-    """
-    return dkk * 0.153
-
-
-def nulskat(dkk: float) -> float:  # pylint: disable=W0613
+def _nulskat(dkk: float) -> float:  # pylint: disable=W0613
     """Ingen beskatning.
 
     Args:
@@ -67,4 +97,4 @@ def nulskat(dkk: float) -> float:  # pylint: disable=W0613
     Returns:
       Skat = 0 DKK
     """
-    return 0
+    return 0.0

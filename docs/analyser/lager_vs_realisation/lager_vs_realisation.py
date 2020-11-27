@@ -20,10 +20,11 @@ def depoter() -> Tuple[depotmodel.DepotModel, depotmodel.DepotModel]:
     """
     etf1 = værdipapirer.ETF(kurs=100, åop=0.12 / 100, beskatningstype="lager")
     etf2 = værdipapirer.ETF(kurs=100, åop=0.55 / 100, beskatningstype="realisation")
+    skatter = skat.Skat(beskatningstype="aktie")
     lagerbeskatning = depotmodel.DepotModel(
         kapital=300000.0,
         kurtagefunktion=kurtage.saxo_kurtage_bygger(valuta="euro", valutakurs=7.44, underkonto=True),
-        skattefunktion=skat.aktiebeskatning,
+        skatteklasse=skatter,
         minimumskøb=5000,
         ETFer=[etf1],
         ETF_fordeling=[1.0],
@@ -32,7 +33,7 @@ def depoter() -> Tuple[depotmodel.DepotModel, depotmodel.DepotModel]:
     realisationsbeskatning = depotmodel.DepotModel(
         kapital=300000.0,
         kurtagefunktion=kurtage.saxo_kurtage_bygger(valuta="Dkk"),
-        skattefunktion=skat.aktiebeskatning,
+        skatteklasse=skatter,
         minimumskøb=5000,
         ETFer=[etf2],
         ETF_fordeling=[1.0],

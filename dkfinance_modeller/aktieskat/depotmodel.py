@@ -2,6 +2,7 @@ from typing import Callable, List, Tuple
 
 import numpy as np
 
+from dkfinance_modeller.aktieskat.skat import Skat
 from dkfinance_modeller.aktieskat.vaerdipapirer import ETF
 from dkfinance_modeller.aktieskat.valuta import nulvalutakurtage
 
@@ -36,13 +37,13 @@ def køb_værdipapirer(
 
 
 class DepotModel:  # pylint: disable=R0902
-    """Depot med lagerbeskatning."""
+    """Depot."""
 
     def __init__(
         self,
         kapital: float,
         kurtagefunktion: Callable[[float, float], float],
-        skattefunktion: Callable[[float], float],
+        skatteklasse: Skat,
         minimumskøb: float,
         ETFer: List[ETF],
         ETF_fordeling: List[float],
@@ -53,7 +54,7 @@ class DepotModel:  # pylint: disable=R0902
         Args:
           kapital: start kapital (DKK)
           kurtagefunktion: funktion der beskriver hvor meget kurtage der betales.
-          skattefunktion: funktion der beskriver hvordan skatten udregnes.
+          skatteklasse: klasse der beskriver hvordan skatten udregnes.
           minimumskøb: minimumskapital der skal være ledigt for at lave nye køb.
           ETFer: List af ETF i depotet.
           ETF_fordeling: Procentiel fordeling af ETFer.
@@ -63,7 +64,7 @@ class DepotModel:  # pylint: disable=R0902
         """
         self._kapital = kapital
         self.kurtagefunktion = kurtagefunktion
-        self.skattefunktion = skattefunktion
+        self.skatteklasse = skatteklasse
         self.valutafunktion = valutafunktion
         self.minimumskøb = minimumskøb
         self.ubeskattet = 0.0
@@ -131,7 +132,7 @@ class DepotModel:  # pylint: disable=R0902
                 if etf.lagerbeskatning:
                     self.ubeskattet += etf.lagerrealisering()
             if self.ubeskattet > 0.0:
-                skat = self.skattefunktion(self.ubeskattet)
+                skat = self.skatteklasse.beregn_skat(self.ubeskattet)
                 self.ubeskattet = 0.0
             else:
                 skat = 0
@@ -204,5 +205,5 @@ class DepotModel:  # pylint: disable=R0902
             valutakurtage = self.valutafunktion(self._kapital + beholdning - kurtage)
         if not medregn_fradrag:
             ubeskattet = max(0, ubeskattet)
-        skat = self.skattefunktion(ubeskattet)
+        skat = self.skatteklasse.beregn_skat(ubeskattet)
         return self._kapital + beholdning - kurtage - skat - valutakurtage
