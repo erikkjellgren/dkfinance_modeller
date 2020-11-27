@@ -19,10 +19,11 @@ def depoter() -> depotmodel.DepotModel:
       Depot med realationsbeskatning
     """
     etf = værdipapirer.ETF(kurs=100, åop=0.55 / 100, beskatningstype="realisation")
+    skatter = skat.Skat(beskatningstype="aktie")
     realisationsbeskatning = depotmodel.DepotModel(
         kapital=300000.0,
         kurtagefunktion=kurtage.saxo_kurtage_bygger(valuta="Dkk"),
-        skattefunktion=skat.aktiebeskatning,
+        skatteklasse=skatter,
         minimumskøb=5000,
         ETFer=[etf],
         ETF_fordeling=[1.0],

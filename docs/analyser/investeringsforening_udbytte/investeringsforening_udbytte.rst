@@ -21,7 +21,7 @@ Starter med at importere alle de moduler der skal bruges til modellen.
 Nu defineres depottet i modellen.
 
 .. literalinclude:: investeringsforening_udbytte.py
-   :lines: 15-31
+   :lines: 15-32
 
 Her er ÅOP valgt til at være 0.55% for at være en normal værdi for en Dansk investeringsforening.
 Depotet defineres inde i en funktion for at den senere er nemmere at nulstille.
@@ -29,7 +29,7 @@ Depotet defineres inde i en funktion for at den senere er nemmere at nulstille.
 Nu kan propagationen for modellen bygges.
 
 .. literalinclude:: investeringsforening_udbytte.py
-   :lines: 33-56
+   :lines: 34-57
    
 Den statistike samling af slut depotbeholdninger samles ved at startet 600 forskellige måneder, startende fra 1949 December,
 og propagere 20 år frem for hver start måned.
@@ -47,12 +47,12 @@ Efter at koden er kørt kan dataen analyseres.
 Først sættes nogle graph parametre.
 
 .. literalinclude:: investeringsforening_udbytte.py
-   :lines: 58-65
+   :lines: 59-66
 
 For de forskellige udbytte procenter kan fordellingen af slut værdien af depotet plottes.
 
 .. literalinclude:: investeringsforening_udbytte.py
-   :lines: 67-85
+   :lines: 68-86
 
 Dette giver følgende plot.
 
@@ -69,7 +69,7 @@ ifht. udbytte beskattet afkast.
 For de forskellige udbytte procenter kan fraktilerne af slut værdien af depotet plottes.
 
 .. literalinclude:: investeringsforening_udbytte.py
-   :lines: 88-104
+   :lines: 89-105
 
 Dette giver følgende plot.
 
@@ -86,4 +86,4 @@ vil en udbytteprocent på 30% i fremtidige analyse af Danske investeringsforenin
 Den totale model med analyse er.
 
 .. literalinclude:: investeringsforening_udbytte.py
-   :lines: 1-104
+   :lines: 1-105
