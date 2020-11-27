@@ -6,7 +6,7 @@ import dkfinance_modeller.aktieskat.vaerdipapirer as værdipapirer
 def test_etf():
     """Test ETF klassen."""
     # Test at de simple funktioner virker
-    etf = værdipapirer.ETF(kurs=10.0, åop=0.006)
+    etf = værdipapirer.ETF(kurs=10.0, åop=0.006, beskatningstype="lager")
     assert etf.kurs == 10.0
     assert etf.åop == 0.006
     assert etf.beskattet_kurs == 0.0
@@ -14,19 +14,19 @@ def test_etf():
     etf.updater_kurs(1.0)
     assert etf.kurs == 11.0
     # Test at ÅOP bliver modregnet korrekt.
-    etf = værdipapirer.ETF(kurs=1.0, åop=0.006)
+    etf = værdipapirer.ETF(kurs=1.0, åop=0.006, beskatningstype="lager")
     etf.tilføj_enheder(1)
     for _ in range(0, 12):
         etf.modregn_åop()
     assert abs(etf.kurs - 0.994) < 10 ** -12
     # Test ved ulige antal måneder. // Tilføjet efter bug
-    etf = værdipapirer.ETF(kurs=1.0, åop=0.006)
+    etf = værdipapirer.ETF(kurs=1.0, åop=0.006, beskatningstype="lager")
     etf.tilføj_enheder(1)
     for _ in range(0, 3):
         etf.modregn_åop()
     assert abs(etf.kurs - 0.998496613138553) < 10 ** -12
     # Test gennemsnitsmetoden virker via eksempler fra https://skat.dk/skat.aspx?oid=2244476, 25-10-2020
-    etf = værdipapirer.ETF(kurs=300.0, åop=0.0)
+    etf = værdipapirer.ETF(kurs=300.0, åop=0.0, beskatningstype="lager")
     etf.tilføj_enheder(500)
     assert etf.total_værdi() == 150000
     etf.kurs = 200
@@ -35,7 +35,7 @@ def test_etf():
     etf.tilføj_enheder(500)
     assert etf.beskattet_kurs == 212.5
     # Test lagerrealisering
-    etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
+    etf = værdipapirer.ETF(kurs=1.0, åop=0.0, beskatningstype="lager")
     etf.tilføj_enheder(1)
     etf.kurs = 2.0
     assert etf.lagerrealisering() == 1.0
@@ -44,8 +44,10 @@ def test_etf():
 
 def test_etf_exceptions():
     """Test exceptions i ETF klassen."""
-    etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
+    etf = værdipapirer.ETF(kurs=1.0, åop=0.0, beskatningstype="lager")
     with pytest.raises(Exception, match="Antal værdipapirer er negativ"):
         etf.antal_værdipapirer -= 1
     with pytest.raises(Exception, match=", til at være negativ."):
         etf.updater_kurs(-10)
+    with pytest.raises(ValueError, match=", findes ikke"):
+        værdipapirer.ETF(kurs=1.0, åop=0.0, beskatningstype="salgsbeskatning")
