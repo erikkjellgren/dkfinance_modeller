@@ -167,6 +167,22 @@ def test_DepotModel_realisationsbeskatning():
     assert depot.ETFer[0].antal_værdipapirer == 100000
 
 
+def test_DepotModel_totalværdi_med_fradrag():
+    """Test totalværdi af depot med fradrag."""
+    etf = værdipapirer.ETF(kurs=1.0, åop=0.0)
+    depot = depotmodel.DepotModel(
+        kapital=100000.0,
+        kurtagefunktion=kurtage.nulkurtage,
+        skattefunktion=skat.aktiebeskatning,
+        minimumskøb=0,
+        beskatningstype="lager",
+        ETFer=[etf],
+        ETF_fordeling=[1.0],
+    )
+    depot.afkast_månedlig([-0.05], [0.0])
+    assert abs(depot.total_salgsværdi(medregn_fradrag=True) - 96350) < 10 ** -10
+
+
 def test_DepotModel_exceptions():
     """Test exceptions i DepotModel klassen."""
     with pytest.raises(ValueError, match="Kaptial kan ikke være negativt"):
