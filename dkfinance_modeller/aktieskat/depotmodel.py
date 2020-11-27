@@ -2,9 +2,9 @@ from typing import Callable, List, Tuple
 
 import numpy as np
 
+from dkfinance_modeller.aktieskat.skat import Skat
 from dkfinance_modeller.aktieskat.vaerdipapirer import ETF
 from dkfinance_modeller.aktieskat.valuta import nulvalutakurtage
-from dkfinance_modeller.aktieskat.skat import Skat
 
 
 def køb_værdipapirer(
@@ -45,7 +45,6 @@ class DepotModel:  # pylint: disable=R0902
         kurtagefunktion: Callable[[float, float], float],
         skatteklasse: Skat,
         minimumskøb: float,
-        beskatningstype: str,
         ETFer: List[ETF],
         ETF_fordeling: List[float],
         valutafunktion: Callable[[float], float] = nulvalutakurtage,
@@ -57,7 +56,6 @@ class DepotModel:  # pylint: disable=R0902
           kurtagefunktion: funktion der beskriver hvor meget kurtage der betales.
           skatteklasse: klasse der beskriver hvordan skatten udregnes.
           minimumskøb: minimumskapital der skal være ledigt for at lave nye køb.
-          beskatningstype: kan være "lager" eller "realisation".
           ETFer: List af ETF i depotet.
           ETF_fordeling: Procentiel fordeling af ETFer.
           valutafunktion: funktion der beskriver kurtage forbundet med valuta.
@@ -73,14 +71,6 @@ class DepotModel:  # pylint: disable=R0902
         self.ETFer = ETFer
         self.ETF_target_fordeling = ETF_fordeling
         self.måned = 0
-        if "lager" in beskatningstype.lower():
-            self.lagerbeskatning = True
-            self.realisationsbeskatning = False
-        elif "realisation" in beskatningstype.lower():
-            self.lagerbeskatning = False
-            self.realisationsbeskatning = True
-        else:
-            raise ValueError(f"Beskatningstype, {beskatningstype}, findes ikke.")
         # Valutakurtage hvis depot ikke er i DKK
         valutakurtage = self.valutafunktion(self._kapital)
         self._kapital -= valutakurtage
@@ -138,8 +128,8 @@ class DepotModel:  # pylint: disable=R0902
             etf.modregn_åop()
         # Udregn skat
         if self.måned == 0:
-            if self.lagerbeskatning:
-                for etf in self.ETFer:
+            for etf in self.ETFer:
+                if etf.lagerbeskatning:
                     self.ubeskattet += etf.lagerrealisering()
             if self.ubeskattet > 0.0:
                 skat = self.skatteklasse.beregn_skat(self.ubeskattet)
@@ -193,8 +183,11 @@ class DepotModel:  # pylint: disable=R0902
             self.ubeskattet -= kurtageudgift
             self.ETFer[etf_idx].tilføj_enheder(antal_værdipapirer)
 
-    def total_salgsværdi(self) -> float:
+    def total_salgsværdi(self, medregn_fradrag: bool = False) -> float:
         """Værdi af beholdningen ved salg af alle værdipapirer.
+
+        Args:
+          medregn_fradrag: Medregn fradragsberettigt kapital i total værdien.
 
         Returns:
           Den totale værdi af beholdningen.
@@ -207,7 +200,10 @@ class DepotModel:  # pylint: disable=R0902
             kurtage += self.kurtagefunktion(beholdning, etf.kurs)
             # etf.lagerrealisering, virker også til realisationsbeskatning,
             # da den beskattede kurs aldrig har ændret sig.
-            ubeskattet += max(0, etf.lagerrealisering(ændre_kurs=False))
-            # Hvis depot ikke er i DKK
+            ubeskattet += etf.lagerrealisering(ændre_kurs=False)
+            # Hvis depotet ikke er i DKK
             valutakurtage = self.valutafunktion(self._kapital + beholdning - kurtage)
-        return self._kapital + beholdning - kurtage - self.skatteklasse.beregn_skat(ubeskattet) - valutakurtage
+        if not medregn_fradrag:
+            ubeskattet = max(0, ubeskattet)
+        skat = self.skatteklasse.beregn_skat(ubeskattet)
+        return self._kapital + beholdning - kurtage - skat - valutakurtage
