@@ -116,6 +116,9 @@ class DepotModel:  # pylint: disable=R0902
                     f.eks. 10.0, for 10.0 DKK udbytte per værdipapir.
         """
         self.måned = (self.måned + 1) % 12
+        # ÅOP omkostning
+        for etf in self.ETFer:
+            etf.modregn_åop()
         # Udbytte
         for _, (etf, udbytte) in enumerate(zip(self.ETFer, udbytter)):
             self._kapital += etf.antal_værdipapirer * udbytte
@@ -123,9 +126,6 @@ class DepotModel:  # pylint: disable=R0902
         # Kursgevinst
         for _, (etf, kursgevinst) in enumerate(zip(self.ETFer, kursgevinster)):
             etf.updater_kurs(kursgevinst)
-        # ÅOP omkostning
-        for etf in self.ETFer:
-            etf.modregn_åop()
         # Udregn skat
         if self.måned == 0:
             for etf in self.ETFer:
