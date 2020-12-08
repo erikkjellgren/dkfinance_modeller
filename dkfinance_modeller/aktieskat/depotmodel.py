@@ -116,6 +116,9 @@ class DepotModel:  # pylint: disable=R0902
                     f.eks. 10.0, for 10.0 DKK udbytte per værdipapir.
         """
         self.måned = (self.måned + 1) % 12
+        # ÅOP omkostning
+        for etf in self.ETFer:
+            etf.modregn_åop()
         # Udbytte
         for _, (etf, udbytte) in enumerate(zip(self.ETFer, udbytter)):
             self._kapital += etf.antal_værdipapirer * udbytte
@@ -123,9 +126,6 @@ class DepotModel:  # pylint: disable=R0902
         # Kursgevinst
         for _, (etf, kursgevinst) in enumerate(zip(self.ETFer, kursgevinster)):
             etf.updater_kurs(kursgevinst)
-        # ÅOP omkostning
-        for etf in self.ETFer:
-            etf.modregn_åop()
         # Udregn skat
         if self.måned == 0:
             for etf in self.ETFer:
@@ -194,12 +194,12 @@ class DepotModel:  # pylint: disable=R0902
         """
         beholdning = 0.0
         kurtage = 0.0
-        ubeskattet = 0.0
+        ubeskattet = self.ubeskattet
         for etf in self.ETFer:
             beholdning += etf.total_værdi()
             kurtage += self.kurtagefunktion(beholdning, etf.kurs)
             # etf.lagerrealisering, virker også til realisationsbeskatning,
-            # da den beskattede kurs aldrig har ændret sig.
+            # da den beskattede kurs aldrig har ændret sig.            
             ubeskattet += etf.lagerrealisering(ændre_kurs=False)
             # Hvis depotet ikke er i DKK
             valutakurtage = self.valutafunktion(self._kapital + beholdning - kurtage)
