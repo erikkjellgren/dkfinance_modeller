@@ -194,7 +194,7 @@ class DepotModel:  # pylint: disable=R0902
         """
         beholdning = 0.0
         kurtage = 0.0
-        ubeskattet = 0.0
+        ubeskattet = self.ubeskattet
         for etf in self.ETFer:
             beholdning += etf.total_værdi()
             kurtage += self.kurtagefunktion(beholdning, etf.kurs)

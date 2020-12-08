@@ -145,10 +145,10 @@ ax1.set_xlabel("Fraktil")
 plt.tight_layout()
 plt.savefig("real_lager_fraktiler.svg")
 
-assert abs(q_real[0][-1] - 0.3872585075329986) < 10 ** -6
-assert abs(q_real[1][-1] - 0.2062753022804591) < 10 ** -6
-assert abs(q_real[2][-1] - 0.13730807062356165) < 10 ** -6
-assert abs(q_real[3][-1] - 0.12957906749850334) < 10 ** -6
+assert abs(q_real[0][-1] - 0.3836105841735513) < 10 ** -6
+assert abs(q_real[1][-1] - 0.2049353049323439) < 10 ** -6
+assert abs(q_real[2][-1] - 0.1365261266165798) < 10 ** -6
+assert abs(q_real[3][-1] - 0.1290045325344671) < 10 ** -6
 assert abs(q_lager[0][-1] - 0.3676834486694833) < 10 ** -6
 assert abs(q_lager[1][-1] - 0.18919557630406203) < 10 ** -6
 assert abs(q_lager[2][-1] - 0.12641957783129865) < 10 ** -6
