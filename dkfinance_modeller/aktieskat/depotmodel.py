@@ -199,7 +199,7 @@ class DepotModel:  # pylint: disable=R0902
             beholdning += etf.total_værdi()
             kurtage += self.kurtagefunktion(beholdning, etf.kurs)
             # etf.lagerrealisering, virker også til realisationsbeskatning,
-            # da den beskattede kurs aldrig har ændret sig.            
+            # da den beskattede kurs aldrig har ændret sig.
             ubeskattet += etf.lagerrealisering(ændre_kurs=False)
             # Hvis depotet ikke er i DKK
             valutakurtage = self.valutafunktion(self._kapital + beholdning - kurtage)
