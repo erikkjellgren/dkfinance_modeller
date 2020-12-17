@@ -23,3 +23,11 @@ def test_lager_vs_realisation():
     )
     os.remove("fraktiler.svg")
     os.remove("real_lager_fraktiler.svg")
+
+
+def test_skatteoptimering_limit():
+    """Test at koden i docs producere det rigtige."""
+    runpy.run_path(
+        f"{os.path.dirname(__file__)}/../docs/analyser/skatteoptimering_limit/skatteoptimering_limit.py"  # pylint: disable=C0301
+    )
+    os.remove("oevregraense_skatteoptimering.svg")

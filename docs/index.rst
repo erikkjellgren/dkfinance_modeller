@@ -8,6 +8,7 @@ dkfinance modeller
    analyser/sulaan_investering/sulaan_investering.rst
    analyser/investeringsforening_udbytte/investeringsforening_udbytte.rst
    analyser/lager_vs_realisation/lager_vs_realisation.rst
+   analyser/skatteoptimering_limit/skatteoptimering_limit.rst
 
 .. toctree::
    :maxdepth: 2
