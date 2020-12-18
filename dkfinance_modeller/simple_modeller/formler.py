@@ -80,7 +80,7 @@ def CAGR(start_kapital: float, slut_kapital: float, antal_år: float) -> float:
     r"""Beregn annualiseret flerårig vækstrate, "Compound annual growth rate" (CAGR) på engelsk.
 
     .. math::
-       CAGR = \left( \frac{k_\mathrm{slut}}{k_\mathrm{start}} \right)^{n} - 1
+       CAGR = \left( \frac{k_\mathrm{slut}}{k_\mathrm{start}} \right)^{frac{1}{n}} - 1
 
     :math:`k_\mathrm{slut}` slut kapital.
 
