@@ -31,3 +31,13 @@ def test_skatteoptimering_limit():
         f"{os.path.dirname(__file__)}/../docs/analyser/skatteoptimering_limit/skatteoptimering_limit.py"  # pylint: disable=C0301
     )
     os.remove("oevregraense_skatteoptimering.svg")
+
+
+def test_ask_aop_vs_realisation():
+    """Test at koden i docs producere det rigtige."""
+    runpy.run_path(
+        f"{os.path.dirname(__file__)}/../docs/analyser/ask_aop_vs_realisation/ask_aop_vs_realisation.py"  # pylint: disable=C0301
+    )
+    os.remove("aop_vs_real.svg")
+    os.remove("ask_vs_real.svg")
+    os.remove("ask_vs_real_gennemsnit.svg")

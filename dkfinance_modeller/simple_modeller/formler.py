@@ -2,7 +2,7 @@ def årlig_til_n_rente(r: float, n: int) -> float:
     r"""Omregn en årlig rente til en rente over :math:`n` gange.
 
     .. math::
-       r_{n}=\left(1+r\right)^{1/n}-1
+       r_{n}=\left(1+r\right)^frac{1}[n}-1
 
     :math:`r` årlig rente.
 

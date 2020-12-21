@@ -9,6 +9,7 @@ dkfinance modeller
    analyser/investeringsforening_udbytte/investeringsforening_udbytte.rst
    analyser/lager_vs_realisation/lager_vs_realisation.rst
    analyser/skatteoptimering_limit/skatteoptimering_limit.rst
+   analyser/ask_aop_vs_realisation/ask_aop_vs_realisation.rst
 
 .. toctree::
    :maxdepth: 2
