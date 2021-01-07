@@ -2,7 +2,7 @@ def årlig_til_n_rente(r: float, n: int) -> float:
     r"""Omregn en årlig rente til en rente over :math:`n` gange.
 
     .. math::
-       r_{n}=\left(1+r\right)^frac{1}[n}-1
+       r_{n}=\left(1+r\right)^{\frac{1}[n}}-1
 
     :math:`r` årlig rente.
 
@@ -80,7 +80,7 @@ def CAGR(start_kapital: float, slut_kapital: float, antal_år: float) -> float:
     r"""Beregn annualiseret flerårig vækstrate, "Compound annual growth rate" (CAGR) på engelsk.
 
     .. math::
-       CAGR = \left( \frac{k_\mathrm{slut}}{k_\mathrm{start}} \right)^{frac{1}{n}} - 1
+       CAGR = \left( \frac{k_\mathrm{slut}}{k_\mathrm{start}} \right)^{\frac{1}{n}} - 1
 
     :math:`k_\mathrm{slut}` slut kapital.
 
