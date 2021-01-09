@@ -2,7 +2,7 @@ dkfinance modeller
 ==================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Analyser
    
    analyser/sulaan_investering/sulaan_investering.rst
@@ -10,6 +10,7 @@ dkfinance modeller
    analyser/lager_vs_realisation/lager_vs_realisation.rst
    analyser/skatteoptimering_limit/skatteoptimering_limit.rst
    analyser/ask_aop_vs_realisation/ask_aop_vs_realisation.rst
+   analyser/estimat_effektiv_cagr/estimat_effektiv_cagr.rst
 
 .. toctree::
    :maxdepth: 2

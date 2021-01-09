@@ -3,33 +3,33 @@ Udledninger
 
 Udledninger af simple formler relevant for personlig finans.
 
-Månedlig afbetalling
---------------------
+Månedlig afbetaling
+-------------------
 
 Månedlig ydelse for at afbetale i lån over :math:`n` måneder. 
-Ved at starte fra ligning :eq:`opsparing` og sætte :math:`k_{\mathrm{start}}\rightarrow k_{\mathrm{lån}}` og :math:`k_{\mathrm{måned}}\rightarrow-k_{\mathrm{afbetalling}}`, 
+Ved at starte fra ligning :eq:`opsparing` og sætte :math:`k_{\mathrm{start}}\rightarrow k_{\mathrm{lån}}` og :math:`k_{\mathrm{måned}}\rightarrow-k_{\mathrm{afbetaling}}`, 
 kan det ses at det tilbage værende kapital af lånet efter :math:`n` måneder er:
 
 .. math::
-   k_{n}=k_{\mathrm{lån}}\left(1+r\right)^{n} - k_{\mathrm{afbetalling}}\left(\left(\frac{1-\left(1+r\right)^{n}}{-r}\right)-1+\left(1+r\right)^{n}\right)
+   k_{n}=k_{\mathrm{lån}}\left(1+r\right)^{n} - k_{\mathrm{afbetaling}}\left(\left(\frac{1-\left(1+r\right)^{n}}{-r}\right)-1+\left(1+r\right)^{n}\right)
    
-Her er :math:`k_{\mathrm{lån}}` størrelsen af lånet ved begyndelsen afbetalling.
-:math:`k_{\mathrm{afbetalling}}` er den månedelige ydelse, og :math:`r` er renten på lånet.
+Her er :math:`k_{\mathrm{lån}}` størrelsen af lånet ved begyndelsen afbetaling.
+:math:`k_{\mathrm{afbetaling}}` er den månedlige ydelse, og :math:`r` er renten på lånet.
 
 Lånet er betal ud når :math:`k_{n}=0`, derfor:
 
 .. math::
-   0=k_{\mathrm{lån}}\left(1+r\right)^{n}-k_{\mathrm{afbetalling}}\left(\left(\frac{1-\left(1+r\right)^{n}}{-r}\right)-1+\left(1+r\right)^{n}\right)
+   0=k_{\mathrm{lån}}\left(1+r\right)^{n}-k_{\mathrm{afbetaling}}\left(\left(\frac{1-\left(1+r\right)^{n}}{-r}\right)-1+\left(1+r\right)^{n}\right)
    
 Herved findes det at:
 
 .. math::
-   k_{\mathrm{afbetalling}}=\frac{k_{\mathrm{lån}}\left(1+r\right)^{n}}{\left(\frac{1-\left(1+r\right)^{n}}{-r}\right)-1+\left(1+r\right)^{n}}
+   k_{\mathrm{afbetaling}}=\frac{k_{\mathrm{lån}}\left(1+r\right)^{n}}{\left(\frac{1-\left(1+r\right)^{n}}{-r}\right)-1+\left(1+r\right)^{n}}
 
 Opsparing
 ---------
 
-Ved en opsparing med et start indskud på :math:`k_{\mathrm{start}}`, et månedligt indskud på :math:`k_{\mathrm{måned}}` og en rente på :math:`r`, vil kapitalet efter en måned være:
+Ved en opsparing med et start indskud på :math:`k_{\mathrm{start}}`, et månedligt indskud på :math:`k_{\mathrm{måned}}` og en rente på :math:`r`, vil kapitalen efter en måned være:
 
 .. math::
    k_{1}=k_{\mathrm{start}}\left(1+r\right)+k_{\mathrm{måned}}\left(1+r\right)
@@ -66,8 +66,8 @@ Ved at sætte :math:`x=1+r` findes det at:
    
 
    
-Årlig rente til månedelig rente
--------------------------------
+Årlig rente til månedlig rente
+------------------------------
 
 Hvis renten over :math:`n` perioder skal kendes for at renten vil være den samme som givet over et år skal det følgende løses:
 
@@ -80,5 +80,3 @@ Herved bliver:
 
 .. math::
    r_{n}=\left(1+r\right)^{1/n}-1
-
-
