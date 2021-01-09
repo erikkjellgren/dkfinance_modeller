@@ -17,13 +17,13 @@ Her er skatten givet ved:
 .. math::
    s_{p,q,g,y}\left(x,\left\{ r_{i}\right\} \right)=p\cdot\min\left(x,g\cdot\prod_{i=1}^{y}\left(1+r_{i}\right)\right)+q\cdot\max\left(0,x-g\cdot\prod_{i=1}^{y}\left(1+r_{i}\right)\right)
 
-Med :math:`x` er kapital der skal beskattes, :math:`p` værende den lavere procentsats, :math:`q` værende det højere procentsats, :math:`g` er progræsionsgrænsen og :math:`\left\{ r_{i}\right\}`  er et sæt af procentielle stigninger af progræssionsgrænsen.
+Med :math:`x` er kapital der skal beskattes, :math:`p` værende den lavere procentsats, :math:`q` værende det højere procentsats, :math:`g` er progressionsgrænsen og :math:`\left\{ r_{i}\right\}`  er et sæt af procentielle stigninger af progressionsgrænsen.
 Da depot-værdien medregnet skat kun afhænger af startværdien og slutværdien af depotet, derfor:
 
 .. math::
    \prod_{i=1}^{y}\left(1+x_{i}\right)=\left(1+\bar{x}\right)^{y}
 
-Det fåes derfor at:
+Det fås derfor at:
 
 .. math::
    D_{y}\left(k,\bar{a}\right)=k\cdot\left(1+\bar{a}\right)^{y}-s_{p,q,g,y}\left(k\cdot\left(1+\bar{a}\right)^{y}-k,\bar{r}\right)
@@ -33,8 +33,8 @@ med:
 .. math::
    s_{p,q,g,y}\left(x,\bar{r}\right)=p\cdot\min\left(x,g\cdot\left(1+\bar{r}\right)^{y}\right)+q\cdot\max\left(0,x-g\cdot\left(1+\bar{r}\right)^{y}\right)
 
-Givet et depot der giver et afkast, kan afkastet realiseres eller forblive urealiseret, dette giver to situationer for afkastet fra depottet.
-Hvis depottet realiseres vil delen fra afkastet udvikle sig følgende:
+Givet et depot der giver et afkast, kan afkastet realiseres eller forblive urealiseret, dette giver to situationer for afkastet fra depotet.
+Hvis depotet realiseres vil delen fra afkastet udvikle sig følgende:
 
 .. math::
    \begin{eqnarray}
@@ -42,8 +42,8 @@ Hvis depottet realiseres vil delen fra afkastet udvikle sig følgende:
 	                       &=& m\cdot k\cdot\left(1+\bar{a}\right)^{y}-s_{p,q,g_{\mathrm{effektiv}},y}\left(m\cdot k\cdot\left(1+\bar{a}\right)^{y}-m\cdot k,\bar{r}\right)
     \end{eqnarray}
 
-Her er :math:`m` en minus skatteprocenten betalt vel realisering og :math:`g_{\mathrm{effektiv}}` er progræssionsgrænsen modregnet den del af progræssionsgrænsen der bliver opbrugt af det underligende depot.
-Den anden situtation er at afkastet forbliver urealiseret, dette depot vil udvikle sig følgende:
+Her er :math:`m` en minus skatteprocenten betalt vel realisering og :math:`g_{\mathrm{effektiv}}` er progressionsgrænsen modregnet den del af progressionsgrænsen der bliver opbrugt af det underligende depot.
+Den anden situation er at afkastet forbliver urealiseret, dette depot vil udvikle sig følgende:
 
 .. math::
    \begin{eqnarray}
@@ -52,7 +52,7 @@ Den anden situtation er at afkastet forbliver urealiseret, dette depot vil udvik
     \end{eqnarray}
 
 Bemærk her at der vil blive betalt skat af hele depotet, da “start kapitalen” er urealiseret.
-I situationen hvor det underliggende depot bruger hele progræssionsgrænsen vil skatten være givet ved:
+I situationen hvor det underliggende depot bruger hele progressionsgrænsen vil skatten være givet ved:
 
 .. math::
    \left.s_{p,q,0,y}\left(x,\bar{r}\right)\right|_{x>0}=q\cdot x
@@ -72,9 +72,9 @@ Antal år der skal gå før realisering for at denne skatteoptimering ikke kan b
    \end{eqnarray}
    :label: oevregraense
 
-Den ovenstående ligning er en øvregrænse for hvornår skatteoptimering kan betale sig.
-Her det kan bemærkes at samme ligning fåes med :math:`g_{\mathrm{effektiv}}=\infty`, altså hvis progræssionsgrænsen ikke nåes.
-For denne progræsionsgrænse vil :math:`q\rightarrow p`, og :math:`m=1-p` og derved fåes:
+Den ovenstående ligning er en øvre grænse for hvornår skatteoptimering kan betale sig.
+Her det kan bemærkes at samme ligning fås med :math:`g_{\mathrm{effektiv}}=\infty`, altså hvis progressionsgrænsen ikke nås.
+For denne progressionsgrænse vil :math:`q\rightarrow p`, og :math:`m=1-p` og derved fås:
 
 .. math::
    \begin{eqnarray}
@@ -86,7 +86,7 @@ For denne progræsionsgrænse vil :math:`q\rightarrow p`, og :math:`m=1-p` og de
    \end{eqnarray}
 
 Den nedre grænse er derfor 0 år, og derfor ikke særlig brugbar.
-Den øvregrænse fra ligning :eq:`oevregraense` kan nu plottes.
+Den øvre grænse fra ligning :eq:`oevregraense` kan nu plottes.
 
 .. image:: oevregraense_skatteoptimering_.svg
    :width: 480
@@ -96,7 +96,4 @@ Ofte vil det ikke kunne betale sig at lave skatteoptimering hvis der er mere end
 Koden til plottet er:
 
 .. literalinclude:: skatteoptimering_limit.py
-   :lines: 1-41
-
-
-
+   :lines: 1-42
