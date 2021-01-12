@@ -28,7 +28,7 @@ Det kan ses at:
 Det er altså kapital der overstiger start kapitalen.
 En simplificering kan nu laves med følgende definition:
 
-.. math:
+.. math::
    \begin{eqnarray}
    \bar{a}&=&\left(\prod_{i=1}^{y}\left(1+a_{i}\right)\right)^{1/y}-1 \\
    \left(1+\bar{a}\right)^{y}&=&\prod_{i=1}^{y}\left(1+a_{i}\right)
@@ -181,7 +181,7 @@ Dette er accelereret af størrelse af CAGR før skat.
 
 *Hvis du har fået værdi ud af denne analyse kan du støtte med* `en kop kaffe <https://www.buymeacoffee.com/erikrk>`_, *hvis du har lyst :)*
 
-Python Detaljer
+Python detaljer
 ###############
 
 Starter med at importere alle de moduler der skal bruges til modellen.
