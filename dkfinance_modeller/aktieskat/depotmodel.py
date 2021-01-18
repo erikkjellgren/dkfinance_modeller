@@ -60,7 +60,7 @@ class DepotModel:  # pylint: disable=R0902
           ETF_fordeling: Procentiel fordeling af ETFer.
           valutafunktion: funktion der beskriver kurtage forbundet med valuta.
                           skal kun bruges hvis depotet ikke er i DKK, og denne
-                          kurtage kun kommer ved indsættelse eller udtrækkelse af kapital.
+                          kurtage kun kommer ved indsættelse eller udtræk af kapital.
         """
         self._kapital = kapital
         self.kurtagefunktion = kurtagefunktion
@@ -101,7 +101,7 @@ class DepotModel:  # pylint: disable=R0902
         # Valutakurtage hvis depot ikke er i DKK
         valutakurtage = self.valutafunktion(abs(kapital_))
         if kapital_ - valutakurtage < 0:
-            raise ValueError("Kaptial kan ikke være negativt.")
+            raise ValueError("Kapital kan ikke være negativt.")
         self._kapital = kapital_ - valutakurtage
         self.ubeskattet -= valutakurtage
 
@@ -125,7 +125,7 @@ class DepotModel:  # pylint: disable=R0902
             self.ubeskattet += etf.antal_værdipapirer * udbytte
         # Kursgevinst
         for _, (etf, kursgevinst) in enumerate(zip(self.ETFer, kursgevinster)):
-            etf.updater_kurs(kursgevinst)
+            etf.opdater_kurs(kursgevinst)
         # Udregn skat
         if self.måned == 0:
             for etf in self.ETFer:
@@ -145,7 +145,7 @@ class DepotModel:  # pylint: disable=R0902
                     kurtage = 0.0
                     # Lige nu vil der kun blive solgt en type ETF for at betale skatten.
                     # Ved store beholdninger eller 0.0 DKK minimumskrutage, vil salg
-                    # af flere forskellige kunne være bedre ifht. rebalancering.
+                    # af flere forskellige kunne være bedre ift. rebalancering.
                     # Vælger derfor den ETF der har den største totale værdi.
                     etf_værdi = []
                     for etf in self.ETFer:
@@ -168,7 +168,7 @@ class DepotModel:  # pylint: disable=R0902
         if self._kapital > self.minimumskøb:
             # Lige nu vil der kun blive købt en type ETF per geninvesteringsrunde.
             # Ved store beholdninger eller 0.0 DKK minimumskrutage, vil køb
-            # af flere forskellige kunne være bedre ifht. rebalancering.
+            # af flere forskellige kunne være bedre ift. rebalancering.
             # Vælger derfor den ETF der er længst fra target-værdien.
             etf_fordelling = []
             for etf in self.ETFer:

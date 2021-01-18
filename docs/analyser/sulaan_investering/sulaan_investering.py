@@ -3,7 +3,7 @@ from typing import Tuple
 
 from scipy import optimize
 
-import dkfinance_modeller.simple_modeller.formler as formler
+import dkfinance_modeller.utility.formler as formler
 
 
 def SU_lån(år_uddanelse: int) -> Tuple[float, float, int]:
