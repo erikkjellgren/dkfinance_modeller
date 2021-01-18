@@ -18,6 +18,12 @@ dkfinance modeller
    analyser/estimat_effektiv_cagr/estimat_effektiv_cagr.rst
 
 .. toctree::
+   :maxdepth: 1
+   :caption: Andet
+   
+   analyser/webscrape_skat_og_nordnet_lister/webscrape_skat_og_nordnet_lister.rst
+
+.. toctree::
    :maxdepth: 2
    :caption: General kodning
 
@@ -33,3 +39,4 @@ dkfinance modeller
    valuta.rst
    vaerdipapirer.rst
    formler.rst
+   webscrape.rst
