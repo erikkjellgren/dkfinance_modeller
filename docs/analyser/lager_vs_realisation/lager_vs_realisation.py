@@ -9,7 +9,7 @@ import dkfinance_modeller.aktieskat.kurtage as kurtage
 import dkfinance_modeller.aktieskat.skat as skat
 import dkfinance_modeller.aktieskat.vaerdipapirer as værdipapirer
 import dkfinance_modeller.aktieskat.valuta as valuta
-import dkfinance_modeller.simple_modeller.formler as formler
+import dkfinance_modeller.utility.formler as formler
 
 
 def depoter() -> Tuple[depotmodel.DepotModel, depotmodel.DepotModel]:

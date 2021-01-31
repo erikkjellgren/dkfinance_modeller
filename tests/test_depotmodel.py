@@ -210,7 +210,7 @@ def test_DepotModel_frigør_kapital():
 
 def test_DepotModel_exceptions():
     """Test exceptions i DepotModel klassen."""
-    with pytest.raises(ValueError, match="Kaptial kan ikke være negativt"):
+    with pytest.raises(ValueError, match="Kapital kan ikke være negativt"):
         skatter = skat.Skat(beskatningstype="nul")
         etf = værdipapirer.ETF(kurs=2.0, åop=0.0, beskatningstype="realisation")
         depot = depotmodel.DepotModel(

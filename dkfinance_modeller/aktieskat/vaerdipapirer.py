@@ -24,7 +24,7 @@ class ETF:
 
     @property
     def antal_værdipapirer(self) -> float:
-        """Get antal_værdipapirer.
+        """Getter for antal_værdipapirer.
 
         Returns:
           Antal værdipapirer
@@ -33,7 +33,7 @@ class ETF:
 
     @antal_værdipapirer.setter
     def antal_værdipapirer(self, antal: int) -> None:
-        """Set antal_værdipapirer.
+        """Setter for antal_værdipapirer.
 
         Args:
           antal: antal værdipapirer
@@ -58,8 +58,8 @@ class ETF:
             self.beskattet_kurs = self.kurs
         return beholdnings_ændring
 
-    def updater_kurs(self, kursændring: float) -> None:
-        """Updatere kursen.
+    def opdater_kurs(self, kursændring: float) -> None:
+        """Opdaterer kursen.
 
         Args:
           kursændringsprocent: Ændring af kurs.

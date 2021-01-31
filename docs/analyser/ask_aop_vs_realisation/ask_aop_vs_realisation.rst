@@ -12,8 +12,8 @@ I princippet vil realisationsbeskatning med aktiebeskatning på 27%/42% kunne gi
 pga renters rente.
 Her vil der blive undersøgt hvor lang denne periode faktisk er.
 
-Først skal den gevinst af depotterne kontrueres.
-Her bliver der taget udgangspunk i data for S&P500 (fordi denne data er nemt tilgængelig), dataen er hentet fra, http://www.econ.yale.edu/~shiller/data/ie_data.xls, 16-11-2020.
+Først skal den gevinst af depoterne kontureres.
+Her bliver der taget udgangspunk i data for S&P500 (fordi denne data er nemt tilgængelig), dataene er hentet fra, http://www.econ.yale.edu/~shiller/data/ie_data.xls, 16-11-2020.
 Den procentvise stigning af ETFens kurs er nu den procentvise stigning af S&P500 plus det procentvise udbytte.
 Se https://github.com/erikkjellgren/dkfinance_modeller/tree/main/docs/analyser/SP500.csv for den behandlede data.
 
@@ -22,8 +22,8 @@ Starter med at importere alle de moduler der skal bruges til modellen.
 .. literalinclude:: ask_aop_vs_realisation.py
    :lines: 1-12
 
-Depotterne er konstrueret med 0.0% ÅOP for at emulere det bedste scenarie for realisationsbeskatning.
-Altså hvis man inverstere direkte i aktier istedet for at købe ETFer og investeringsforeninger.
+Depoterne er konstrueret med 0.0% ÅOP for at emulere det bedste scenarie for realisationsbeskatning.
+Altså hvis man investere direkte i aktier i stedet for at købe ETFer og investeringsforeninger.
 
 Nu defineres depottet i modellen.
 
@@ -31,9 +31,9 @@ Nu defineres depottet i modellen.
    :lines: 15-61
 
 Her er der to forskellige realisationsbeskattede depoter. 
-Det ene har 27%/42% beskatning med den fulde progræsionsgrænse,
+Det ene har 27%/42% beskatning med den fulde progressionsgrænse,
 dette er best-case for realisationsbeskatning og relevant hvis dette er det fulde depot.
-Det andet har altid 42% beskatning og modellere at der er et sideliggende depot der bruger hele progræsionsgrænsen.
+Det andet har altid 42% beskatning og modellere at der er et sideliggende depot der bruger hele progressionsgrænsen.
 Dette vil være worst-case for realisationsbeskatning
 
 Modellen bliver nu defineret.
@@ -57,9 +57,9 @@ Dette giver følgende plot.
    :width: 480
 
 På grafen ses CAGR efter omkostninger for de tre forskellige depoter.
-Alt efter hvor meget af progræsionsgrænsen der bliver opbrugt af andre depoter,
+Alt efter hvor meget af progressionsgrænsen der bliver opbrugt af andre depoter,
 vil realisationsbeskatningen ligge mellem 27%/42% og 42%.
-Det kan bemærkes at selv efter 40 år vil ASK være en fordel ifht. at inverstere realisationsbeskattet.
+Det kan bemærkes at selv efter 40 år vil ASK være en fordel ift. at investere realisationsbeskattet.
 
 Sammenligningen mellem AOP og realisationsbeskatning køres nu og plottes.
 
@@ -91,9 +91,9 @@ Den simple form for realisationsbeskatning er:
 .. math::
    R = k\cdot\left(1+a\right)^{y}-\left(k\cdot\left(1+a\right)^{y}-k\right)\cdot q
 
-med :math:`q` skatteporcent.
+med :math:`q` skatteprocent.
 
-Disse to kan nu sættes ligmed hinanden for at finde hvilket år skiftet går ved:
+Disse to kan nu sættes lig med hinanden for at finde hvilket år skiftet går ved:
 
 .. math::
    \begin{eqnarray}
@@ -102,9 +102,9 @@ Disse to kan nu sættes ligmed hinanden for at finde hvilket år skiftet går ve
    \left(1+a-a\cdot s\right)^{y}&=&\left(1+a\right)^{y}\cdot\left(1-q\right)+q
    \end{eqnarray}
 
-Jeg tror at den ovenstående kan ses til at være en `transcendental equation <https://en.wikipedia.org/wiki/Transcendental_equation>`_, så den løses kun nummerisk herfra.
+Jeg tror at den ovenstående kan ses til at være en `transcendental equation <https://en.wikipedia.org/wiki/Transcendental_equation>`_, så den løses kun numerisk herfra.
 
-Definere nu ligningen således den løses approximativt og plotter løsningen:
+Definere nu ligningen således den løses approksimativt og plotter løsningen:
 
 .. literalinclude:: ask_aop_vs_realisation.py
    :lines: 161-192

@@ -41,3 +41,12 @@ def test_ask_aop_vs_realisation():
     os.remove("aop_vs_real.svg")
     os.remove("ask_vs_real.svg")
     os.remove("ask_vs_real_gennemsnit.svg")
+
+
+def test_estimat_effektiv_cagr():
+    """Test at koden i docs producere det rigtige."""
+    runpy.run_path(
+        f"{os.path.dirname(__file__)}/../docs/analyser/estimat_effektiv_cagr/estimat_effektiv_cagr.py"  # pylint: disable=C0301
+    )
+    os.remove("cagr7.svg")
+    os.remove("cagr15.svg")

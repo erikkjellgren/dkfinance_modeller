@@ -2,7 +2,7 @@ def årlig_til_n_rente(r: float, n: int) -> float:
     r"""Omregn en årlig rente til en rente over :math:`n` gange.
 
     .. math::
-       r_{n}=\left(1+r\right)^{\frac{1}[n}}-1
+       r_{n}=\left(1+r\right)^{\frac{1}{n}}-1
 
     :math:`r` årlig rente.
 
@@ -51,10 +51,10 @@ def opsparing(kstart: float, kmåned: float, r: float, n: int) -> float:
 
 
 def afbetalling(klån: float, r: float, n: int) -> float:
-    r"""Beregn størrelse af afbetallings størrelse for at afbetale et lån over :math:`n` gange.
+    r"""Beregn størrelse af afbetalings størrelse for at afbetale et lån over :math:`n` gange.
 
     .. math::
-       k_{\mathrm{afbetalling}} = \frac{k_{\mathrm{lån}}\left(1+r\right)^{n}}
+       k_{\mathrm{afbetaling}} = \frac{k_{\mathrm{lån}}\left(1+r\right)^{n}}
        {\left(\frac{1-\left(1+r\right)^{n}}{-r}\right) - 1+\left(1+r\right)^{n}}
 
     :math:`r` rente på lånet.
@@ -63,12 +63,12 @@ def afbetalling(klån: float, r: float, n: int) -> float:
 
     :math:`k_{lån}` start kapital der skal afbetales.
 
-    :math:`k_{\mathrm{afbetalling}}` månedlig ydelse.
+    :math:`k_{\mathrm{afbetaling}}` månedlig ydelse.
 
     Args:
       klån: Kapital der skal tilbage betales.
       r: renten på lånet.
-      n: antal afbetallinger.
+      n: antal afbetalinger.
 
     Returns:
       Ydelse for at afbetale lån over :math:`n` gange.

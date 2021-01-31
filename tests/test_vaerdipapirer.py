@@ -11,7 +11,7 @@ def test_etf():
     assert etf.åop == 0.006
     assert etf.beskattet_kurs == 0.0
     assert etf.antal_værdipapirer == 0
-    etf.updater_kurs(1.0)
+    etf.opdater_kurs(1.0)
     assert etf.kurs == 11.0
     # Test at ÅOP bliver modregnet korrekt.
     etf = værdipapirer.ETF(kurs=1.0, åop=0.006, beskatningstype="lager")
@@ -48,6 +48,6 @@ def test_etf_exceptions():
     with pytest.raises(Exception, match="Antal værdipapirer er negativ"):
         etf.antal_værdipapirer -= 1
     with pytest.raises(Exception, match=", til at være negativ."):
-        etf.updater_kurs(-10)
+        etf.opdater_kurs(-10)
     with pytest.raises(ValueError, match=", findes ikke"):
         værdipapirer.ETF(kurs=1.0, åop=0.0, beskatningstype="salgsbeskatning")
