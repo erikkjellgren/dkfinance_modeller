@@ -151,8 +151,8 @@ class DepotModel:  # pylint: disable=R0902
                     for etf in self.ETFer:
                         etf_værdi.append(etf.total_værdi())
                     etf_idx = np.argmax(etf_værdi)
-                    if etf_værdi[etf_idx] < (skat - self._kapital) * 1.1:
-                        raise Exception("Værdien af den største ETF er ikke stor nok til at betale skatten")
+                    if etf_værdi[etf_idx] < (skat - self._kapital) * 1.01:
+                        raise Exception("Værdien af den største ETF er ikke stor nok til at betale skatten.")
                     kurtage = 0.0
                     realisationskat = 0.0
                     # Hvis depot ikke er i DKK

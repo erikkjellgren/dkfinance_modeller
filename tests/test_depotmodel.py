@@ -133,7 +133,7 @@ def test_DepotModel_valutakurtage():
     )
     assert depot.kapital == 0.9985
     assert depot.ubeskattet == -0.0015
-    assert abs(depot.total_salgsværdi() - 0.99700225) < 10 ** -12
+    assert abs(depot.total_salgsværdi() - 0.9985) < 10 ** -12
 
 
 def test_DepotModel_negativt_afkast():

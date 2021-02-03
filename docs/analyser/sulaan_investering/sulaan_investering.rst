@@ -1,82 +1,120 @@
 .. role:: python(code)
    :language: python
 
-Investering af SU lån simpel model
-===================================
+Investering af SU lån
+=====================
 
 *Brug ikke dette som finansiel rådgivning. Dette er kun en model.*
 
-En meget simpel analyse af investering af SU lån.
+Under uddannelse er det muligt at tage SU-lån.
+Hvis man tager SU-lån kun til investering, hvad kan man så forvente efter lånet er blevet tilbage betalt?
+Dette vil blive undersøgt i den følgende model.
 
-Først importeres hvad der skal bruges:
+Model beskrivelse
+#################
 
-.. literalinclude:: sulaan_investering.py
-   :lines: 1-6
-   
-Nu bygges modellen for SU-lån.
-Under uddannelse kan der lånes 3 194 DKK hver måned, https://www.su.dk/su-laan/satser-for-su-laan/, 30-10-2020.
-Renter for SU lån er 4 % under uddannelse og 1 % derefter, https://www.borger.dk/oekonomi-skat-su/SU-og-oekonomi-under-uddannelse/Studiegaeld-oversigt/Studiegaeld-renter-gebyrer, 30-10-2020.
+For modellen er følger den underliggende historiske data S&P500, dataene er hentet fra, http://www.econ.yale.edu/~shiller/data/ie_data.xls, 16-11-2020.
+Se https://github.com/erikkjellgren/dkfinance_modeller/tree/main/docs/analyser/SP500.csv for den behandlede data.
 
-Den totale skyld efter endt uddannelse kan regnes som en "opsparing".
+To forskellige længder optagelse af lån hver måned bliver simuleret, 3 år og 5 år. 
+5 år er repræsentativ for en bachelor + kandidat uddannelse.
+I praktisk er der 1 måned mellem bachelor og kandidat hvor man ikke er under uddannelse, og burde have en rente derefter. 
+Denne periode er negligeret i modellen, og det vil blive regnet som om at de 5 år er en lang uddannelse. 
 
-.. literalinclude:: sulaan_investering.py
-   :lines: 19-21
-   
-Efter endt uddannelse skal der først afdrages fra 1. Januar i andet år efter endt uddannelse, heraf 18 måneder.
+Under uddannelse er renten 4%, hvorefter den er X% i modellen.
+Lige nu er renten på SU lån efter uddannelse 1%, men lånet er ikke fast forrentet, så det kan i princippet ændre sig i fremtiden.
 
-.. literalinclude:: sulaan_investering.py
-   :lines: 23-24
+Afbetalingen af SU lånet er regnet således at det lige præcis vil gå op til den givne afbetalingsperiode (der afhænger af størrelsen af lånet).
 
-Det månedlige afdrag kan nu beregnes, afdrags periode afhænger af størrelsen af SU lånet, https://www.borger.dk/oekonomi-skat-su/SU-og-oekonomi-under-uddannelse/Studiegaeld-oversigt/Studiegaeld-tilbagebetaling, 30-10-2020.
+Fra renterne på SU lånet vil der være 27% rente-fradrag.
 
-.. literalinclude:: sulaan_investering.py
-   :lines: 26-32
+For alle X% renter, vil der blive simuleret en best-case situation og en worst-case situation.
+Best-case er hvor hele progressionsgrænsen for aktie-beskatningen er tilgængelig til det investerede beløb fra lånet.
+Worst-case er hvor det er antaget af hele progressionsgrænsen er opbrugt af andre investeringer, således vil beløbet fra SU-lånet blive beskattet med 42% aktie-beskatningen.
+I modellen antages det at der bliver investeret i en lagerbeskattet ETF.
 
-Den totale model for SU lån er derfor:
+Diskussion af resultater
+########################
 
-.. literalinclude:: sulaan_investering.py
-   :lines: 9-37
+Resultaterne af modellen kan ses i nedenstående graf.
 
-Nu kan modellen for investeringen konstrueres.
-Investering følger samme struktur, hvor SU lånet investeres:
+.. image:: sulaan_profit_.svg
+   :width: 480
 
-.. literalinclude:: sulaan_investering.py
-   :lines: 62-63
-   
-Samler kapital efter endt uddannelse:
+Ovenstående graf viser det forventede afkast efter tilbagebetaling af SU lånet.
+De 'fulde' linjer er hvor den fulde progressionsgrænse (for aktie-beskatningen) vil være tilgængelig til SU lånet.
+Den stiplede linje er hvor hele progressionsgrænse er brugt andet sted.
+De forskellige farver repræsentere renten på lånet efter afsluttet uddannelse.
 
-.. literalinclude:: sulaan_investering.py
-   :lines: 65
-   
-Og bliver reduceret når lånet skal betales tilbage:
+Givet at investerings perioden er ~20 år, og at dem som vælger at investere SU lån formentlig også har andre investeringer vil den følgende diskussion fokusere på de stiplede linjer.
 
-.. literalinclude:: sulaan_investering.py
-   :lines: 67
-   
-Hele modellen for investeringen er derfor:
+For begge uddannelseslængder vil det historisk altid kunne betale sig at tage SU lån til investering givet en rente på 1% efter afsluttet uddannelse.
 
-.. literalinclude:: sulaan_investering.py
-   :lines: 40-70
-   
-Bemærk at når mindst mulige afkast skal findes sættes :python:`til_optimering=True`, da det så bliver et simpelt minimeringsproblem.
+Man skal bemærke at jo kortere uddannelsen er, jo større er risiko, da afbetalingsperioden vil være kortere.
+Dette kan ses ved at hvis renten stiger til bare 3%, vil der være ~20% risiko for tab ved at investere SU lånet over en 3 årig uddannelse.
+Hvor investering af lånet over en 5 årig uddannelse, først vil have risiko for tab ved renter over 3%, givet at aktiemarkedet opfører sig som det har gjort historisk.
 
-Minimalt investeringsafkast indenfor modellen kan nu findes, først for en tre årig uddannelse:
+Givet den lange investeringshorisont der kommer med investering af et SU lån, er den største risiko, rente risikoen.
+Selvom det renten ikke vil se ud til at stige de kommende år, kan det være svært at vide hvad der vil ske bare 5 år ud i fremtiden.
+Hvilket kan have stor betydning, da SU lån ikke er fast-forrentet. 
 
-.. literalinclude:: sulaan_investering.py
-   :lines: 73-84
-   
-Og for en fem årig uddannelse:
+*Hvis du har fået værdi ud af denne analyse kan du støtte med* `en kop kaffe <https://www.buymeacoffee.com/erikrk>`_, *hvis du har lyst :)*
 
-.. literalinclude:: sulaan_investering.py
-   :lines: 86-97
-   
-Det vil sige at et årlig afkast på 1.7% er nok for at investering af SU lån kan betale sig inden for denne model.
-For investeringsmodellen er det antaget at der ikke betales noget skat.
-Endnu vigtigere er det antaget der er samme afkast hver eneste måned. 
-Der er altså ikke nogen risiko analyse af hvad der sker, hvis der er et stort fald på forskellige tidspunkter af forløbet.
-Det skal også bemærkes at SU lån ikke er fast forrentet, men bundet til diskontoen, https://www.su.dk/su-laan/tilbagebetaling-af-dit-su-laan/renter-paa-dit-su-laan/, 15-11-2020.
 
-Hele modellen er:
+.. _pythondetaljer2:
+
+Python detaljer
+###############
+
+Starter med at importere alle de moduler der skal bruges til modellen.
 
 .. literalinclude:: sulaan_investering.py
-   :lines: 1-97
+   :lines: 1-12
+
+Nu defineres depotetterne i modellen.
+
+.. literalinclude:: sulaan_investering.py
+   :lines: 15-44
+
+Ittererer over de forskellige kombinationer af antal år og renter, samt alle de forskellige tidsperioder.
+
+.. literalinclude:: sulaan_investering.py
+   :lines: 47-57
+
+Hvis den totale værdi af aktiedepotet er større end afdraget på lånet, vil afdraget blive trukket ud.
+Og depotet vil propageres.
+
+.. literalinclude:: sulaan_investering.py
+   :lines: 58-63
+
+Ellers vil tab blive forøget med størrelsen af afdraget.
+Hvis det er første gange vil tabet blive modregnet værdi af aktiedepotet.
+
+.. literalinclude:: sulaan_investering.py
+   :lines: 64-67
+
+Samme som ovenstående, men for worst-case depotet.
+
+.. literalinclude:: sulaan_investering.py
+   :lines: 68-77
+
+Forøger progressionsgrænsen med 2% hvert år.
+
+.. literalinclude:: sulaan_investering.py
+   :lines: 78-79
+
+Etfer lånet er fuldt afdraget bliver totalt tab eller gevinst udregnet og gemt.
+
+.. literalinclude:: sulaan_investering.py
+   :lines: 81-88
+
+Konstruere grafen af den indsamlede data.
+
+.. literalinclude:: sulaan_investering.py
+   :lines: 90-142
+
+Det totale script er:
+
+.. literalinclude:: sulaan_investering.py
+   :lines: 1-142
+

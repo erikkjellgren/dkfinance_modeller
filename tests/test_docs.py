@@ -2,11 +2,6 @@ import os
 import runpy
 
 
-def test_sulån_simpel_model():
-    """Test at koden i docs producere det rigtige."""
-    runpy.run_path(f"{os.path.dirname(__file__)}/../docs/analyser/sulaan_investering/sulaan_investering.py")
-
-
 def test_investeringsforening_udbytte():
     """Test at koden i docs producere det rigtige."""
     runpy.run_path(
@@ -50,3 +45,11 @@ def test_estimat_effektiv_cagr():
     )
     os.remove("cagr7.svg")
     os.remove("cagr15.svg")
+
+
+def test_sulaan_investering():
+    """Test at koden i docs producere det rigtige."""
+    runpy.run_path(
+        f"{os.path.dirname(__file__)}/../docs/analyser/sulaan_investering/sulaan_investering.py"  # pylint: disable=C0301
+    )
+    os.remove("sulaan_profit.svg")

@@ -1,27 +1,39 @@
-from typing import Tuple
-import dkfinance_modeller.simple_modeller.formler as formler
+from typing import Generator, Tuple
+
+import dkfinance_modeller.utility.formler as formler
 
 
-class SUlån:
-    def __init__(self, uddannelse_måneder: int, afdragsfrie_månder: int, diskonto: float) -> None:
+class SUlån:  # pylint: disable=R0902, R0903
+    """
+    Klasse for SU-lån.
+    """
+
+    def __init__(self, uddannelse_måneder: int, afdragsfrie_månder: int, rente: float) -> None:
         """Initializer for SUlån.
 
         Args:
           uddannelse_måneder: antal måneder uddannelse tager.
           afdragsfrie_månder: antal afdragsfrie måneder efter endt uddannelse.
-          diskonto: diskontoen i procent, antaget at renten på SU lån vil være diskontoen.
+          rente: rente i procent.
         """
         self._uddannelse_måneder = uddannelse_måneder
         self._afdragsfrie_månder = afdragsfrie_månder
-        self._rente_månedelig = (1 + diskonto / 100) ** (1 / 12) - 1
+        self._rente_månedelig = (1 + rente / 100) ** (1 / 12) - 1
         self._lånt = 0.0
         self._rente = 0.0
         self._skyldigt_beløb = 0.0
         # https://www.su.dk/su-laan/satser-for-su-laan/
         self.lån_per_måned = 3234
-        self.uddannelse_rente_månedlig = (1 + 0.01) ** (1 / 12) - 1
+        self.uddannelse_rente_månedlig = (1 + 0.04) ** (1 / 12) - 1
 
-    def propager_måned(self) -> Tuple[float, float]:
+    def propager_måned(self) -> Generator[Tuple[float, float], None, None]:
+        """
+        Propagere SU lån måned for måned.
+        Positivt "afdrag" er lånte penge udbetalt.
+
+        Returns:
+          afdrag og fradrag.
+        """
         for _ in range(self._uddannelse_måneder):
             self._skyldigt_beløb += self.lån_per_måned
             self._lånt += self.lån_per_måned
@@ -42,7 +54,13 @@ class SUlån:
             self._rente -= min(afdrag, self._rente)
             yield -afdrag, fradrag
 
-    def _beregn_afdrag(self):
+    def _beregn_afdrag(self) -> Tuple[int, float]:
+        """
+        Beregn månedlig afdrag og antal afdrags måneder.
+
+        Returns:
+          Antal afdrags måneder og månedlig afdrag.
+        """
         # https://www.borger.dk/oekonomi-skat-su/SU-og-oekonomi-under-uddannelse/Studiegaeld-oversigt/Studiegaeld-tilbagebetaling
         afdrags_månder = 0
         if self._lånt < 40000:
@@ -63,7 +81,5 @@ class SUlån:
             afdrags_månder = 14 * 12
         else:
             afdrags_månder = 15 * 12
-        afdrag_dkk = kafdrag = formler.afbetalling(
-            klån=self._skyldigt_beløb, n=afdrags_månder, r=self._rente_månedelig
-        )
+        afdrag_dkk = formler.afbetalling(klån=self._skyldigt_beløb, n=afdrags_månder, r=self._rente_månedelig)
         return afdrags_månder, afdrag_dkk

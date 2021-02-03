@@ -5,10 +5,10 @@ dkfinance modeller
    :maxdepth: 1
    :caption: Aktie Simuleringer
    
-   analyser/sulaan_investering/sulaan_investering.rst
    analyser/investeringsforening_udbytte/investeringsforening_udbytte.rst
    analyser/lager_vs_realisation/lager_vs_realisation.rst
    analyser/ask_aop_vs_realisation/ask_aop_vs_realisation.rst
+   analyser/sulaan_investering/sulaan_investering.rst
 
 .. toctree::
    :maxdepth: 1
@@ -34,9 +34,10 @@ dkfinance modeller
    :caption: Kode dokumentation
   
    depotmodel.rst
+   formler.rst
    kurtage.rst
+   laanmodel.rst
    skat.rst
    valuta.rst
    vaerdipapirer.rst
-   formler.rst
    webscrape.rst
