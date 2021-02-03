@@ -133,7 +133,7 @@ def test_DepotModel_valutakurtage():
     )
     assert depot.kapital == 0.9985
     assert depot.ubeskattet == -0.0015
-    assert abs(depot.total_salgsværdi() - 0.99700225) < 10 ** -12
+    assert abs(depot.total_salgsværdi() - 0.9985) < 10 ** -12
 
 
 def test_DepotModel_negativt_afkast():
@@ -188,6 +188,24 @@ def test_DepotModel_totalværdi_med_fradrag():
     )
     depot.afkast_månedlig([-0.05], [0.0])
     assert abs(depot.total_salgsværdi(medregn_fradrag=True) - 96350) < 10 ** -10
+
+
+def test_DepotModel_frigør_kapital():
+    """Test frigørelse af kapital."""
+    skatter = skat.Skat(beskatningstype="aktie")
+    etf = værdipapirer.ETF(kurs=1.0, åop=0.0, beskatningstype="lager")
+    depot = depotmodel.DepotModel(
+        kapital=100000.0,
+        kurtagefunktion=kurtage.nulkurtage,
+        skatteklasse=skatter,
+        minimumskøb=0,
+        ETFer=[etf],
+        ETF_fordeling=[1.0],
+    )
+    assert abs(depot.total_salgsværdi() - 100000) < 10 ** -10
+    depot.frigør_kapital(10000)
+    assert abs(depot.kapital - 10000) < 10 ** -10
+    assert abs(depot.total_salgsværdi() - 100000) < 10 ** -10
 
 
 def test_DepotModel_exceptions():

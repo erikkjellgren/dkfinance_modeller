@@ -151,8 +151,8 @@ class DepotModel:  # pylint: disable=R0902
                     for etf in self.ETFer:
                         etf_værdi.append(etf.total_værdi())
                     etf_idx = np.argmax(etf_værdi)
-                    if etf_værdi[etf_idx] < (skat - self._kapital) * 1.1:
-                        raise Exception("Værdien af den største ETF er ikke stor nok til at betale skatten")
+                    if etf_værdi[etf_idx] < (skat - self._kapital) * 1.01:
+                        raise Exception("Værdien af den største ETF er ikke stor nok til at betale skatten.")
                     kurtage = 0.0
                     realisationskat = 0.0
                     # Hvis depot ikke er i DKK
@@ -174,8 +174,11 @@ class DepotModel:  # pylint: disable=R0902
             for etf in self.ETFer:
                 etf_fordelling.append(etf.total_værdi())
             etf_fordelling = np.array(etf_fordelling)
-            etf_fordelling = self.ETF_target_fordeling - etf_fordelling / np.sum(etf_fordelling)
-            etf_idx = np.argmax(etf_fordelling)
+            if np.sum(etf_fordelling) != 0.0:
+                etf_fordelling = self.ETF_target_fordeling - etf_fordelling / np.sum(etf_fordelling)
+                etf_idx = np.argmax(etf_fordelling)
+            else:
+                etf_idx = 0
             kapitalændring, kurtageudgift, antal_værdipapirer = køb_værdipapirer(
                 self._kapital, self.ETFer[etf_idx].kurs, self.kurtagefunktion
             )
@@ -194,8 +197,11 @@ class DepotModel:  # pylint: disable=R0902
         """
         beholdning = 0.0
         kurtage = 0.0
+        valutakurtage = 0.0
         ubeskattet = self.ubeskattet
         for etf in self.ETFer:
+            if etf.antal_værdipapirer == 0:
+                continue
             beholdning += etf.total_værdi()
             kurtage += self.kurtagefunktion(beholdning, etf.kurs)
             # etf.lagerrealisering, virker også til realisationsbeskatning,
@@ -207,3 +213,35 @@ class DepotModel:  # pylint: disable=R0902
             ubeskattet = max(0, ubeskattet)
         skat = self.skatteklasse.beregn_skat(ubeskattet)
         return self._kapital + beholdning - kurtage - skat - valutakurtage
+
+    def frigør_kapital(self, kapital: float) -> None:
+        """Frigører kapital i depottet.
+
+        Args:
+          kapital: kapital der vil blive frigivet.
+        """
+        if self._kapital < kapital:
+            værdi = 0.0
+            kurtage = 0.0
+            # Lige nu vil der kun blive solgt en type ETF for at frigøre kapital.
+            # Ved store beholdninger eller 0.0 DKK minimumskrutage, vil salg
+            # af flere forskellige kunne være bedre ifht. rebalancering.
+            # Vælger derfor den ETF der har den største totale værdi.
+            etf_værdi = []
+            for etf in self.ETFer:
+                etf_værdi.append(etf.total_værdi())
+            etf_idx = np.argmax(etf_værdi)
+            kurtage = 0.0
+            realisationskat = 0.0
+            valutakurtage = 0.0
+            while self._kapital + værdi < kapital + kurtage + valutakurtage:
+                if self.ETFer[etf_idx].antal_værdipapirer == 0:
+                    raise Exception("Kan ikke frigøre kapital.")
+                værdi += self.ETFer[etf_idx].kurs
+                self.ETFer[etf_idx].antal_værdipapirer -= 1
+                kurtage = self.kurtagefunktion(værdi, self.ETFer[etf_idx].kurs)
+                realisationskat += self.ETFer[etf_idx].kurs - self.ETFer[etf_idx].beskattet_kurs
+                # Hvis depot ikke er i DKK
+                valutakurtage = self.valutafunktion(min(self._kapital, kapital))
+            self._kapital += værdi - kurtage - valutakurtage
+            self.ubeskattet += -kurtage - valutakurtage + realisationskat

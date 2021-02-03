@@ -57,13 +57,13 @@ real = np.array(real)
 carg = formler.CAGR(300000, real, 20)  # type: ignore
 
 SIZE = 12
-plt.rc("font", size=SIZE)  # controls default text sizes
-plt.rc("axes", titlesize=SIZE)  # fontsize of the axes title
-plt.rc("axes", labelsize=SIZE)  # fontsize of the x any y labels
-plt.rc("xtick", labelsize=SIZE)  # fontsize of the tick labels
-plt.rc("ytick", labelsize=SIZE)  # fontsize of the tick labels
-plt.rc("legend", fontsize=SIZE * 0.9)  # legend fontsize
-plt.rc("figure", titlesize=SIZE)  # # size of the figure title
+plt.rc("font", size=SIZE)
+plt.rc("axes", titlesize=SIZE)
+plt.rc("axes", labelsize=SIZE)
+plt.rc("xtick", labelsize=SIZE)
+plt.rc("ytick", labelsize=SIZE)
+plt.rc("legend", fontsize=SIZE * 0.9)
+plt.rc("figure", titlesize=SIZE)
 
 fig, ax1 = plt.subplots(1, 1, figsize=(5, 6))
 for k, percent in enumerate(np.linspace(0, 1, 11)):

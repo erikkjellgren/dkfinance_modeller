@@ -25,7 +25,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "dkfinance modeller"
-copyright = "2020, Erik Kjellgren"  # pylint: disable=W0622
+copyright = "2021, Erik Kjellgren"  # pylint: disable=W0622
 author = "Erik Kjellgren"
 
 # -- Options for HTML output ----------------------------------------------
