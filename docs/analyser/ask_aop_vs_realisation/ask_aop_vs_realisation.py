@@ -117,13 +117,13 @@ def kør_model(  # pylint: disable=R0914
 
 
 SIZE = 12
-plt.rc("font", size=SIZE)  # controls default text sizes
-plt.rc("axes", titlesize=SIZE)  # fontsize of the axes title
-plt.rc("axes", labelsize=SIZE)  # fontsize of the x any y labels
-plt.rc("xtick", labelsize=SIZE)  # fontsize of the tick labels
-plt.rc("ytick", labelsize=SIZE)  # fontsize of the tick labels
-plt.rc("legend", fontsize=SIZE * 0.9)  # legend fontsize
-plt.rc("figure", titlesize=SIZE)  # # size of the figure title
+plt.rc("font", size=SIZE)
+plt.rc("axes", titlesize=SIZE)
+plt.rc("axes", labelsize=SIZE)
+plt.rc("xtick", labelsize=SIZE)
+plt.rc("ytick", labelsize=SIZE)
+plt.rc("legend", fontsize=SIZE * 0.9)
+plt.rc("figure", titlesize=SIZE)
 
 ask_fraktil, mormal_fraktil, normal_worst_case_fraktil = kør_model(10 ** 5, 0.17)
 fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(6, 8), sharex=True)
@@ -135,7 +135,7 @@ for ax, år_inv in zip([ax1, ax2, ax3], [20, 30, 40]):
     ax.set_xticks(np.linspace(0.0, 1.0, 11))
     ax.grid(which="minor")
     ax.grid(which="major")
-    ax.set_ylabel(f"CAGR")
+    ax.set_ylabel("CAGR")
     ax.set_title(f"{år_inv:1.0f} år investering")
 ax3.set_xlabel("Fraktil")
 plt.tight_layout()
@@ -151,7 +151,7 @@ for ax, år_inv in zip([ax1, ax2, ax3], [20, 30, 40]):
     ax.set_xticks(np.linspace(0.0, 1.0, 11))
     ax.grid(which="minor")
     ax.grid(which="major")
-    ax.set_ylabel(f"CAGR")
+    ax.set_ylabel("CAGR")
     ax.set_title(f"{år_inv:1.0f} år investering")
 ax3.set_xlabel("Fraktil")
 plt.tight_layout()

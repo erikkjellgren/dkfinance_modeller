@@ -53,3 +53,13 @@ def test_sulaan_investering():
         f"{os.path.dirname(__file__)}/../docs/analyser/sulaan_investering/sulaan_investering.py"  # pylint: disable=C0301
     )
     os.remove("sulaan_profit.svg")
+
+
+def test_huspriser():
+    """Test at koden i docs producere det rigtige."""
+    runpy.run_path(
+        f"{os.path.dirname(__file__)}/../docs/analyser/huspriser/huspriser.py"  # pylint: disable=C0301
+    )
+    os.remove("indekser.svg")
+    os.remove("geografiske_forskelle.svg")
+    os.remove("huspris_rente_funktion.svg")

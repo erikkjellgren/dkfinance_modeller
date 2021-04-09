@@ -86,13 +86,13 @@ lager_carg_10år = formler.CAGR(300000, lager_10år, 10)
 lager_carg_20år = formler.CAGR(300000, lager_20år, 20)
 
 SIZE = 12
-plt.rc("font", size=SIZE)  # controls default text sizes
-plt.rc("axes", titlesize=SIZE)  # fontsize of the axes title
-plt.rc("axes", labelsize=SIZE)  # fontsize of the x any y labels
-plt.rc("xtick", labelsize=SIZE)  # fontsize of the tick labels
-plt.rc("ytick", labelsize=SIZE)  # fontsize of the tick labels
-plt.rc("legend", fontsize=SIZE * 0.9)  # legend fontsize
-plt.rc("figure", titlesize=SIZE)  # # size of the figure title
+plt.rc("font", size=SIZE)
+plt.rc("axes", titlesize=SIZE)
+plt.rc("axes", labelsize=SIZE)
+plt.rc("xtick", labelsize=SIZE)
+plt.rc("ytick", labelsize=SIZE)
+plt.rc("legend", fontsize=SIZE * 0.9)
+plt.rc("figure", titlesize=SIZE)
 
 q_real: List[List[float]] = [[], [], [], []]
 q_lager: List[List[float]] = [[], [], [], []]
@@ -115,7 +115,7 @@ for ax, år in zip([ax1, ax2, ax3, ax4], [1, 5, 10, 20]):
     ax.set_xticks(np.linspace(0.0, 1.0, 11))
     ax.grid(which="minor")
     ax.grid(which="major")
-    ax.set_ylabel(f"CAGR")
+    ax.set_ylabel("CAGR")
     ax.set_title(f"{år:1.0f} år investering")
 ax1.set_ylim(-0.45, 0.45)
 ax2.set_ylim(-0.1, 0.22)

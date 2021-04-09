@@ -22,6 +22,7 @@ dkfinance modeller
    :caption: Andet
    
    analyser/webscrape_skat_og_nordnet_lister/webscrape_skat_og_nordnet_lister.rst
+   analyser/huspriser/huspriser.rst
 
 .. toctree::
    :maxdepth: 2

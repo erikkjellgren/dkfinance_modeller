@@ -10,7 +10,7 @@ for i, line in enumerate(f):
     isiner.append(line.strip("\n"))
 f.close()
 out = open("skat_positiv_liste_info.csv", "w")
-out.write(f"ISIN;Navn;Index;ÅOP;Replication;Domicil\n")
+out.write("ISIN;Navn;Index;ÅOP;Replication;Domicil\n")
 infoer = webscrape.få_etf_info(isiner, 4)
 for info in infoer:
     if info["succes"]:
@@ -31,7 +31,7 @@ for i, line in enumerate(f):
     skat[line.strip("\n").split(";")[1]] = line.strip("\n").split(";")[0]
 f.close()
 out = open("nordnet_liste_info.csv", "w")
-out.write(f"ISIN;Navn;Index;ÅOP;Replication;Domicil;Beskatning\n")
+out.write("ISIN;Navn;Index;ÅOP;Replication;Domicil;Beskatning\n")
 infoer = webscrape.få_etf_info(isiner, 4)
 for info in infoer:
     if info["succes"]:
