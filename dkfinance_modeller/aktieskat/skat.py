@@ -1,5 +1,11 @@
 class Skat:  # pylint: disable=R0903
-    """Skat."""
+    """
+    Skat.
+
+    :ivar float progressionsgrænse: Progressionsgrænse.
+    :ivar List[float] skatteprocenter: Skatteprocenter.
+    :ivar Callable[[float],float] skattefunktion: Skattefunktion.
+    """
 
     def __init__(self, beskatningstype: str) -> None:
         """Setup skat.
@@ -16,17 +22,17 @@ class Skat:  # pylint: disable=R0903
             # Beskatning, https://www.skat.dk/SKAT.aspx?oId=2035568, 20-10-2020
             self.progressionsgrænse = 55300.0
             self.skatteprocenter = [0.27, 0.42]
-            self.skattefuntion = self._aktiebeskatning
+            self.skattefunktion = self._aktiebeskatning
         elif beskatningstype == "ask":
             # Beskatning, https://skat.dk/skat.aspx?oid=17119, 20-10-2020
             self.skatteprocenter = [0.17]
-            self.skattefuntion = self._simpelbeskatning
+            self.skattefunktion = self._simpelbeskatning
         elif beskatningstype == "pension":
             # Beskatning, https://skat.dk/SKAT.aspx?oid=2234743, 20-10-2020
             self.skatteprocenter = [0.153]
-            self.skattefuntion = self._simpelbeskatning
+            self.skattefunktion = self._simpelbeskatning
         elif beskatningstype == "nul":
-            self.skattefuntion = _nulskat
+            self.skattefunktion = _nulskat
 
     def beregn_skat(self, dkk: float) -> float:
         """Beregn skat.
@@ -35,9 +41,9 @@ class Skat:  # pylint: disable=R0903
           dkk: Kapital til beskatning.
 
         Returns:
-          Skat
+          Skat i DKK.
         """
-        return self.skattefuntion(dkk)
+        return self.skattefunktion(dkk)
 
     def _aktiebeskatning(self, dkk: float) -> float:
         r"""Aktiebskatning.
@@ -59,7 +65,7 @@ class Skat:  # pylint: disable=R0903
           dkk: Kapital til beskatning.
 
         Returns:
-          Skat
+          Skat i DKK.
         """
         return (
             min(self.progressionsgrænse, dkk) * self.skatteprocenter[0]
@@ -83,7 +89,7 @@ class Skat:  # pylint: disable=R0903
           dkk: Kapital til beskatning.
 
         Returns:
-          Skat
+          Skat i DKK.
         """
         return dkk * self.skatteprocenter[0]
 
@@ -95,6 +101,6 @@ def _nulskat(dkk: float) -> float:  # pylint: disable=W0613
       dkk: Kapital til beskatning.
 
     Returns:
-      Skat = 0 DKK
+      Skat = 0 DKK.
     """
     return 0.0
