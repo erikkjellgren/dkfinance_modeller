@@ -4,12 +4,10 @@ import dkfinance_modeller.utility.formler as formler
 
 
 class SUlån:  # pylint: disable=R0902, R0903
-    """
-    Klasse for SU-lån.
-    """
+    """Klasse for SU-lån."""
 
     def __init__(self, uddannelse_måneder: int, afdragsfrie_månder: int, rente: float) -> None:
-        """Initializer for SUlån.
+        """Initialiser SUlån.
 
         Args:
           uddannelse_måneder: antal måneder uddannelse tager.
@@ -27,8 +25,8 @@ class SUlån:  # pylint: disable=R0902, R0903
         self.uddannelse_rente_månedlig = (1 + 0.04) ** (1 / 12) - 1
 
     def propager_måned(self) -> Generator[Tuple[float, float], None, None]:
-        """
-        Propagere SU lån måned for måned.
+        """Propagere SU lån måned for måned.
+
         Positivt "afdrag" er lånte penge udbetalt.
 
         Returns:
@@ -55,8 +53,7 @@ class SUlån:  # pylint: disable=R0902, R0903
             yield -afdrag, fradrag
 
     def _beregn_afdrag(self) -> Tuple[int, float]:
-        """
-        Beregn månedlig afdrag og antal afdrags måneder.
+        """Beregn månedlig afdrag og antal afdrags måneder.
 
         Returns:
           Antal afdrags måneder og månedlig afdrag.

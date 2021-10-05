@@ -5,8 +5,7 @@ from typing import Dict, List
 
 
 def justetf_info(ISIN: str) -> Dict[str, object]:
-    """
-    Få information omkring given ETF fra justetf.com/en/.
+    """Få information omkring given ETF fra justetf.com/en/.
 
     Args:
       ISIN: ISIN for ETFen.
@@ -72,8 +71,7 @@ def justetf_info(ISIN: str) -> Dict[str, object]:
 
 
 def få_etf_info(ISINer: List[str], threads: int) -> List[Dict[str, object]]:
-    """
-    Få information omkring givne ETFer fra justetf.com/en/.
+    """Få information omkring givne ETFer fra justetf.com/en/.
 
     Args:
       ISIN: Liste af ISINer for ETFer.

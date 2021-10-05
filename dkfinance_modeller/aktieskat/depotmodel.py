@@ -8,7 +8,9 @@ from dkfinance_modeller.aktieskat.valuta import nulvalutakurtage
 
 
 def køb_værdipapirer(
-    kapital: float, kurs: float, kurtagefunktion: Callable[[float, float], float],
+    kapital: float,
+    kurs: float,
+    kurtagefunktion: Callable[[float, float], float],
 ) -> Tuple[float, float, int]:
     """Køb værdipapirer uden at gå i minus.
 

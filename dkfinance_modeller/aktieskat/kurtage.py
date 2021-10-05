@@ -25,6 +25,7 @@ def saxo_nordnet_kurtage(
     saxo_usd_type: bool,
 ) -> float:
     r"""Kurtage for Nordnet og Saxo bank.
+
     Kurtagen er givet ved,
 
     .. math::
@@ -70,7 +71,8 @@ def lunar_kurtage(
     minimums_kurtage: float,
     valutakurtage: float,
 ) -> float:
-    """Kurtage for Lunar invest.
+    r"""Kurtage for Lunar invest.
+
     Kurtagen er givet ved,
 
     .. math::
@@ -235,10 +237,16 @@ def lunar_kurtage_bygger(valuta: str = "DKK") -> Callable[[float, float], float]
     """
     if valuta.lower() in ["dkk", "kr"]:
         kurtagefunktion = partial(
-            lunar_kurtage, kurtageprocent=0.001, minimums_kurtage=19, valutakurtage=0.0,
+            lunar_kurtage,
+            kurtageprocent=0.001,
+            minimums_kurtage=19,
+            valutakurtage=0.0,
         )
     elif valuta.lower() in ["euro", "eur", "usd"]:
         kurtagefunktion = partial(
-            lunar_kurtage, kurtageprocent=0.001, minimums_kurtage=19, valutakurtage=0.005,
+            lunar_kurtage,
+            kurtageprocent=0.001,
+            minimums_kurtage=19,
+            valutakurtage=0.005,
         )
     return kurtagefunktion

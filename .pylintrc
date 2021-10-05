@@ -1,0 +1,9 @@
+[MASTER]
+disable=non-ascii-name,
+        line-too-long,
+        import-error,
+        invalid-name,
+        consider-using-from-import,
+        too-many-arguments,
+        missing-module-docstring,
+        consider-using-with

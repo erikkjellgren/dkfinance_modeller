@@ -2,7 +2,7 @@ class ETF:
     """ETF og investeringsforening."""
 
     def __init__(self, kurs: float, åop: float, beskatningstype: str) -> None:
-        """Setup lagerbeskatningsdepot
+        """Setup lagerbeskatningsdepot.
 
         Args:
           kurs: kurs på investering.
@@ -62,7 +62,7 @@ class ETF:
         """Opdaterer kursen.
 
         Args:
-          kursændringsprocent: Ændring af kurs.
+          kursændring: Ændring af kurs.
         """
         if self.kurs + kursændring < 0.0:
             raise ValueError(f"kursændring, {kursændring}, vil få kurs, {self.kurs}, til at være negativ.")

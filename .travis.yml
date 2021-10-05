@@ -1,9 +1,11 @@
+---
 language: python
 python:
   - 3.6
   - 3.7
   - 3.8
-  
+  - 3.9
+
 os: linux
 
 install:
@@ -20,18 +22,18 @@ install:
   - pip install python-coveralls
   - pip install --user codecov
   - export PYTHONPATH=/builds/dkfinance_modeller:$PYTHONPATH
-  
+
 script:
-  - if [[ $TRAVIS_PYTHON_VERSION == 3.8 ]];
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.9 ]];
     then py.test -vv tests/test*.py --cov .;
     else py.test -vv tests/test*.py;
     fi
 
 after_success:
-  - if [[ $TRAVIS_PYTHON_VERSION == 3.8 ]];
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.9 ]];
     then coveralls;
     fi
-  - if [[ $TRAVIS_PYTHON_VERSION == 3.8 ]];
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.9 ]];
     then codecov;
     fi
 

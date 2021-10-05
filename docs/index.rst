@@ -10,7 +10,7 @@ dkfinance modeller
 .. toctree::
    :maxdepth: 2
    :caption: Kode dokumentation
-  
+
    depotmodel.rst
    formler.rst
    kurtage.rst

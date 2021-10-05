@@ -1,6 +1,5 @@
 class Skat:  # pylint: disable=R0903
-    """
-    Skat.
+    """Skat.
 
     :ivar float progressionsgrænse: Progressionsgrænse.
     :ivar List[float] skatteprocenter: Skatteprocenter.
