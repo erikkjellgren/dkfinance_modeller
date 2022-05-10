@@ -18,8 +18,8 @@ class Skat:  # pylint: disable=R0903
                 f"beskatningstype, {beskatningstype}, er ikke i ['aktie', 'ask', 'pension', 'nul']"
             )
         if beskatningstype == "aktie":
-            # Beskatning, https://www.skat.dk/SKAT.aspx?oId=2035568, 20-10-2020
-            self.progressionsgrænse = 55300.0
+            # Beskatning, https://www.skat.dk/SKAT.aspx?oId=2035568, 05-10-2022
+            self.progressionsgrænse = 57200.0
             self.skatteprocenter = [0.27, 0.42]
             self.skattefunktion = self._aktiebeskatning
         elif beskatningstype == "ask":

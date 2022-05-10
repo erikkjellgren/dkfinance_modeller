@@ -20,8 +20,8 @@ class SUlån:  # pylint: disable=R0902, R0903
         self._lånt = 0.0
         self._rente = 0.0
         self._skyldigt_beløb = 0.0
-        # https://www.su.dk/su-laan/satser-for-su-laan/
-        self.lån_per_måned = 3234
+        # https://www.su.dk/su-laan/satser-for-su-laan/, 05-10-2022
+        self.lån_per_måned = 3273
         self.uddannelse_rente_månedlig = (1 + 0.04) ** (1 / 12) - 1
 
     def propager_måned(self) -> Generator[Tuple[float, float], None, None]:
