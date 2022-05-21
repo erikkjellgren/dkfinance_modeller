@@ -54,8 +54,7 @@ def afbetalling(klån: float, r: float, n: int) -> float:
     r"""Beregn størrelse af afbetalings størrelse for at afbetale et lån over :math:`n` gange.
 
     .. math::
-       k_{\mathrm{afbetaling}} = \frac{k_{\mathrm{lån}}\left(1+r\right)^{n}}
-       {\left(\frac{1-\left(1+r\right)^{n}}{-r}\right) - 1+\left(1+r\right)^{n}}
+       k_{\mathrm{afbetaling}} = k_{\mathrm{lån}}\cdot\frac{r}{1-(1+r)^{-n}}
 
     :math:`r` rente på lånet.
 
@@ -73,7 +72,7 @@ def afbetalling(klån: float, r: float, n: int) -> float:
     Returns:
       Ydelse for at afbetale lån over :math:`n` gange.
     """
-    return klån * (1 + r) ** n / ((1 - (1 + r) ** n) / (-r) - 1 + (1 + r) ** n)
+    return klån * r / (1 - (1 + r) ** (-n))
 
 
 def CAGR(start_kapital: float, slut_kapital: float, antal_år: float) -> float:

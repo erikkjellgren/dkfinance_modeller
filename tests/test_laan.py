@@ -13,5 +13,5 @@ def test_SUlån():
             assert afdrag == 0.0
             assert fradrag == 0.0
         else:
-            assert abs(afdrag + 1300.7575490280285) < 10 ** -4
+            assert abs(afdrag + 1301.8365902678604) < 10**-4
         idx += 1

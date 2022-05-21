@@ -12,7 +12,7 @@ def test_køb_værdipapirer():
     kapitalændring, kurtageudgift, antal_værdipapirer = depotmodel.køb_værdipapirer(
         1000, 100, kurtage.nulkurtage
     )
-    assert abs(kapitalændring + 1000) < 10 ** -12
+    assert abs(kapitalændring + 1000) < 10**-12
     assert kurtageudgift == 0
     assert antal_værdipapirer == 10
 
@@ -20,7 +20,7 @@ def test_køb_værdipapirer():
         return 0.001 * kapital
 
     kapitalændring, kurtageudgift, antal_værdipapirer = depotmodel.køb_værdipapirer(1000, 100, kurtage2)
-    assert abs(kapitalændring + 900.9) < 10 ** -12
+    assert abs(kapitalændring + 900.9) < 10**-12
     assert kurtageudgift == 0.9
     assert antal_værdipapirer == 9
 
@@ -28,7 +28,7 @@ def test_køb_værdipapirer():
         return 0.0 * kapital + 101
 
     kapitalændring, kurtageudgift, antal_værdipapirer = depotmodel.køb_værdipapirer(1000, 100, kurtage3)
-    assert abs(kapitalændring + 901) < 10 ** -12
+    assert abs(kapitalændring + 901) < 10**-12
     assert kurtageudgift == 101
     assert antal_værdipapirer == 8
 
@@ -55,7 +55,7 @@ def test_DepotModel_simpel():
     )
     for i in range(0, 36):
         depot.afkast_månedlig([0.01 * (1 + 0.01) ** i], [0.0])
-    assert abs(depot.total_salgsværdi() - (1 + 0.01) ** 36) < 10 ** -12
+    assert abs(depot.total_salgsværdi() - (1 + 0.01) ** 36) < 10**-12
     assert depot.kapital == 0.0
     assert depot.ETFer[0].antal_værdipapirer == 1
 
@@ -74,8 +74,8 @@ def test_DepotModel_beskatning():
     )
     for i in range(0, 24):
         depot.afkast_månedlig([0.01 * (1 + 0.01) ** i], [0.0])
-    assert abs(depot.total_salgsværdi() - 12.1201825995429) < 10 ** -12
-    assert abs(depot.kapital - 0.692570762755705) < 10 ** -12
+    assert abs(depot.total_salgsværdi() - 12.1201825995429) < 10**-12
+    assert abs(depot.kapital - 0.692570762755705) < 10**-12
     assert depot.ETFer[0].antal_værdipapirer == 9
 
 
@@ -94,8 +94,8 @@ def test_DepotModel_geninvestering():
     for i in range(0, 24):
         depot.kapital += 1.0
         depot.afkast_månedlig([0.01 * (1 + 0.01) ** i], [0.0])
-    assert abs(depot.total_salgsværdi() - 28.0706270191644) < 10 ** -12
-    assert abs(depot.kapital - 0.136464751462226) < 10 ** -12
+    assert abs(depot.total_salgsværdi() - 28.0706270191644) < 10**-12
+    assert abs(depot.kapital - 0.136464751462226) < 10**-12
     assert depot.ETFer[0].antal_værdipapirer == 22
 
 
@@ -113,8 +113,8 @@ def test_DepotModel_udbytte():
     )
     for _ in range(0, 24):
         depot.afkast_månedlig([0.0], [0.05])
-    assert abs(depot.total_salgsværdi() - 2.4) < 10 ** -12
-    assert abs(depot.kapital - 0.4) < 10 ** -12
+    assert abs(depot.total_salgsværdi() - 2.4) < 10**-12
+    assert abs(depot.kapital - 0.4) < 10**-12
     assert depot.ETFer[0].antal_værdipapirer == 2
 
 
@@ -133,7 +133,7 @@ def test_DepotModel_valutakurtage():
     )
     assert depot.kapital == 0.9985
     assert depot.ubeskattet == -0.0015
-    assert abs(depot.total_salgsværdi() - 0.9985) < 10 ** -12
+    assert abs(depot.total_salgsværdi() - 0.9985) < 10**-12
 
 
 def test_DepotModel_negativt_afkast():
@@ -150,7 +150,7 @@ def test_DepotModel_negativt_afkast():
     )
     depot.afkast_månedlig([-0.01], [0.0])
     depot.afkast_månedlig([0.01], [0.0])
-    assert abs(depot.total_salgsværdi() - 1.0) < 10 ** -12
+    assert abs(depot.total_salgsværdi() - 1.0) < 10**-12
     assert depot.kapital == 0.0
     assert depot.ETFer[0].antal_værdipapirer == 1
 
@@ -169,8 +169,8 @@ def test_DepotModel_realisationsbeskatning():
     )
     for _ in range(0, 24):
         depot.afkast_månedlig([0.05], [0.0])
-    assert abs(depot.total_salgsværdi() - 177895) < 10 ** -10
-    assert depot.kapital < 10 ** -12
+    assert abs(depot.total_salgsværdi() - 177895) < 10**-10
+    assert depot.kapital < 10**-12
     assert depot.ETFer[0].antal_værdipapirer == 100000
 
 
@@ -187,7 +187,7 @@ def test_DepotModel_totalværdi_med_fradrag():
         ETF_fordeling=[1.0],
     )
     depot.afkast_månedlig([-0.05], [0.0])
-    assert abs(depot.total_salgsværdi(medregn_fradrag=True) - 96350) < 10 ** -10
+    assert abs(depot.total_salgsværdi(medregn_fradrag=True) - 96350) < 10**-10
 
 
 def test_DepotModel_frigør_kapital():
@@ -202,10 +202,10 @@ def test_DepotModel_frigør_kapital():
         ETFer=[etf],
         ETF_fordeling=[1.0],
     )
-    assert abs(depot.total_salgsværdi() - 100000) < 10 ** -10
+    assert abs(depot.total_salgsværdi() - 100000) < 10**-10
     depot.frigør_kapital(10000)
-    assert abs(depot.kapital - 10000) < 10 ** -10
-    assert abs(depot.total_salgsværdi() - 100000) < 10 ** -10
+    assert abs(depot.kapital - 10000) < 10**-10
+    assert abs(depot.total_salgsværdi() - 100000) < 10**-10
 
 
 def test_DepotModel_exceptions():
