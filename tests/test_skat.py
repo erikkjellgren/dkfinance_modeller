@@ -6,6 +6,7 @@ import dkfinance_modeller.aktieskat.skat as skat
 def test_aktiebeskatning():
     """Test aktiebeskatning."""
     skatter = skat.Skat("aktie")
+    skatter.progressionsgrænse = 55300.0
     assert abs(skatter.beregn_skat(50000) - 13500) < 10**-12
     assert abs(skatter.beregn_skat(100000) - 33705) < 10**-12
 

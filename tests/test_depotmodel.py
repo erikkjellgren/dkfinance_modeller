@@ -158,6 +158,7 @@ def test_DepotModel_negativt_afkast():
 def test_DepotModel_realisationsbeskatning():
     """Test realisationsbeskatning."""
     skatter = skat.Skat(beskatningstype="aktie")
+    skatter.progressionsgrænse = 55300.0
     etf = værdipapirer.ETF(kurs=1.0, åop=0.0, beskatningstype="realisation")
     depot = depotmodel.DepotModel(
         kapital=100000.0,
